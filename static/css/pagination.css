@@ -1,0 +1,10 @@
+.css_page_active {
+    background-color: #a5a5a5;
+    color: white;
+}
+
+.css_page_active:hover:not(.active) {background-color: #ddd;}
+
+.css_page a {
+    color: black;
+}
