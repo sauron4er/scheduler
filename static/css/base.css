@@ -1,5 +1,10 @@
 body {
   /*background: #eefddc;*/
+  font-family: 'Nunito', sans-serif;
+}
+
+.css_full_width {
+    width: 100%;
 }
 
 .css_base_nav {

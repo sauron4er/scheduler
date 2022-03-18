@@ -52,7 +52,13 @@ def get_clients(request, page):
         'note': client.note
     } for client in clients_page.object_list]
 
-    return HttpResponse(json.dumps({'rows': clients, 'pagesCount': paginator.num_pages}))
+    columns = [
+        {'name': 'name', 'title': 'Ім’я'},
+        {'name': 'phone', 'title': 'Телефон'},
+        {'name': 'address', 'title': 'Адреса'}
+    ]
+
+    return HttpResponse(json.dumps({'rows': clients, 'columns': columns, 'pagesCount': paginator.num_pages}))
 
 
 @try_except

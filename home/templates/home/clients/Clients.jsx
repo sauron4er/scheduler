@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import PaginatedTable from 'templates/components/tables/paginated_table';
+// import PaginatedTable from 'templates/components/tables/paginated_table';
 import TextInput from 'templates/components/form_modules/text_input';
 import SubmitButton from 'templates/components/form_modules/submit_button';
 import {axiosPostRequest} from 'templates/components/axios_requests';
+import PaginatedTable from 'templates/components/tables/paginated_table';
 
 function Clients(props) {
   const [id, setId] = useState(0);
@@ -100,16 +101,8 @@ function Clients(props) {
         <SubmitButton text='Зберегти' onClick={postNewClient} disabled={!newName} />
       </div>
       <div className='col-5'>
-        <PaginatedTable
-          url={`get_clients`}
-          columns={columns}
-          defaultSorting={[{columnName: 'name', direction: 'desc'}]}
-          colWidth={col_width}
-          onRowClick={onRowClick}
-          height='800px'
-          filter
-          attentionColumn={true}
-        />
+        <h5>Список клієнтів</h5>
+        <PaginatedTable url={`get_clients`} />
       </div>
       <div className='col-4'>
         <If condition={id}>
@@ -128,12 +121,6 @@ function Clients(props) {
 }
 
 export default Clients;
-
-const columns = [
-  {name: 'name', title: 'Ім’я'},
-  {name: 'phone', title: 'Телефон'},
-  {name: 'address', title: 'Адреса'}
-];
 
 const col_width = [
   {columnName: 'phone', width: 100},

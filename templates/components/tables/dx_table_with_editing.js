@@ -342,7 +342,7 @@ class DxTable extends React.PureComponent {
     const virtual_height = this.props.height && this.props.height !== null ? this.props.height : 750;
 
     return (
-      <Paper className='mt-2 full_width' style={{height: {paper_height}}}>
+      <Paper className='mt-2 css_full_width' style={{height: {paper_height}}}>
         <Grid rows={rows} columns={this.props.columns} getRowId={getRowId} style={{height: {grid_height}}} hoverStateEnabled={true}>
           <SortingState defaultSorting={this.props.defaultSorting} />
           <If condition={this.props.paging}>

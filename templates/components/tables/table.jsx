@@ -14,11 +14,15 @@ function PaginatedTable(props) {
 
   useEffect(() => {
     if (props.url) getPage(page);
+    else {
+      setRows(props.rows);
+      setColumns(props.columns);
+    }
   }, [page]);
 
   function handlePageClick(page) {
-    setLoading(true);
-    setPage(page.selected);
+    setLoading(true)
+    setPage(page.selected)
     getPage(page.selected);
   }
 
@@ -29,9 +33,9 @@ function PaginatedTable(props) {
     axiosPostRequest(props.url + '/' + page + '/', formData)
       .then((response) => {
         setPagesCount(response.pagesCount);
-        setRows(response.rows);
-        setColumns(response.columns);
-        setLoading(false);
+        setRows(response.rows)
+        setColumns(response.columns)
+        setLoading(false)
       })
       .catch((error) => notify(error));
   }
@@ -42,36 +46,32 @@ function PaginatedTable(props) {
         <div className='table-responsive'>
           <table className='table table-sm table-bordered table-hover'>
             <thead className='thead-light'>
-              <tr>
-                <For each='column' of={columns} index='idx'>
-                  <th key={idx} scope='col'>{column.title}</th>
-                </For>
-              </tr>
+            <tr>
+              <th scope='col'>#</th>
+              <th scope='col'>First</th>
+              <th scope='col'>Last</th>
+              <th scope='col'>Handle</th>
+            </tr>
             </thead>
             <tbody>
-              <For each='row' of={rows} index='row-idx'>
-                <tr key='row-idx'>
-                  <td>{row[columns[0].name]}</td>
-                </tr>
-              </For>
-              {/*<tr>*/}
-              {/*  <th scope='row'>1</th>*/}
-              {/*  <td>Mark</td>*/}
-              {/*  <td>Otto</td>*/}
-              {/*  <td>@mdo</td>*/}
-              {/*</tr>*/}
-              {/*<tr>*/}
-              {/*  <th scope='row'>2</th>*/}
-              {/*  <td>Jacob</td>*/}
-              {/*  <td>Thornton</td>*/}
-              {/*  <td>@fat</td>*/}
-              {/*</tr>*/}
-              {/*<tr>*/}
-              {/*  <th scope='row'>3</th>*/}
-              {/*  <td>Larry</td>*/}
-              {/*  <td>the Bird</td>*/}
-              {/*  <td>@twitter</td>*/}
-              {/*</tr>*/}
+            <tr>
+              <th scope='row'>1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope='row'>2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope='row'>3</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
             </tbody>
           </table>
           <If condition={props.pagination}>
@@ -95,15 +95,18 @@ function PaginatedTable(props) {
         </div>
       </When>
       <Otherwise>
-        <Loader />
+        <Loader/>
       </Otherwise>
     </Choose>
   );
 }
 
 PaginatedTable.defaultProps = {
+  columns: [],
+  rows: [],
   onRowClick: () => {},
   filter: true,
+  pagination: false,
   url: ''
 };
 

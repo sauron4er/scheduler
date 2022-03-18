@@ -1,39 +1,32 @@
 import * as React from 'react';
+import {useState} from 'react';
 
-class SubmitButton extends React.Component {
-  state = {
-    clicked: false
-  }
-  
-  onClick = () => {
-    this.setState({clicked: true});
-    this.props.onClick();
-    if (this.props.timer) {
-      setTimeout(() => this.setState({clicked: false}), 10000)
+function SubmitButton(props) {
+  const [clicked, setClicked] = useState(false);
+
+  function onClick() {
+    setClicked(true);
+    props.onClick();
+    if (props.timer) {
+      setTimeout(() => setClicked(false), 10000);
     } else {
-      this.setState({clicked: false})
+      setClicked(false);
     }
-
-  };
-  
-  render() {
-    const {text, className, disabled} = this.props;
-    const {clicked} = this.state;
-
-    return (
-      <button className={`css_button my-2 ${className}`} onClick={() => this.onClick()} disabled={clicked || disabled}>
-        {text}
-      </button>
-    );
   }
 
-  static defaultProps = {
-    className: '',
-    text: '???',
-    onClick: () => {},
-    disabled: false,
-    timer: true,
-  };
+  return (
+    <button className={`css_button my-2 ${props.className}`} onClick={onClick} disabled={clicked || props.disabled}>
+      {props.text}
+    </button>
+  );
 }
+
+SubmitButton.defaultProps = {
+  className: '',
+  text: '???',
+  onClick: () => {},
+  disabled: false,
+  timer: true
+};
 
 export default SubmitButton;

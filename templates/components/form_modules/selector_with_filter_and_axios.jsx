@@ -30,7 +30,7 @@ class SelectorWithFilterAndAxios extends React.Component {
     return (
       <Choose>
         <When condition={!loading}>
-          <div className={'full_width ' + className}>
+          <div className={'css_full_width ' + className}>
             <If condition={fieldName}>
               <label className='mr-md-2' htmlFor={selectId}>{fieldName}:</label>
             </If>

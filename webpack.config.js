@@ -33,25 +33,20 @@ module.exports = {
       }, // to transform JSX into JS
       {
         test: /\.css$/,
-        include: /node_modules/,
+        exclude: /node_modules/,
         use: [{loader: 'style-loader'}, {loader: 'css-loader'}]
       },
-      {test: /\.css$/, exclude: /node_modules/, loader: 'style-loader!css-loader'},
-      {
-        test: /\.(woff|woff2|ttf|eot|svg)(\?v=[a-z0-9]\.[a-z0-9]\.[a-z0-9])?$/,
-        loader: 'url-loader?limit=100000'
-      },
+      // {
+      //   test: /\.(woff|woff2|ttf|eot|svg)(\?v=[a-z0-9]\.[a-z0-9]\.[a-z0-9])?$/,
+      //   loader: 'url-loader?limit=100000'
+      // },
       // {
       //   test: /\.(?:png|jpe?g|svg)$/,
       //   loader: 'url-loader'
       // }
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        use: [
-          {
-            loader: 'file-loader'
-          }
-        ]
+        loader: 'file-loader'
       }
     ]
   },
