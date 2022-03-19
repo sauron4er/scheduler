@@ -5,76 +5,102 @@ import {notify} from 'templates/components/form_modules/modules_config';
 import 'static/css/pagination.css';
 import {Loader} from 'templates/components/form_modules/loaders';
 
-function PaginatedTable(props) {
-  const [page, setPage] = useState(0);
-  const [pagesCount, setPagesCount] = useState(0);
-  const [rows, setRows] = useState([]);
-  const [columns, setColumns] = useState([]);
-  const [loading, setLoading] = useState(true);
+class PaginatedTable extends React.PureComponent {
+  state = {
+    page: 0,
+    pagesCount: 0,
+    rows: [],
+    columns: [],
+    loading: true
+  };
 
-  useEffect(() => {
-    if (props.url) getPage(page);
-  }, [page]);
-
-  function handlePageClick(page) {
-    setLoading(true);
-    setPage(page.selected);
-    getPage(page.selected);
+  componentDidMount() {
+    this.getPage(0);
   }
 
-  function getPage(page) {
+  test = () => {
+    console.log("rows");
+    console.log(this.state.rows);
+    console.log("columns");
+    console.log(this.state.columns);
+    console.log("------");
+    this.state.rows.forEach(row => {
+      for (const [key, value] of Object.entries(row)) {
+      console.log(`${key}:`);
+      console.log(`${value}`);
+    }
+    })
+
+  };
+
+  handlePageClick = (page) => {
+    this.setState({
+      loading: true,
+      page: page.selected
+    });
+    this.getPage(page.selected);
+  };
+
+  getPage = (page) => {
     let formData = new FormData();
     formData.append('filter', JSON.stringify(''));
 
-    axiosPostRequest(props.url + '/' + page + '/', formData)
+    axiosPostRequest(this.props.url + '/' + page + '/', formData)
       .then((response) => {
-        setPagesCount(response.pagesCount);
-        setRows(response.rows);
-        setColumns(response.columns);
-        setLoading(false);
+        this.setState({
+          pagesCount: response.pagesCount,
+          rows: response.rows,
+          columns: response.columns,
+          loading: false
+        }, () => {
+          this.test()
+        });
       })
       .catch((error) => notify(error));
-  }
+  };
 
-  return (
-    <Choose>
-      <When condition={!loading}>
-        <div className='table-responsive'>
-          <table className='table table-sm table-bordered table-hover'>
-            <thead className='thead-light'>
-              <tr>
-                <For each='column' of={columns} index='idx'>
-                  <th key={idx} scope='col'>{column.title}</th>
-                </For>
-              </tr>
-            </thead>
-            <tbody>
-              <For each='row' of={rows} index='row-idx'>
-                <tr key='row-idx'>
-                  <td>{row[columns[0].name]}</td>
+  render() {
+    const {loading, columns, rows, pagesCount} = this.state;
+    return (
+      <Choose>
+        <When condition={!loading}>
+          <div className='table-responsive'>
+            <table className='table table-sm table-bordered table-hover'>
+              <thead className='thead-light'>
+                <tr>
+                  <For each='column' of={columns} index='idx'>
+                    <th key={idx} scope='col'>
+                      {column.title}
+                    </th>
+                  </For>
                 </tr>
-              </For>
-              {/*<tr>*/}
-              {/*  <th scope='row'>1</th>*/}
-              {/*  <td>Mark</td>*/}
-              {/*  <td>Otto</td>*/}
-              {/*  <td>@mdo</td>*/}
-              {/*</tr>*/}
-              {/*<tr>*/}
-              {/*  <th scope='row'>2</th>*/}
-              {/*  <td>Jacob</td>*/}
-              {/*  <td>Thornton</td>*/}
-              {/*  <td>@fat</td>*/}
-              {/*</tr>*/}
-              {/*<tr>*/}
-              {/*  <th scope='row'>3</th>*/}
-              {/*  <td>Larry</td>*/}
-              {/*  <td>the Bird</td>*/}
-              {/*  <td>@twitter</td>*/}
-              {/*</tr>*/}
-            </tbody>
-          </table>
-          <If condition={props.pagination}>
+              </thead>
+              <tbody>
+                {/*<For each='row' of={rows} index='row-idx'>*/}
+                {/*  <tr key='row-idx'>*/}
+                {/*    <td>{row[columns[0].name]}</td>*/}
+                {/*  </tr>*/}
+                {/*</For>*/}
+                {/*<tr>*/}
+                {/*  <th scope='row'>1</th>*/}
+                {/*  <td>Mark</td>*/}
+                {/*  <td>Otto</td>*/}
+                {/*  <td>@mdo</td>*/}
+                {/*</tr>*/}
+                {/*<tr>*/}
+                {/*  <th scope='row'>2</th>*/}
+                {/*  <td>Jacob</td>*/}
+                {/*  <td>Thornton</td>*/}
+                {/*  <td>@fat</td>*/}
+                {/*</tr>*/}
+                {/*<tr>*/}
+                {/*  <th scope='row'>3</th>*/}
+                {/*  <td>Larry</td>*/}
+                {/*  <td>the Bird</td>*/}
+                {/*  <td>@twitter</td>*/}
+                {/*</tr>*/}
+              </tbody>
+            </table>
             <ReactPaginate
               previousLabel={'Назад'}
               nextLabel={'Вперед'}
@@ -83,7 +109,7 @@ function PaginatedTable(props) {
               pageCount={pagesCount}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
-              onPageChange={handlePageClick}
+              onPageChange={this.handlePageClick}
               containerClassName={'pagination'}
               // subContainerClassName={'pages pagination'}
               activeClassName={'css_page_active'}
@@ -91,20 +117,20 @@ function PaginatedTable(props) {
               previousClassName={'css_page btn btn-sm'}
               nextClassName={'css_page btn btn-sm'}
             />
-          </If>
-        </div>
-      </When>
-      <Otherwise>
-        <Loader />
-      </Otherwise>
-    </Choose>
-  );
-}
+          </div>
+        </When>
+        <Otherwise>
+          <Loader />
+        </Otherwise>
+      </Choose>
+    );
+  }
 
-PaginatedTable.defaultProps = {
-  onRowClick: () => {},
-  filter: true,
-  url: ''
-};
+  static defaultProps = {
+    onRowClick: () => {},
+    filter: true,
+    url: ''
+  };
+}
 
 export default PaginatedTable;
