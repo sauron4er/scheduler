@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import home, schedule, clients, get_clients, post_new_client
+from .views import home, schedule, clients, get_clients, post_client
 
 app_name = 'home'
 
@@ -8,6 +8,6 @@ urlpatterns = [
     url(r'^schedule', schedule, name='schedule'),
     url(r'^clients', clients, name='clients'),
     url(r'^get_clients/(?P<page>\d+)/$', get_clients, name='get_clients'),
-    url(r'^post_new_client', post_new_client, name='post_new_client'),
+    url(r'^post_client', post_client, name='post_client'),
 
 ]

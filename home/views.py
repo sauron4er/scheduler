@@ -31,12 +31,12 @@ def clients(request):
 
 @try_except
 def get_clients(request, page):
-    clients = Client.objects.filter(is_active=True)
+    clients = Client.objects.filter(is_active=True).order_by('name')
 
     # clients = filter_query_set(clients, json.loads(request.POST['filtering']))
     # clients = sort_query_set(clients, request.POST['sort_name'], request.POST['sort_direction'])
 
-    paginator = Paginator(clients, 23)
+    paginator = Paginator(clients, 21)
     try:
         clients_page = paginator.page(int(page) + 1)
     except PageNotAnInteger:
@@ -62,10 +62,15 @@ def get_clients(request, page):
 
 
 @try_except
-def post_new_client(request):
-    new_client = Client(name=request.POST['name'],
-                        phone=request.POST['phone'],
-                        address=request.POST['address'],
-                        note=request.POST['note'])
-    new_client.save()
+def post_client(request):
+    try:
+        client = Client.objects.get(pk=request.POST['id'])
+    except Client.DoesNotExist:
+        client = Client()
+
+    client.name = request.POST['name']
+    client.phone = request.POST['phone']
+    client.address = request.POST['address']
+    client.note = request.POST['note']
+    client.save()
     return HttpResponse(status=200)

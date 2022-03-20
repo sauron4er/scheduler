@@ -1,128 +1,104 @@
-import React, {useState} from 'react';
-// import PaginatedTable from 'templates/components/tables/paginated_table';
+import * as React from 'react';
 import TextInput from 'templates/components/form_modules/text_input';
 import SubmitButton from 'templates/components/form_modules/submit_button';
 import {axiosPostRequest} from 'templates/components/axios_requests';
 import PaginatedTable from 'templates/components/tables/paginated_table';
 
-function Clients(props) {
-  const [id, setId] = useState(0);
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [note, setNote] = useState('');
-  const [newName, setNewName] = useState('');
-  const [newPhone, setNewPhone] = useState('');
-  const [newAddress, setNewAddress] = useState('');
-  const [newNote, setNewNote] = useState('');
+class Clients extends React.PureComponent {
+  state = {
+    id: 0,
+    name: '',
+    phone: '',
+    address: '',
+    note: '',
+    new_name: '',
+    new_phone: '',
+    new_address: '',
+    new_note: ''
+  };
 
-  function onNewClientChange(e, type) {
-    switch (type) {
-      case 'new_client_name':
-        setNewName(e.target.value);
-        break;
-      case 'new_client_phone':
-        setNewPhone(e.target.value);
-        break;
-      case 'new_client_address':
-        setNewAddress(e.target.value);
-        break;
-      case 'new_client_note':
-        setNewNote(e.target.value);
-        break;
-    }
-  }
+  onChange = (e, type) => {
+    this.setState({[type]: e.target.value});
+  };
 
-  function onClientChange(e, type) {
-    switch (type) {
-      case 'name':
-        setName(e.target.value);
-        break;
-      case 'phone':
-        setPhone(e.target.value);
-        break;
-      case 'address':
-        setAddress(e.target.value);
-        break;
-      case 'note':
-        setNote(e.target.value);
-        break;
-    }
-  }
-
-  function postNewClient() {
+  postNewClient = () => {
+    const {new_name, new_phone, new_address, new_note} = this.state;
     let formData = new FormData();
-    formData.append('name', newName);
-    formData.append('phone', newPhone);
-    formData.append('address', newAddress);
-    formData.append('note', newNote);
+    formData.append('id', '0');
+    formData.append('name', new_name);
+    formData.append('phone', new_phone);
+    formData.append('address', new_address);
+    formData.append('note', new_note);
+    this.postClient(formData)
+  };
 
-    axiosPostRequest('post_new_client', formData)
-      .then((response) => {
-        location.reload();
-      })
-      .catch((error) => notify(error));
-  }
-
-  function changeClient() {
+  changeClient = () => {
+    const {id, name, phone, address, note} = this.state;
     let formData = new FormData();
     formData.append('id', id);
     formData.append('name', name);
     formData.append('phone', phone);
     formData.append('address', address);
     formData.append('note', note);
+    this.postClient(formData)
+  };
 
-    axiosPostRequest('change_client', formData)
+  postClient = (formData) => {
+    axiosPostRequest('post_client', formData)
       .then((response) => {
         location.reload();
       })
       .catch((error) => notify(error));
-  }
+  };
 
-  function onRowClick(row) {
-    setId(row.id);
-    setName(row.name);
-    setPhone(row.phone);
-    setAddress(row.address);
-    setNote(row.note);
-  }
+  onRowClick = (row) => {
+    this.setState({
+      id: row.id,
+      name: row.name,
+      phone: row.phone,
+      address: row.address,
+      note: row.note
+    });
+  };
 
-  return (
-    <div className='d-flex'>
-      <div className='col-3'>
-        <h5>Новий клієнт</h5>
-        <TextInput text={newName} fieldName='Ім’я' onChange={(e) => onNewClientChange(e, 'new_client_name')} maxLength={100} />
-        <hr />
-        <TextInput text={newPhone} fieldName='Номер телефону' onChange={(e) => onNewClientChange(e, 'new_client_phone')} maxLength={10} />
-        <hr />
-        <TextInput text={newAddress} fieldName='Адреса' onChange={(e) => onNewClientChange(e, 'new_client_address')} maxLength={100} />
-        <hr />
-        <TextInput text={newNote} fieldName='Нотатка' onChange={(e) => onNewClientChange(e, 'new_client_note')} maxLength={1000} />
-        <SubmitButton text='Зберегти' onClick={postNewClient} disabled={!newName} />
-      </div>
-      <div className='col-5'>
-        <h5>Список клієнтів</h5>
-        <PaginatedTable url={`get_clients`} />
-      </div>
-      <div className='col-4'>
-        <If condition={id}>
-          <TextInput text={name} fieldName='Ім’я' onChange={(e) => onClientChange(e, 'name')} maxLength={100} />
+  render() {
+    const {id, name, phone, address, note, new_name, new_phone, new_address, new_note} = this.state;
+    return (
+      <div className='d-flex'>
+        <div className='col-3'>
+          <h5>Новий клієнт</h5>
+          <hr/>
+          <TextInput text={new_name} fieldName='Ім’я' onChange={(e) => this.onChange(e, 'new_name')} maxLength={100} />
           <hr />
-          <TextInput text={phone} fieldName='Номер телефону' onChange={(e) => onClientChange(e, 'phone')} maxLength={10} />
+          <TextInput text={new_phone} fieldName='Номер телефону' onChange={(e) => this.onChange(e, 'new_phone')} maxLength={10} />
           <hr />
-          <TextInput text={address} fieldName='Адреса' onChange={(e) => onClientChange(e, 'address')} maxLength={100} />
+          <TextInput text={new_address} fieldName='Адреса' onChange={(e) => this.onChange(e, 'new_address')} maxLength={100} />
           <hr />
-          <TextInput text={note} fieldName='Нотатка' onChange={(e) => onClientChange(e, 'note')} maxLength={1000} />
-          <SubmitButton text='Зберегти' onClick={changeClient} disabled={!name} />
-        </If>
+          <TextInput text={new_note} fieldName='Нотатка' onChange={(e) => this.onChange(e, 'new_note')} maxLength={1000} />
+          <SubmitButton text='Зберегти' onClick={this.postNewClient} disabled={!new_name} />
+        </div>
+        <div className='col-5'>
+          <h5>Список клієнтів</h5>
+          <hr/>
+          <PaginatedTable url={`get_clients`} onRowClick={this.onRowClick} />
+        </div>
+        <div className='col-4'>
+          <If condition={id}>
+            <h5>Редагування</h5>
+            <hr/>
+            <TextInput text={name} fieldName='Ім’я' onChange={(e) => this.onChange(e, 'name')} maxLength={100} />
+            <hr />
+            <TextInput text={phone} fieldName='Номер телефону' onChange={(e) => this.onChange(e, 'phone')} maxLength={10} />
+            <hr />
+            <TextInput text={address} fieldName='Адреса' onChange={(e) => this.onChange(e, 'address')} maxLength={100} />
+            <hr />
+            <TextInput text={note} fieldName='Нотатка' onChange={(e) => this.onChange(e, 'note')} maxLength={1000} />
+            <SubmitButton text='Зберегти' onClick={this.changeClient} disabled={!name} />
+          </If>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Clients;
-
-const col_width = [
-  {columnName: 'phone', width: 100},
-  {columnName: 'address', width: 200}
-];

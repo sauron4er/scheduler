@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 function TextInput(props) {
-  const rows = Math.round(props.text.length / 100);
+  const rows = props.text ? Math.round(props.text.length / 100) : 0;
 
   return (
     <Choose>
@@ -13,7 +13,7 @@ function TextInput(props) {
             className=' form-control css_full_width'
             name={props.fieldName}
             id={props.fieldName}
-            value={props.text}
+            value={props.text ? props.text : ''}
             type='number'
             onChange={props.onChange}
             maxLength={props.maxLength}
@@ -28,7 +28,7 @@ function TextInput(props) {
             className='form-control css_full_width'
             name={props.fieldName}
             id={props.fieldName}
-            value={props.text}
+            value={props.text ? props.text : ''}
             onChange={props.onChange}
             maxLength={props.maxLength}
             disabled={props.disabled}
@@ -42,7 +42,7 @@ function TextInput(props) {
             className='autoExpand form-control css_full_width'
             name={props.fieldName}
             id={props.fieldName}
-            value={props.text}
+            value={props.text ? props.text : ''}
             rows={rows > 0 ? rows : 1}
             onChange={props.onChange}
             maxLength={props.maxLength}

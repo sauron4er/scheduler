@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import * as React from 'react';
 import ReactPaginate from 'react-paginate';
 import {axiosPostRequest} from 'templates/components/axios_requests';
 import {notify} from 'templates/components/form_modules/modules_config';
 import 'static/css/pagination.css';
+import './table.css'
 import {Loader} from 'templates/components/form_modules/loaders';
 
 class PaginatedTable extends React.PureComponent {
@@ -11,33 +12,33 @@ class PaginatedTable extends React.PureComponent {
     pagesCount: 0,
     rows: [],
     columns: [],
-    loading: true
+    loading: true,
+    clicked_row: -1
   };
 
   componentDidMount() {
     this.getPage(0);
   }
 
-  test = () => {
-    console.log("rows");
-    console.log(this.state.rows);
-    console.log("columns");
-    console.log(this.state.columns);
-    console.log("------");
-    this.state.rows.forEach(row => {
-      for (const [key, value] of Object.entries(row)) {
-      console.log(`${key}:`);
-      console.log(`${value}`);
+  getCell = (column, row) => {
+    for (const [key, value] of Object.entries(row)) {
+      if (column.name === key) {
+        return value;
+      }
     }
-    })
-
   };
 
-  handlePageClick = (page) => {
+  onRowClick = (row_index) => {
+    this.setState({clicked_row: row_index})
+    this.props.onRowClick(this.state.rows[row_index])
+  };
+
+  onPageClick = (page) => {
     this.setState({
       loading: true,
       page: page.selected
     });
+    console.log(page.selected);
     this.getPage(page.selected);
   };
 
@@ -47,20 +48,20 @@ class PaginatedTable extends React.PureComponent {
 
     axiosPostRequest(this.props.url + '/' + page + '/', formData)
       .then((response) => {
-        this.setState({
-          pagesCount: response.pagesCount,
-          rows: response.rows,
-          columns: response.columns,
-          loading: false
-        }, () => {
-          this.test()
-        });
+        this.setState(
+          {
+            pagesCount: response.pagesCount,
+            rows: response.rows,
+            columns: response.columns,
+            loading: false
+          }
+        );
       })
       .catch((error) => notify(error));
   };
 
   render() {
-    const {loading, columns, rows, pagesCount} = this.state;
+    const {loading, columns, rows, pagesCount, clicked_row} = this.state;
     return (
       <Choose>
         <When condition={!loading}>
@@ -76,29 +77,13 @@ class PaginatedTable extends React.PureComponent {
                 </tr>
               </thead>
               <tbody>
-                {/*<For each='row' of={rows} index='row-idx'>*/}
-                {/*  <tr key='row-idx'>*/}
-                {/*    <td>{row[columns[0].name]}</td>*/}
-                {/*  </tr>*/}
-                {/*</For>*/}
-                {/*<tr>*/}
-                {/*  <th scope='row'>1</th>*/}
-                {/*  <td>Mark</td>*/}
-                {/*  <td>Otto</td>*/}
-                {/*  <td>@mdo</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*  <th scope='row'>2</th>*/}
-                {/*  <td>Jacob</td>*/}
-                {/*  <td>Thornton</td>*/}
-                {/*  <td>@fat</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*  <th scope='row'>3</th>*/}
-                {/*  <td>Larry</td>*/}
-                {/*  <td>the Bird</td>*/}
-                {/*  <td>@twitter</td>*/}
-                {/*</tr>*/}
+                <For each='row' of={rows} index='row_index'>
+                  <tr className={row_index === clicked_row ? "css_table_row_clicked" : null} onClick={e => this.onRowClick(row_index)} key={row_index}>
+                    <For each='column' of={columns} index='col_index'>
+                      <td key={col_index}>{this.getCell(column, row)}</td>
+                    </For>
+                  </tr>
+                </For>
               </tbody>
             </table>
             <ReactPaginate
@@ -109,7 +94,7 @@ class PaginatedTable extends React.PureComponent {
               pageCount={pagesCount}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
-              onPageChange={this.handlePageClick}
+              onPageChange={this.onPageClick}
               containerClassName={'pagination'}
               // subContainerClassName={'pages pagination'}
               activeClassName={'css_page_active'}
