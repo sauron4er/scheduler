@@ -1,0 +1,33 @@
+.scheduler {
+    margin-bottom: 20px;
+}
+
+.today {
+    background: #dceffd;
+}
+
+th {
+    text-align: center;
+}
+
+th:not(:last-of-type) {
+    border-right: 1px solid lightgray;
+}
+
+td:not(:last-of-type) {
+    border-right: 1px solid lightgray;
+}
+
+td:not(:first-of-type):hover {
+    background: #dceffd;
+    /*width: 13.714%*/
+}
+
+.time {
+    border-right: 1px solid lightgray;
+    width: 4%
+}
+
+th, td {
+    height: 30px
+}
