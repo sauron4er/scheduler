@@ -1,4 +1,3 @@
-'use strict';
 import * as React from 'react';
 import Select from 'react-select';
 import {axiosGetRequest} from 'templates/components/axios_requests';

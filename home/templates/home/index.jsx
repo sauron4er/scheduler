@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+// import ReactDOM from 'react-dom';
 import Schedule from "home/templates/home/schedule/schedule";
 import Clients from "home/templates/home/clients/clients";
 
@@ -18,4 +19,8 @@ function Home(props) {
     );
 }
 
-ReactDOM.render(<Home />, document.getElementById('bundle'));
+const container = document.getElementById('bundle');
+const root = createRoot(container);
+root.render(<Home />);
+
+// ReactDOM.render(<Home />, document.getElementById('bundle'));

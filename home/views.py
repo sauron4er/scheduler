@@ -30,6 +30,7 @@ def clients(request):
 
 
 @try_except
+@login_required(login_url='login')
 def get_clients(request, page):
     clients = Client.objects.filter(is_active=True).order_by('name')
 
@@ -62,7 +63,25 @@ def get_clients(request, page):
 
 
 @try_except
+@login_required(login_url='login')
+def get_clients_select(request):
+    clients_list = Client.objects\
+        .filter(is_active=True)\
+        .filter(name__icontains=request.POST['filter'])\
+        .order_by('name')[:50]
+
+    clients_list = [{
+        'id': client.id,
+        'name': client.name
+    } for client in clients_list]
+
+    return HttpResponse(json.dumps(clients_list))
+
+
+@try_except
+@login_required(login_url='login')
 def post_client(request):
+    # TODO Чому при зміні клієнта змінюється поле Added?
     try:
         client = Client.objects.get(pk=request.POST['id'])
     except Client.DoesNotExist:
@@ -72,5 +91,8 @@ def post_client(request):
     client.phone = request.POST['phone']
     client.address = request.POST['address']
     client.note = request.POST['note']
+    if 'deactivate' in request.POST:
+        client.is_active = False
     client.save()
+
     return HttpResponse(status=200)

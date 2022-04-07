@@ -33,7 +33,6 @@ module.exports = {
       }, // to transform JSX into JS
       {
         test: /\.css$/,
-        exclude: /node_modules/,
         use: [{loader: 'style-loader'}, {loader: 'css-loader'}]
       },
       // {
@@ -44,10 +43,10 @@ module.exports = {
       //   test: /\.(?:png|jpe?g|svg)$/,
       //   loader: 'url-loader'
       // }
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loader: 'file-loader'
-      }
+      // {
+      //   test: /\.(jpe?g|png|gif|svg)$/i,
+      //   loader: 'file-loader'
+      // }
     ]
   },
 

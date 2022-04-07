@@ -1,45 +1,73 @@
-import * as React from 'react';
-import MyScheduler from 'templates/components/scheduler/my_scheduler';
+import React, {useEffect} from 'react';
+import useSetState from 'templates/hooks/useSetState';
+import Modal from 'templates/components/modal/modal';
+import {store, view} from '@risingstack/react-easy-state';
+import schedulerState from 'home/templates/home/schedule/state';
+import Week from 'home/templates/home/schedule/week';
+import SubmitButton from 'templates/components/form_modules/submit_button';
+import AsyncSelector from 'templates/components/form_modules/selectors/async_selector';
 
-class Schedule extends React.PureComponent {
-  state = {
+function Schedule() {
+  const [state, setState] = useSetState({
     first_week: [],
     second_week: [],
     third_week: [],
-  };
+    client: 0,
+    client_name: ''
+  });
 
-  componentDidMount() {
+  useEffect(() => {
     const today = new Date();
-    const first_week = this.getWeek(today)
-    const second_week = this.getWeek(today)
-    const third_week = this.getWeek(today)
-    this.setState({first_week, second_week, third_week})
-  }
+    schedulerState.today_string = `${('0' + today.getDate()).slice(-2)}.${('0' + (today.getMonth() + 1)).slice(-2)}`;
+    const first_week = getWeek(today);
+    const second_week = getWeek(today);
+    const third_week = getWeek(today);
+    setState({first_week, second_week, third_week});
+  }, []);
 
-  getWeek = (day) => {
-    const week = []
+  function getWeek(day) {
+    let week = [];
     for (let i = 1; i <= 7; i++) {
-      const new_date = day.getDate() - day.getDay() + i
+      const new_date = day.getDate() - day.getDay() + i;
       const new_day = new Date(day.setDate(new_date));
-      week.push(`${("0" + new_day.getDate()).slice(-2)}.${("0" + (new_day.getMonth() + 1)).slice(-2)}`)
+      week.push(`${('0' + new_day.getDate()).slice(-2)}.${('0' + (new_day.getMonth() + 1)).slice(-2)}`);
     }
-    return week
-  };
-
-  render() {
-    const {first_week, second_week, third_week} = this.state;
-    return (
-      <>
-        <div className='d-flex'>
-          <div className='font-weight-bold mb-2'>Навігація (приклеїти до верхньої межі екрану)</div>
-          <div className='font-weight-bold ml-auto'>View switcher</div>
-        </div>
-        <MyScheduler week={first_week} />
-        <MyScheduler week={second_week} />
-        <MyScheduler week={third_week} />
-      </>
-    );
+    return week;
   }
+
+  function closeModal() {
+    schedulerState.clicked_day = null;
+    schedulerState.clicked_time = null;
+  }
+
+  function onClientChange(e) {
+    console.log(e);
+  }
+  
+  function addVisit() {
+    
+  }
+
+  return (
+    <>
+      <div className='d-flex'>
+        <div className='font-weight-bold mb-2'>Навігація (приклеїти до верхньої межі екрану)</div>
+        <div className='font-weight-bold ml-auto'>View switcher</div>
+      </div>
+      <Week week={state.first_week} />
+      <Week week={state.second_week} />
+      <Week week={state.third_week} />
+      <Modal open={schedulerState.clicked_time} onClose={closeModal}>
+        <div className='modal-header'><h5>Новий прийом: {schedulerState.clicked_day} на {schedulerState.clicked_time}</h5></div>
+        <div className='modal-body'>
+          <AsyncSelector />
+        </div>
+        <div className='modal-footer'>
+          <SubmitButton name='change' text='Зберегти' onClick={addVisit} disabled={false} />
+        </div>
+      </Modal>
+    </>
+  );
 }
 
-export default Schedule;
+export default view(Schedule);
