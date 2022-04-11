@@ -78,7 +78,7 @@ function Clients() {
 
   return (
     <div className='d-flex'>
-      <div className='col-3'>
+      <div className='col-lg-3'>
         <h5>Новий клієнт</h5>
         <hr />
         <TextInput text={state.new_name} fieldName='Ім’я' onChange={(e) => onChange(e, 'new_name')} maxLength={100} />
@@ -90,12 +90,12 @@ function Clients() {
         <TextInput text={state.new_note} fieldName='Нотатка' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />
         <SubmitButton text='Зберегти' onClick={postNewClient} disabled={!state.new_name} />
       </div>
-      <div className='col-5'>
+      <div className='col-lg-5'>
         <h5>Список клієнтів</h5>
         <hr />
-        <PaginatedTable url={`get_clients`} onRowClick={onRowClick} />
+        <PaginatedTable url={`get_clients`} onRowClick={onRowClick} colWidth={colWidth} />
       </div>
-      <div className='col-4'>
+      <div className='col-lg-4'>
         <If condition={state.id}>
           <h5>Редагування</h5>
           <hr />
@@ -115,5 +115,7 @@ function Clients() {
     </div>
   );
 }
+
+const colWidth = [{label: 'name', width: '50%'}, {label: 'phone', width: '110px'}]
 
 export default Clients;

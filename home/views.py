@@ -54,9 +54,9 @@ def get_clients(request, page):
     } for client in clients_page.object_list]
 
     columns = [
-        {'name': 'name', 'title': 'Ім’я'},
-        {'name': 'phone', 'title': 'Телефон'},
-        {'name': 'address', 'title': 'Адреса'}
+        {'label': 'name', 'title': 'Ім’я'},
+        {'label': 'phone', 'title': 'Телефон'},
+        {'label': 'address', 'title': 'Адреса'}
     ]
 
     return HttpResponse(json.dumps({'rows': clients, 'columns': columns, 'pagesCount': paginator.num_pages}))
