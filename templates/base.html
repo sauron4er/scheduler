@@ -30,18 +30,18 @@
 
             <div class="collapse navbar-collapse" id="mainMenu">
                 <ul class="navbar-nav">
-                    <a class="nav-link" href="{% url 'home:schedule' %}">
-                        <span class="nav_text_css {% if request.path == '/' or request.path == '/schedule' or request.path == '/home/schedule' %}active{% endif %}">Календар</span>
+                    <a class="nav-link css_nav_link" href="{% url 'home:schedule' %}">
+                        <span class="css_nav_text {% if request.path == '/' or request.path == '/schedule' or request.path == '/home/schedule' %}active{% endif %}">Календар</span>
                     </a>
-                    <a class="nav-link" href="{% url 'home:clients' %}">
-                        <span class="nav_text_css {% if request.path == '/clients' or request.path == '/home/clients' %}active{% endif %}">Клієнти</span>
+                    <a class="nav-link css_nav_link" href="{% url 'home:clients' %}">
+                        <span class="css_nav_text {% if request.path == '/clients' or request.path == '/home/clients' %}active{% endif %}">Клієнти</span>
                     </a>
                 </ul>
               {% if user.is_authenticated %}
                   <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="nav_text_css">{{ user.username }}</span>
+                      <a class="nav-link css_nav_link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="css_nav_text">{{ user.username }}</span>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
                       {% if user.is_superuser  %}

@@ -13,4 +13,4 @@ function useSetState(props_state) {
   return [state, setMultipleState]
 }
 
-export default useSetState
+export default useSetState;

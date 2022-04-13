@@ -7,6 +7,8 @@ import Week from 'home/templates/home/schedule/week';
 import SubmitButton from 'templates/components/form_modules/submit_button';
 import AsyncSelector from 'templates/components/form_modules/selectors/async_selector';
 
+//TODO Зробити так, щоб зміни, внесені на одному компі, відразу відображалися і на другому
+
 function Schedule() {
   const [state, setState] = useSetState({
     first_week: [],

@@ -1,6 +1,6 @@
 import json
 from nomenclature.models import Language
-from templates.components.try_except import try_except
+from scheduler.api.try_except import try_except
 
 
 @try_except
