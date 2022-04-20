@@ -13,7 +13,7 @@ function Cell(props) {
     schedulerState.clicked_time = props.time;
   }
 
-  return <td onClick={onClick}></td>;
+  return <td className='scheduler_td' onClick={onClick}></td>;
 }
 
 Cell.defaultProps = {

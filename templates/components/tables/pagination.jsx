@@ -3,24 +3,24 @@ import ReactPaginate from 'react-paginate';
 import './pagination.css';
 
 function Pagination(props) {
+  //TODO відключити кнопку ... (.break_me)
+  //TODO розтягти <а> на всю ширину і висоту <li>
   return (
     <ReactPaginate
-      previousLabel={'Назад'}
-      nextLabel={'Вперед'}
-      breakLabel={'...'}
-      breakClassName={'break-me'}
-      pageCount={props.pagesCount}
-      marginPagesDisplayed={2}
-      pageRangeDisplayed={5}
+      breakLabel='...'
+      previousLabel='Назад'
+      nextLabel='Вперед'
       onPageChange={props.onPageClick}
-      forcePage={props.activePage}
+      pageRangeDisplayed={5}
+      pageCount={props.pagesCount}
+      renderOnZeroPageCount={null}
       containerClassName={'pagination'}
-      // subContainerClassName={'pages pagination'}
       activeClassName={'css_page_active'}
+      breakClassName={'break-me'}
       pageClassName={'css_page btn btn-sm'}
       previousClassName={'css_page btn btn-sm'}
       nextClassName={'css_page btn btn-sm'}
-      renderOnZeroPageCount={null}
+      marginPagesDisplayed={2}
     />
   );
 }

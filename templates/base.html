@@ -36,6 +36,9 @@
                     <a class="nav-link css_nav_link" href="{% url 'home:clients' %}">
                         <span class="css_nav_text {% if request.path == '/clients' or request.path == '/home/clients' %}active{% endif %}">Клієнти</span>
                     </a>
+                    <a class="nav-link css_nav_link" href="{% url 'home:employees' %}">
+                        <span class="css_nav_text {% if request.path == '/employees' or request.path == '/home/employees' %}active{% endif %}">Спеціалісти</span>
+                    </a>
                 </ul>
               {% if user.is_authenticated %}
                   <ul class="navbar-nav ml-auto">

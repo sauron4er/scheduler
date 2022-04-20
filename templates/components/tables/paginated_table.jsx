@@ -20,6 +20,10 @@ function PaginatedTable(props) {
     getPage(0);
   }, []);
 
+  useEffect(() => {
+    if (props.refresh) getPage(state.page);
+  }, [props.refresh]);
+
   function getCell(column, row) {
     for (const [key, value] of Object.entries(row)) {
       if (column.label === key) {
@@ -34,6 +38,7 @@ function PaginatedTable(props) {
   }
 
   function onPageClick(page) {
+    console.log(page.selected);
     setState({
       page: page.selected
     });
@@ -44,15 +49,11 @@ function PaginatedTable(props) {
     if (page !== -1) {
       let formData = new FormData();
       formData.append('filter', JSON.stringify(state.filter_value));
+      formData.append('look_for_name', props.lookForName);
 
       axiosPostRequest(props.url + '/' + page + '/', formData)
         .then((response) => {
-          setState({
-            pagesCount: response.pagesCount,
-            rows: response.rows,
-            columns: response.columns,
-            page: page
-          });
+          setState({...response});
         })
         .catch((error) => notify(error));
     }
@@ -65,7 +66,10 @@ function PaginatedTable(props) {
   }
 
   function onFilterChange(filter_value) {
-    setState({filter_value});
+    setState({
+      filter_value: filter_value,
+      page: 0
+    });
   }
 
   useEffect(() => {
@@ -76,15 +80,20 @@ function PaginatedTable(props) {
     return () => clearTimeout(delayFilter);
   }, [state.filter_value]);
 
+  function getTrClass(row_index) {
+    const class_var = row_index === state.clicked_row ? 'css_table_row_clicked' : ''
+    return 'css_tr ' + class_var
+  }
+
   return (
     <>
       <Filter value={state.filter_value} onChange={onFilterChange} />
       <div className='table-responsive-lg'>
-        <table className='table table-sm table-bordered table-hover css_table'>
+        <table className='table table-sm css_table'>
           <thead className='thead-light'>
             <tr>
               <For each='column' of={state.columns} index='idx'>
-                <th key={idx} scope='col' style={getWidth(column.label)}>
+                <th key={idx} scope='col' className='css_th' style={getWidth(column.label)}>
                   {column.title}
                 </th>
               </For>
@@ -93,12 +102,12 @@ function PaginatedTable(props) {
           <tbody>
             <For each='row' of={state.rows} index='row_index'>
               <tr
-                className={row_index === state.clicked_row ? 'css_table_row_clicked' : null}
+                className={getTrClass(row_index)}
                 onClick={(e) => onRowClick(row_index)}
                 key={row_index}
               >
                 <For each='column' of={state.columns} index='col_index'>
-                  <td key={col_index}>{getCell(column, row)}</td>
+                  <td className='css_td' key={col_index}>{getCell(column, row)}</td>
                 </For>
               </tr>
             </For>
@@ -114,7 +123,9 @@ PaginatedTable.defaultProps = {
   onRowClick: () => {},
   filter: true,
   url: '',
-  colWidth: {}
+  colWidth: {},
+  refresh: false, // Якщо змінюється на true, таблиця оновлює дані з серверу
+  lookForId: 0 // Якщо не 0, то таблиця відкриває сторінку, на якій розміщений цей ід і підсвічує його
 };
 
 export default PaginatedTable;

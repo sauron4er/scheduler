@@ -3,6 +3,13 @@
 }
 
 .css_table_row_clicked {
-    background-color: #e6e6e6;
+    background-color: #dceffd80;
 }
 
+.css_th {
+  background: #dceffd !important;
+}
+
+.css_tr:hover {
+  background: #dceffd40;
+}

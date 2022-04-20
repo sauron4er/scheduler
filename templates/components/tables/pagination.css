@@ -1,15 +1,32 @@
 .css_page_active {
-    background-color: #a5a5a5;
-    color: white;
+  background-color: #a5a5a5;
+  color: white;
 }
 
 .css_page a:focus {
   outline: thin dotted;
 }
 
-.css_page:hover:not(.active) {background-color: #ddd;}
+.css_page:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.css_page {
+  padding: 0;
+  margin-right: 5px;
+}
 
 .css_page a {
-    color: black;
-    text-decoration: none;
+  display: block;
+  color: black;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.break-me {
+  margin-right: 5px;
+}
+
+.break-me a {
+  color: black !important;
 }

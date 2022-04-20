@@ -4,9 +4,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Q
 import json
-from home.api.clients_api import get_clients_page
+from home.api.clients_api import get_clients_page, get_clients_for_select, post_client
+from home.api.employees_api import get_employees_page, get_employees_for_select, post_employee
 from scheduler.api.try_except import try_except
-from home.models import Client, Doctor
+from home.models import Client, Employee
 
 
 @login_required(login_url='login')
@@ -36,34 +37,40 @@ def get_clients(request, page):
 @try_except
 @login_required(login_url='login')
 def get_clients_select(request):
-    clients_list = Client.objects\
-        .filter(is_active=True)\
-        .filter(name__icontains=request.POST['filter'])\
-        .order_by('name')[:50]
-
-    clients_list = [{
-        'id': client.id,
-        'name': client.name
-    } for client in clients_list]
-
+    clients_list = get_clients_for_select(request)
     return HttpResponse(json.dumps(clients_list))
 
 
 @try_except
 @login_required(login_url='login')
 def post_client(request):
+    client = post_client(request)
     # TODO Чому при зміні клієнта змінюється поле Added?
-    try:
-        client = Client.objects.get(pk=request.POST['id'])
-    except Client.DoesNotExist:
-        client = Client()
+    return HttpResponse(client.pk)
 
-    client.name = request.POST['name']
-    client.phone = request.POST['phone']
-    client.address = request.POST['address']
-    client.note = request.POST['note']
-    if 'deactivate' in request.POST:
-        client.is_active = False
-    client.save()
 
-    return HttpResponse(status=200)
+@login_required(login_url='login')
+def employees(request):
+    if request.method == 'GET':
+        return render(request, 'home/employees/index.html')
+
+
+@try_except
+@login_required(login_url='login')
+def get_employees(request, page):
+    return HttpResponse(json.dumps(get_employees_page(request, page)))
+
+
+@try_except
+@login_required(login_url='login')
+def get_employees_select(request):
+    employees_list = get_employees_for_select(request)
+    return HttpResponse(json.dumps(employees_list))
+
+
+@try_except
+@login_required(login_url='login')
+def post_employee(request):
+    employee = post_employee(request)
+    # TODO Чому при зміні клієнта змінюється поле Added?
+    return HttpResponse(employee.pk)

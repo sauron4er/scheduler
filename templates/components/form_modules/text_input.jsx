@@ -2,25 +2,10 @@
 import * as React from 'react';
 
 function TextInput(props) {
-  const rows = props.text ? Math.round(props.text.length / 100) : 0;
+  const rows = props.text ? Math.round(props.text.length / 41) : 0;
 
   return (
     <Choose>
-      <When condition={props.type === 'dimensions' || props.type === 'number'}>
-        <label className={props.className + ' css_full_width'} htmlFor={props.fieldName}>
-          <If condition={props.fieldName !== '-'}>{props.fieldName}:</If>
-          <input
-            className=' form-control css_full_width'
-            name={props.fieldName}
-            id={props.fieldName}
-            value={props.text ? props.text : ''}
-            type='number'
-            onChange={props.onChange}
-            maxLength={props.maxLength}
-            disabled={props.disabled}
-          />
-        </label>
-      </When>
       <When condition={props.maxLength <= 110}>
         <label className={props.className + ' css_full_width'} htmlFor={props.fieldName}>
           <If condition={props.fieldName !== '-'}>{props.fieldName}:</If>

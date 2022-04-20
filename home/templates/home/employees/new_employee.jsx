@@ -5,15 +5,16 @@ import TextInput from 'templates/components/form_modules/text_input';
 import SubmitButton from 'templates/components/form_modules/submit_button';
 import {axiosPostRequest} from 'templates/components/axios_requests';
 import Modal from 'templates/components/modal/modal';
-import clientsState from 'home/templates/home/clients/state';
+import employeesState from 'home/templates/home/employees/state';
 
-function NewClient() {
+function NewEmployee() {
   const [state, setState] = useSetState({
     id: 0,
     new_name: '',
     new_phone: '',
     new_address: '',
     new_note: '',
+    new_color: '',
     opened: false
   });
 
@@ -21,29 +22,30 @@ function NewClient() {
     setState({[type]: e.target.value});
   }
 
-  function postNewClient() {
-    const {new_name, new_phone, new_address, new_note} = state;
+  function postNewEmployee() {
+    const {new_name, new_phone, new_address, new_note, new_color} = state;
     let formData = new FormData();
     formData.append('id', '0');
     formData.append('name', new_name);
     formData.append('phone', new_phone);
     formData.append('address', new_address);
     formData.append('note', new_note);
-    clientsState.new_client_name = new_name;
-    postClient(formData);
+    formData.append('color', new_color);
+    employeesState.new_employee_name = new_name;
+    postEmployee(formData);
   }
 
-  function postClient(formData) {
-    axiosPostRequest('post_client', formData)
+  function postEmployee(formData) {
+    axiosPostRequest('post_employee', formData)
       .then((response) => {
-        clientsState.refresh = true;
+        employeesState.refresh = true;
         closeModal()
       })
       .catch((error) => notify(error));
   }
 
   function openModal() {
-    clientsState.refresh = false;
+    employeesState.refresh = false;
     setState({opened: true});
   }
 
@@ -54,10 +56,10 @@ function NewClient() {
   return (
     <div className='mb-3'>
       <button className='css_button' onClick={openModal}>
-        Новий клієнт
+        Новий спеціаліст
       </button>
       <Modal open={state.opened} onClose={closeModal}>
-        <h5>Новий клієнт</h5>
+        <h5>Новий спеціаліст</h5>
         <hr />
         <TextInput text={state.new_name} fieldName='Ім’я' onChange={(e) => onChange(e, 'new_name')} maxLength={100} />
         <hr />
@@ -66,10 +68,12 @@ function NewClient() {
         <TextInput text={state.new_address} fieldName='Адреса' onChange={(e) => onChange(e, 'new_address')} maxLength={100} />
         <hr />
         <TextInput text={state.new_note} fieldName='Нотатка' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />
-        <SubmitButton text='Зберегти' onClick={postNewClient} disabled={!state.new_name} />
+        <hr />
+        <TextInput text={state.new_note} fieldName='Колір!!!!!!!!!!!!!!!!!!!' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />
+        <SubmitButton text='Зберегти' onClick={postNewEmployee} disabled={!state.new_name} />
       </Modal>
     </div>
   );
 }
 
-export default view(NewClient);
+export default view(NewEmployee);

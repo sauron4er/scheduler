@@ -8,23 +8,23 @@
   background: #dceffd;
 }
 
-th {
+.scheduler_th {
   text-align: center;
 }
 
-th:not(:last-of-type) {
+.scheduler_th:not(:last-of-type) {
   border-right: 1px solid lightgray;
 }
 
-th:first-of-type {
+.scheduler_th:first-of-type {
   width: 60px;
 }
 
-td:not(:last-of-type) {
+.scheduler_td:not(:last-of-type) {
   border-right: 1px solid lightgray;
 }
 
-td:not(:first-of-type):hover {
+.scheduler_td:hover {
   background: #dceffd;
   /*width: 13.714%*/
 }
@@ -34,7 +34,7 @@ td:not(:first-of-type):hover {
   width: 4%;
 }
 
-th,
-td {
+.scheduler_th,
+.scheduler_td {
   height: 30px;
 }

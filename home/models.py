@@ -13,7 +13,7 @@ class Client(models.Model):
         return self.name
 
 
-class Doctor(models.Model):
+class Employee(models.Model):
     name = models.CharField(max_length=100)
     note = models.CharField(max_length=1000, null=True)
     phone = models.CharField(max_length=10, null=True)
@@ -28,7 +28,7 @@ class Doctor(models.Model):
 
 class Visit(models.Model):
     client = models.ForeignKey(Client, related_name='visits', on_delete=models.RESTRICT)
-    doctor = models.ForeignKey(Doctor, related_name='visits', on_delete=models.RESTRICT)
+    employee = models.ForeignKey(Employee, related_name='visits', on_delete=models.RESTRICT)
     start = models.DateTimeField()
     finish = models.DateTimeField()
     price = models.CharField(max_length=10)

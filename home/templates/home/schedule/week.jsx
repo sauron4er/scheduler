@@ -43,26 +43,26 @@ function Week(props) {
       <table className='table table-sm scheduler'>
         <thead>
           <tr>
-            <th scope='col'></th>
-            <th scope='col' className={state.today_index === 1 ? 'today' : ''}>
+            <th scope='col' className='scheduler_th'></th>
+            <th scope='col' className={`${state.today_index === 1 ? 'today' : ''} scheduler_th`}>
               Пн, {props.week[0]}
             </th>
-            <th scope='col' className={state.today_index === 2 ? 'today' : ''}>
+            <th scope='col' className={`${state.today_index === 1 ? 'today' : ''} scheduler_th`}>
               Вт, {props.week[1]}
             </th>
-            <th scope='col' className={state.today_index === 3 ? 'today' : ''}>
+            <th scope='col' className={`${state.today_index === 1 ? 'today' : ''} scheduler_th`}>
               Ср, {props.week[2]}
             </th>
-            <th scope='col' className={state.today_index === 4 ? 'today' : ''}>
+            <th scope='col' className={`${state.today_index === 1 ? 'today' : ''} scheduler_th`}>
               Чт, {props.week[3]}
             </th>
-            <th scope='col' className={state.today_index === 5 ? 'today' : ''}>
+            <th scope='col' className={`${state.today_index === 1 ? 'today' : ''} scheduler_th`}>
               Пт, {props.week[4]}
             </th>
-            <th scope='col' className={state.today_index === 6 ? 'today' : ''}>
+            <th scope='col' className={`${state.today_index === 1 ? 'today' : ''} scheduler_th`}>
               Сб, {props.week[5]}
             </th>
-            <th scope='col' className={state.today_index === 7 ? 'today' : ''}>
+            <th scope='col' className={`${state.today_index === 1 ? 'today' : ''} scheduler_th`}>
               Нд, {props.week[6]}
             </th>
           </tr>

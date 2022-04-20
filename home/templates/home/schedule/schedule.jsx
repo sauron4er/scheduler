@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
-import Modal from 'templates/components/modal/modal';
 import {store, view} from '@risingstack/react-easy-state';
 import schedulerState from 'home/templates/home/schedule/state';
 import Week from 'home/templates/home/schedule/week';
-import SubmitButton from 'templates/components/form_modules/submit_button';
-import AsyncSelector from 'templates/components/form_modules/selectors/async_selector';
+import NewVisit from 'home/templates/home/schedule/new_visit';
 
+//TODO Підписка на події у базі даних
 //TODO Зробити так, щоб зміни, внесені на одному компі, відразу відображалися і на другому
+
 
 function Schedule() {
   const [state, setState] = useSetState({
@@ -37,19 +37,6 @@ function Schedule() {
     return week;
   }
 
-  function closeModal() {
-    schedulerState.clicked_day = null;
-    schedulerState.clicked_time = null;
-  }
-
-  function onClientChange(e) {
-    console.log(e);
-  }
-  
-  function addVisit() {
-    
-  }
-
   return (
     <>
       <div className='d-flex'>
@@ -59,15 +46,7 @@ function Schedule() {
       <Week week={state.first_week} />
       <Week week={state.second_week} />
       <Week week={state.third_week} />
-      <Modal open={schedulerState.clicked_time} onClose={closeModal}>
-        <div className='modal-header'><h5>Новий прийом: {schedulerState.clicked_day} на {schedulerState.clicked_time}</h5></div>
-        <div className='modal-body'>
-          <AsyncSelector />
-        </div>
-        <div className='modal-footer'>
-          <SubmitButton name='change' text='Зберегти' onClick={addVisit} disabled={false} />
-        </div>
-      </Modal>
+      <NewVisit />
     </>
   );
 }
