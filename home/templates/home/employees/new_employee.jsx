@@ -6,6 +6,7 @@ import SubmitButton from 'templates/components/form_modules/submit_button';
 import {axiosPostRequest} from 'templates/components/axios_requests';
 import Modal from 'templates/components/modal/modal';
 import employeesState from 'home/templates/home/employees/state';
+import ColorPicker from "../../../../templates/components/form_modules/color_picker";
 
 function NewEmployee() {
   const [state, setState] = useSetState({
@@ -64,12 +65,13 @@ function NewEmployee() {
         <TextInput text={state.new_name} fieldName='Ім’я' onChange={(e) => onChange(e, 'new_name')} maxLength={100} />
         <hr />
         <TextInput text={state.new_phone} fieldName='Номер телефону' onChange={(e) => onChange(e, 'new_phone')} maxLength={10} />
+        <ColorPicker />
         <hr />
         <TextInput text={state.new_address} fieldName='Адреса' onChange={(e) => onChange(e, 'new_address')} maxLength={100} />
         <hr />
         <TextInput text={state.new_note} fieldName='Нотатка' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />
         <hr />
-        <TextInput text={state.new_note} fieldName='Колір!!!!!!!!!!!!!!!!!!!' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />
+        {/*<TextInput text={state.new_note} fieldName='Колір!!!!!!!!!!!!!!!!!!!' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />*/}
         <SubmitButton text='Зберегти' onClick={postNewEmployee} disabled={!state.new_name} />
       </Modal>
     </div>
