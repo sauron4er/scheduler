@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import {axiosPostRequest} from 'templates/components/axios_requests';
 import {notify} from 'templates/components/form_modules/modules_config';
-import './table.css';
+import '../../../static/css/table.css';
 import Pagination from 'templates/components/tables/pagination';
 import Filter from 'templates/components/tables/filter';
 
@@ -24,10 +24,11 @@ function PaginatedTable(props) {
     if (props.refresh) getPage(state.page);
   }, [props.refresh]);
 
-  function getCell(column, row) {
+  function getCell(column, row, col_index) {
     for (const [key, value] of Object.entries(row)) {
       if (column.label === key) {
-        return value;
+        if (column.label === 'color') return <td className='css_td p-1' key={col_index} style={{background: value}} />
+        return <td className='css_td' key={col_index}>{value}</td>
       }
     }
   }
@@ -107,7 +108,7 @@ function PaginatedTable(props) {
                 key={row_index}
               >
                 <For each='column' of={state.columns} index='col_index'>
-                  <td className='css_td' key={col_index}>{getCell(column, row)}</td>
+                  {getCell(column, row, col_index)}
                 </For>
               </tr>
             </For>

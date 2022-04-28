@@ -1,5 +1,5 @@
 import React from 'react';
-import './modal.css';
+import '../../../static/css/modal.css';
 
 const Modal = (props) => {
   return (

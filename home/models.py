@@ -17,9 +17,10 @@ class Employee(models.Model):
     name = models.CharField(max_length=100)
     note = models.CharField(max_length=1000, null=True)
     phone = models.CharField(max_length=10, null=True)
+    address = models.CharField(max_length=100, null=True)
     date_in = models.DateField(auto_now=True)
     date_out = models.DateField(null=True, auto_now=True)
-    color = models.CharField(max_length=6)
+    color = models.CharField(max_length=7)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

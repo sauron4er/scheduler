@@ -4,8 +4,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Q
 import json
-from home.api.clients_api import get_clients_page, get_clients_for_select, post_client
-from home.api.employees_api import get_employees_page, get_employees_for_select, post_employee
+from home.api.clients_api import get_clients_page, get_clients_for_select, add_client
+from home.api.employees_api import get_employees_page, get_employees_for_select, add_employee
 from scheduler.api.try_except import try_except
 from home.models import Client, Employee
 
@@ -44,7 +44,7 @@ def get_clients_select(request):
 @try_except
 @login_required(login_url='login')
 def post_client(request):
-    client = post_client(request)
+    client = add_client(request)
     # TODO Чому при зміні клієнта змінюється поле Added?
     return HttpResponse(client.pk)
 
@@ -71,6 +71,5 @@ def get_employees_select(request):
 @try_except
 @login_required(login_url='login')
 def post_employee(request):
-    employee = post_employee(request)
-    # TODO Чому при зміні клієнта змінюється поле Added?
+    employee = add_employee(request)
     return HttpResponse(employee.pk)

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
-import './pagination.css';
+import '../../../static/css/pagination.css';
 
 function Pagination(props) {
   //TODO відключити кнопку ... (.break_me)

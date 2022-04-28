@@ -4,12 +4,12 @@ from django.http import HttpResponse
 from django.db.models import Q
 import json
 from scheduler.api.try_except import try_except
-from home.models import Client
+from home.models import Client, Employee
 
 
 @try_except
 def get_employees_page(request, page):
-    employees = Client.objects.filter(is_active=True).order_by('name')
+    employees = Employee.objects.filter(is_active=True).order_by('name')
 
     employees = filter_employees_page(employees, json.loads(request.POST['filter']))
     # employees = sort_query_set(employees, request.POST['sort_name'], request.POST['sort_direction'])
@@ -22,7 +22,8 @@ def get_employees_page(request, page):
         {'label': 'name', 'title': 'Ім’я'},
         {'label': 'phone', 'title': 'Телефон'},
         {'label': 'address', 'title': 'Адреса'},
-        {'label': 'note', 'title': 'Нотатка'}
+        {'label': 'note', 'title': 'Нотатка'},
+        {'label': 'color', 'title': 'Колір'}
     ]
 
     return {'rows': rows, 'columns': columns, 'pagesCount': pages_count, 'page': page, 'clicked_row': looked_index}
@@ -60,7 +61,8 @@ def paginate(employees, page, look_for_name):
         'name': employee.name,
         'phone': employee.phone or '',
         'address': employee.address or '',
-        'note': employee.note or ''
+        'note': employee.note or '',
+        'color': employee.color or ''
     } for employee in employees_page.object_list]
 
     looked_index = -1
@@ -74,8 +76,8 @@ def paginate(employees, page, look_for_name):
 
 @try_except
 def get_employees_for_select(request):
-    employees_list = Client.objects \
-                       .filter(is_active=True) \
+    employees_list = Employee.objects \
+                       .fil(is_active=True) \
                        .filter(name__icontains=request.POST['filter']) \
                        .order_by('name')[:50]
 
@@ -88,16 +90,17 @@ def get_employees_for_select(request):
 
 
 @try_except
-def post_employee(request):
+def add_employee(request):
     try:
-        employee = Client.objects.get(pk=request.POST['id'])
-    except Client.DoesNotExist:
-        employee = Client()
+        employee = Employee.objects.get(pk=request.POST['id'])
+    except Employee.DoesNotExist:
+        employee = Employee()
 
     employee.name = request.POST['name']
     employee.phone = request.POST['phone'] if request.POST['phone'] != '' else None
     employee.address = request.POST['address'] if request.POST['address'] != '' else None
     employee.note = request.POST['note'] if request.POST['note'] != '' else None
+    employee.color = request.POST['color'] if request.POST['color'] != '' else None
 
     if 'deactivate' in request.POST:
         employee.is_active = False

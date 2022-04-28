@@ -35,7 +35,8 @@ function Employees() {
 const colWidth = [
   {label: 'name', width: '25%'},
   {label: 'phone', width: '150px'},
-  {label: 'address', width: '10%'}
+  {label: 'address', width: '15%'},
+  {label: 'color', width: '10%'},
 ];
 
 export default view(Employees);

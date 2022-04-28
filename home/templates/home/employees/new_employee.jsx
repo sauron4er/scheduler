@@ -6,7 +6,7 @@ import SubmitButton from 'templates/components/form_modules/submit_button';
 import {axiosPostRequest} from 'templates/components/axios_requests';
 import Modal from 'templates/components/modal/modal';
 import employeesState from 'home/templates/home/employees/state';
-import ColorPicker from "../../../../templates/components/form_modules/color_picker";
+import ColorPicker from '../../../../templates/components/form_modules/color_picker';
 
 function NewEmployee() {
   const [state, setState] = useSetState({
@@ -15,7 +15,7 @@ function NewEmployee() {
     new_phone: '',
     new_address: '',
     new_note: '',
-    new_color: '',
+    new_color: '#ffffff',
     opened: false
   });
 
@@ -40,7 +40,7 @@ function NewEmployee() {
     axiosPostRequest('post_employee', formData)
       .then((response) => {
         employeesState.refresh = true;
-        closeModal()
+        closeModal();
       })
       .catch((error) => notify(error));
   }
@@ -64,13 +64,24 @@ function NewEmployee() {
         <hr />
         <TextInput text={state.new_name} fieldName='Ім’я' onChange={(e) => onChange(e, 'new_name')} maxLength={100} />
         <hr />
-        <TextInput text={state.new_phone} fieldName='Номер телефону' onChange={(e) => onChange(e, 'new_phone')} maxLength={10} />
-        <ColorPicker />
+        <div className='d-flex'>
+          <TextInput
+            className='mr-3'
+            text={state.new_phone}
+            fieldName='Номер телефону'
+            onChange={(e) => onChange(e, 'new_phone')}
+            maxLength={10}
+          />
+          <div className='ml-auto'>
+            <ColorPicker color={state.new_color} fieldName='Колір' onChange={(e) => onChange(e, 'new_color')} />
+          </div>
+        </div>
         <hr />
         <TextInput text={state.new_address} fieldName='Адреса' onChange={(e) => onChange(e, 'new_address')} maxLength={100} />
         <hr />
         <TextInput text={state.new_note} fieldName='Нотатка' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />
         <hr />
+        <div>Початок і кінець роботи</div>
         {/*<TextInput text={state.new_note} fieldName='Колір!!!!!!!!!!!!!!!!!!!' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />*/}
         <SubmitButton text='Зберегти' onClick={postNewEmployee} disabled={!state.new_name} />
       </Modal>

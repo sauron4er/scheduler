@@ -1,19 +1,18 @@
 import * as React from 'react';
 
 function ColorPicker(props) {
-  const rows = props.text ? Math.round(props.text.length / 41) : 0;
-
   return (
-    <input type="color" id="head" name="head" value="#e66465" />
+    <label className={props.className + ' css_full_width'} htmlFor={props.fieldName}>
+      <If condition={props.fieldName !== '-'}>{props.fieldName}:</If>
+      <div><input type='color' id={props.fieldName} value={props.color} onChange={props.onChange}/></div>
+    </label>
   );
 }
 
 ColorPicker.defaultProps = {
-  text: '',
+  color: '',
   fieldName: '-',
   onChange: () => {},
-  maxLength: 5000,
-  type: 'default',
   disabled: false,
   className: {}
 };

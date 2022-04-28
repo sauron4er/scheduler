@@ -88,7 +88,7 @@ def get_clients_for_select(request):
 
 
 @try_except
-def post_client(request):
+def add_client(request):
     try:
         client = Client.objects.get(pk=request.POST['id'])
     except Client.DoesNotExist:
