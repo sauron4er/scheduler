@@ -77,13 +77,14 @@ def paginate(employees, page, look_for_name):
 @try_except
 def get_employees_for_select(request):
     employees_list = Employee.objects \
-                       .fil(is_active=True) \
+                       .filter(is_active=True) \
                        .filter(name__icontains=request.POST['filter']) \
                        .order_by('name')[:50]
 
     employees_list = [{
         'id': employee.id,
-        'name': employee.name
+        'name': employee.name,
+        'color': employee.color
     } for employee in employees_list]
 
     return employees_list

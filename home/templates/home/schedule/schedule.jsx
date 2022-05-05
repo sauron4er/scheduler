@@ -5,8 +5,14 @@ import schedulerState from 'home/templates/home/schedule/state';
 import Week from 'home/templates/home/schedule/week';
 import NewVisit from 'home/templates/home/schedule/new_visit';
 
+//TODO Показувати у селекті колір доктора
+//TODO Виправити запис "added" у базу даних
 //TODO Підписка на події у базі даних
 //TODO Зробити так, щоб зміни, внесені на одному компі, відразу відображалися і на другому
+//TODO Робота без інтернета: показувати лише збережену востаннэ базу, не давати зберігати нові дані.
+//     Bootstrap скачати, зберігати дані у local session?
+//TODO Мобільна версія для гугл-плея і іос, але браузер теж має працювати на маленьких екранах
+//TODO Визначати вихідні однією галочкою
 
 
 function Schedule() {

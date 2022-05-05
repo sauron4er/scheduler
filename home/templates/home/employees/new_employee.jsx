@@ -10,7 +10,6 @@ import ColorPicker from '../../../../templates/components/form_modules/color_pic
 
 function NewEmployee() {
   const [state, setState] = useSetState({
-    id: 0,
     new_name: '',
     new_phone: '',
     new_address: '',
@@ -51,7 +50,14 @@ function NewEmployee() {
   }
 
   function closeModal() {
-    setState({opened: false});
+    setState({
+      opened: false,
+      new_name: '',
+      new_phone: '',
+      new_address: '',
+      new_note: '',
+      new_color: '#ffffff',
+    });
   }
 
   return (

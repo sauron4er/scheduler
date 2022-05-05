@@ -5,13 +5,19 @@ import {store, view} from '@risingstack/react-easy-state';
 import schedulerState from 'home/templates/home/schedule/state';
 import SubmitButton from 'templates/components/form_modules/submit_button';
 import AsyncSelector from 'templates/components/form_modules/selectors/async_selector';
-
-//TODO Зробити так, щоб зміни, внесені на одному компі, відразу відображалися і на другому
+import 'static/css/modal.css';
+import TextInput from '../../../../templates/components/form_modules/text_input';
+import {axiosPostRequest} from '../../../../templates/components/axios_requests';
+import employeesState from '../employees/state';
 
 function NewVisit() {
   const [state, setState] = useSetState({
     client: 0,
-    client_name: ''
+    client_name: '',
+    employee: 0,
+    employee_name: '',
+    employee_color: '',
+    note: ''
   });
 
   function onClientChange(e) {
@@ -21,16 +27,50 @@ function NewVisit() {
     });
   }
 
+  function onEmployeeChange(e) {
+    setState({
+      employee: e.id,
+      employee_name: e.name,
+      employee_color: e.color
+    });
+  }
+
+  function onNoteChange(e) {
+    setState({
+      note: e.target.value
+    });
+  }
+
   function closeModal() {
     schedulerState.clicked_day = null;
     schedulerState.clicked_time = null;
     setState({
       client: 0,
-      client_name: ''
+      client_name: '',
+      employee: 0,
+      employee_name: '',
+      note: ''
     });
   }
 
-  function addVisit() {}
+  function postNewVisit() {
+    const {client, employee, note} = state;
+    let formData = new FormData();
+    formData.append('id', '0');
+    formData.append('client', client);
+    formData.append('employee', employee);
+    formData.append('note', note);
+    postVisit(formData);
+  }
+
+  function postVisit(formData) {
+    axiosPostRequest('post_visit', formData)
+      .then((response) => {
+        employeesState.refresh = true;
+        closeModal();
+      })
+      .catch((error) => notify(error));
+  }
 
   return (
     <Modal open={schedulerState.clicked_time} onClose={closeModal}>
@@ -41,14 +81,26 @@ function NewVisit() {
       </div>
       <div className='modal-body'>
         <AsyncSelector
+          className='css_select_in_modal'
           fieldName='Клієнт'
           url='get_clients_select'
           onChange={onClientChange}
           value={{id: state.client, name: state.client_name}}
         />
+        <hr />
+        <AsyncSelector
+          className='css_select_in_modal'
+          fieldName='Спеціаліст'
+          url='get_employees_select'
+          onChange={onEmployeeChange}
+          value={{id: state.employee, name: state.employee_name}}
+          color={state.employee_color}
+        />
+        <hr />
+        <TextInput text={state.note} fieldName='Нотатка' onChange={onNoteChange} maxLength={500} />
       </div>
       <div className='modal-footer'>
-        <SubmitButton name='change' text='Зберегти' onClick={addVisit} disabled={false} />
+        <SubmitButton name='change' text='Зберегти' onClick={postNewVisit} disabled={!state.client || !state.employee} />
       </div>
     </Modal>
   );

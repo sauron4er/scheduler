@@ -3,15 +3,14 @@ import AsyncSelect from 'react-select/async';
 import useSetState from 'templates/hooks/useSetState';
 import {axiosGetRequest, axiosPostRequest} from 'templates/components/axios_requests';
 import {notify} from 'templates/components/form_modules/modules_config';
-import {Loader} from 'templates/components/form_modules/loaders';
-import {useEffect} from 'react';
 
 function AsyncSelector(props) {
   const [state, setState] = useSetState({
     input_value: '',
     list: [],
     selected_id: 0,
-    selected_name: ''
+    selected_name: '',
+    selected_color: ''
   });
 
   // useEffect(() => {
@@ -44,15 +43,22 @@ function AsyncSelector(props) {
           {props.fieldName}:
         </label>
       </If>
-      <AsyncSelect
-        defaultOptions
-        loadOptions={loadOptions}
-        onChange={props.onChange}
-        isDisabled={props.disabled}
-        value={props.value}
-        getOptionLabel={(option) => option.name}
-        getOptionValue={(option) => option.id}
-      />
+      <div className='d-flex'>
+        <div>
+          <AsyncSelect
+            defaultOptions
+            loadOptions={loadOptions}
+            onChange={props.onChange}
+            isDisabled={props.disabled}
+            value={props.value}
+            getOptionLabel={(option) => option.name}
+            getOptionValue={(option) => option.id}
+          />
+        </div>
+        <If condition={props.color}>
+          <div style={{background: state.selected_color}}>sdfsdfsdf</div>
+        </If>
+      </div>
     </div>
   );
 }
@@ -67,7 +73,8 @@ AsyncSelector.defaultProps = {
   disabled: false,
   classes: {},
   value: {id: 0, name: ''},
-  selectId: 'select'
+  selectId: 'select',
+  color: false // При true показує справа від селекта колір обраного об'єкта
 };
 
 export default AsyncSelector;

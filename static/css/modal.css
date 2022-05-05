@@ -12,8 +12,8 @@
   top: 7%;
   max-height: 93%;
   max-width: 90%;
+  /*overflow: visible;*/
   overflow: auto;
-  /*width: 70%;*/
 
   z-index: 500;
   background-color: white;
@@ -39,4 +39,10 @@
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.css_select_in_modal {
+  /*position:relative;*/
+  /*z-index: 1100;*/
+  /*overflow-y: unset !important;*/
 }

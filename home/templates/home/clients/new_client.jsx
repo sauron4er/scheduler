@@ -9,7 +9,6 @@ import clientsState from 'home/templates/home/clients/state';
 
 function NewClient() {
   const [state, setState] = useSetState({
-    id: 0,
     new_name: '',
     new_phone: '',
     new_address: '',
@@ -48,7 +47,13 @@ function NewClient() {
   }
 
   function closeModal() {
-    setState({opened: false});
+    setState({
+      opened: false,
+      new_name: '',
+      new_phone: '',
+      new_address: '',
+      new_note: '',
+    });
   }
 
   return (
