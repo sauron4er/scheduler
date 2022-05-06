@@ -1,7 +1,8 @@
 from django.conf.urls import url
 from .views import home, schedule, \
     clients, get_clients, get_clients_select, post_client, \
-    employees, get_employees, get_employees_select, post_employee
+    employees, get_employees, get_employees_select, post_employee, \
+    post_visit
 
 app_name = 'home'
 
@@ -18,5 +19,7 @@ urlpatterns = [
     url(r'^get_employees_select', get_employees_select, name='get_employees_select'),
     url(r'^get_employees/(?P<page>\d+)/$', get_employees, name='get_employees'),
     url(r'^post_employee', post_employee, name='post_employee'),
+
+    url(r'^post_visit', post_visit, name='post_visit'),
 
 ]

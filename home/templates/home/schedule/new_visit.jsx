@@ -49,6 +49,7 @@ function NewVisit() {
       client_name: '',
       employee: 0,
       employee_name: '',
+      employee_color: '',
       note: ''
     });
   }
@@ -66,7 +67,7 @@ function NewVisit() {
   function postVisit(formData) {
     axiosPostRequest('post_visit', formData)
       .then((response) => {
-        employeesState.refresh = true;
+        schedulerState.refresh = true;
         closeModal();
       })
       .catch((error) => notify(error));

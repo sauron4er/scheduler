@@ -36,6 +36,10 @@ function AsyncSelector(props) {
     });
   }
 
+  function getUnderscoreStyle() {
+    return {borderBottom: `0.25rem solid ${props.color ? props.color : null}`}
+  }
+
   return (
     <div className={'css_full_width ' + props.className}>
       <If condition={props.fieldName}>
@@ -43,22 +47,16 @@ function AsyncSelector(props) {
           {props.fieldName}:
         </label>
       </If>
-      <div className='d-flex'>
-        <div>
-          <AsyncSelect
-            defaultOptions
-            loadOptions={loadOptions}
-            onChange={props.onChange}
-            isDisabled={props.disabled}
-            value={props.value}
-            getOptionLabel={(option) => option.name}
-            getOptionValue={(option) => option.id}
-          />
-        </div>
-        <If condition={props.color}>
-          <div style={{background: state.selected_color}}>sdfsdfsdf</div>
-        </If>
-      </div>
+      <AsyncSelect
+        defaultOptions
+        loadOptions={loadOptions}
+        onChange={props.onChange}
+        isDisabled={props.disabled}
+        value={props.value}
+        getOptionLabel={(option) => option.name}
+        getOptionValue={(option) => option.id}
+      />
+      <div style={getUnderscoreStyle()}> </div>
     </div>
   );
 }

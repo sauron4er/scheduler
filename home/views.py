@@ -6,6 +6,7 @@ from django.db.models import Q
 import json
 from home.api.clients_api import get_clients_page, get_clients_for_select, add_client
 from home.api.employees_api import get_employees_page, get_employees_for_select, add_employee
+from home.api.visits_api import add_visit
 from scheduler.api.try_except import try_except
 from home.models import Client, Employee
 
@@ -73,3 +74,10 @@ def get_employees_select(request):
 def post_employee(request):
     employee = add_employee(request)
     return HttpResponse(employee.pk)
+
+
+@try_except
+@login_required(login_url='login')
+def post_visit(request):
+    visit = add_visit(request)
+    return HttpResponse(visit.pk)
