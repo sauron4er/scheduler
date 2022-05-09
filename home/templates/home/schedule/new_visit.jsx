@@ -8,7 +8,6 @@ import AsyncSelector from 'templates/components/form_modules/selectors/async_sel
 import 'static/css/modal.css';
 import TextInput from '../../../../templates/components/form_modules/text_input';
 import {axiosPostRequest} from '../../../../templates/components/axios_requests';
-import employeesState from '../employees/state';
 
 function NewVisit() {
   const [state, setState] = useSetState({
@@ -54,6 +53,12 @@ function NewVisit() {
     });
   }
 
+  function getStartDayTime() {
+    console.log(schedulerState.clicked_day);
+    console.log(schedulerState.clicked_time);
+    return ''
+  }
+
   function postNewVisit() {
     const {client, employee, note} = state;
     let formData = new FormData();
@@ -61,6 +66,8 @@ function NewVisit() {
     formData.append('client', client);
     formData.append('employee', employee);
     formData.append('note', note);
+    formData.append('start', `${schedulerState.clicked_day}, ${schedulerState.clicked_time}`);
+
     postVisit(formData);
   }
 

@@ -1,29 +1,18 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.db.models import Q
-import json
+from datetime import datetime, timedelta
 from scheduler.api.try_except import try_except
-from home.models import Client, Employee
-
+from home.models import Visit
 
 
 @try_except
 def add_visit(request):
-    return 0
-    # try:
-    #     employee = Employee.objects.get(pk=request.POST['id'])
-    # except Employee.DoesNotExist:
-    #     employee = Employee()
-    #
-    # employee.name = request.POST['name']
-    # employee.phone = request.POST['phone'] if request.POST['phone'] != '' else None
-    # employee.address = request.POST['address'] if request.POST['address'] != '' else None
-    # employee.note = request.POST['note'] if request.POST['note'] != '' else None
-    # employee.color = request.POST['color'] if request.POST['color'] != '' else None
-    #
-    # if 'deactivate' in request.POST:
-    #     employee.is_active = False
-    # employee.save()
-    #
-    # return employee
+    start = datetime.strptime(request.POST['start'], '%d.%m.%y, %H:%M')
+    finish = datetime.strptime(request.POST['finish'], '%d.%m.%y, %H:%M')\
+        if 'finish' in request.POST else start + timedelta(hours=1)
+
+    new_visit = Visit(client_id=request.POST['client'],
+                      employee_id=request.POST['employee'],
+                      note=request.POST['note'],
+                      start=start,
+                      finish=finish)
+    new_visit.save()
+    return new_visit.pk

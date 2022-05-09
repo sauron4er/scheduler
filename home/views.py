@@ -79,5 +79,5 @@ def post_employee(request):
 @try_except
 @login_required(login_url='login')
 def post_visit(request):
-    visit = add_visit(request)
-    return HttpResponse(visit.pk)
+    new_visit_id = add_visit(request)
+    return HttpResponse(new_visit_id)
