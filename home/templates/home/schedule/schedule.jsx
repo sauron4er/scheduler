@@ -4,6 +4,8 @@ import {store, view} from '@risingstack/react-easy-state';
 import schedulerState from 'home/templates/home/schedule/state';
 import Week from 'home/templates/home/schedule/week';
 import NewVisit from 'home/templates/home/schedule/new_visit';
+import {axiosGetRequest} from "../../../../templates/components/axios_requests";
+import {notify} from "../../../../templates/components/form_modules/modules_config";
 
 //TODO Показувати у селекті колір доктора
 //TODO Виправити запис "added" у базу даних
@@ -22,6 +24,7 @@ function Schedule() {
     first_week: [],
     second_week: [],
     third_week: [],
+    first_day_of_first_week: '',
     client: 0,
     client_name: ''
   });
@@ -34,15 +37,20 @@ function Schedule() {
       (today.getFullYear().toString().slice(-2))}`;
 
     const first_week = getWeek(today);
+    const first_day_of_first_week = first_week[0]
     const second_week = getWeek(today);
     const third_week = getWeek(today);
-    getInitialVisits()
-    setState({first_week, second_week, third_week});
+    getInitialVisits(first_day_of_first_week)
+    setState({first_week, second_week, third_week, first_day_of_first_week});
   }, []);
 
-  function getInitialVisits() {
-    const today = new Date();
-    console.log(today);
+  function getInitialVisits(first_day_of_first_week) {
+    axiosGetRequest(`get_visits/${first_day_of_first_week}/`)
+      .then((response) => {
+        setState({visits: response});
+        console.log(response);
+      })
+      .catch((error) => notify(error));
     //TODO створити діапазон в три тижні з понеділка цього тижня до неділі третього,
     // зробити запит на сервер з цим діапазоном
   }

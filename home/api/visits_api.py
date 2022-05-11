@@ -16,3 +16,8 @@ def add_visit(request):
                       finish=finish)
     new_visit.save()
     return new_visit.pk
+
+
+@try_except
+def get_visits_list(request, first_date):
+    return [2]

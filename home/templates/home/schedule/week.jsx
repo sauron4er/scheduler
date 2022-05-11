@@ -35,7 +35,6 @@ function Week(props) {
         today_index = i + 1;
       }
     }
-    console.log(today_index);
     setState({today_index});
   }
 
