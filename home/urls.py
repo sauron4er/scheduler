@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path, re_path
 from .views import home, schedule, \
     clients, get_clients, get_clients_select, post_client, \
     employees, get_employees, get_employees_select, post_employee, \
@@ -7,20 +7,20 @@ from .views import home, schedule, \
 app_name = 'home'
 
 urlpatterns = [
-    url(r'^$', home, name='home'),
-    url(r'^schedule', schedule, name='schedule'),
+    path('', home, name='home'),
+    path('schedule', schedule, name='schedule'),
 
-    url(r'^clients', clients, name='clients'),
-    url(r'^get_clients_select', get_clients_select, name='get_clients_select'),
-    url(r'^get_clients/(?P<page>\d+)/$', get_clients, name='get_clients'),
-    url(r'^post_client', post_client, name='post_client'),
+    path('clients', clients, name='clients'),
+    path('get_clients_select', get_clients_select, name='get_clients_select'),
+    re_path(r'get_clients/(?P<page>\d+)/', get_clients, name='get_clients'),
+    path('post_client', post_client, name='post_client'),
 
-    url(r'^employees', employees, name='employees'),
-    url(r'^get_employees_select', get_employees_select, name='get_employees_select'),
-    url(r'^get_employees/(?P<page>\d+)/$', get_employees, name='get_employees'),
-    url(r'^post_employee', post_employee, name='post_employee'),
+    path('employees', employees, name='employees'),
+    path('get_employees_select', get_employees_select, name='get_employees_select'),
+    re_path(r'get_employees/(?P<page>\d+)/', get_employees, name='get_employees'),
+    path('post_employee', post_employee, name='post_employee'),
 
-    url(r'^get_visits/(?P<first_day>\d{2}.\d{2}.\d{2})/$', get_visits, name='get_visits'),
-    # url(r'^get_visits/(?P<first_day>\w+)/$', get_visits, name='get_visits'),
-    url(r'^post_visit', post_visit, name='post_visit'),
+    re_path(r'get_visits/(?P<first_day>\d{2}.\d{2}.\d{2})/', get_visits, name='get_visits'),
+    # path(r'^get_visits/(?P<first_day>\w+)/$', get_visits, name='get_visits'),
+    path('post_visit', post_visit, name='post_visit'),
 ]

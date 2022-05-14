@@ -1,1 +1,16 @@
-{"status":"done","publicPath":"/static/","chunks":{"home":[{"name":"home.js","publicPath":"/static/home.js","path":"C:\\Users\\Stas\\Documents\\Code\\scheduler\\static\\bundles\\home.js"}]}}
+{
+  "status": "done",
+  "assets": {
+    "home.js": {
+      "name": "home.js",
+      "path": "C:\\Users\\Stas\\Documents\\Code\\scheduler\\static\\bundles\\home.js",
+      "publicPath": "/static/home.js"
+    }
+  },
+  "chunks": {
+    "home": [
+      "home.js"
+    ]
+  },
+  "publicPath": "/static/"
+}

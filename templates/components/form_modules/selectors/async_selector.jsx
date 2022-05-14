@@ -23,6 +23,7 @@ function AsyncSelector(props) {
 
     axiosPostRequest(props.url, formData)
       .then((response) => {
+        notify('error')
         setState({list: response});
         callback(response);
       })

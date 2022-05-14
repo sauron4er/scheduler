@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.conf.urls import url, include
+from django.urls import include, path, re_path
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.static import serve
 from scheduler import settings
@@ -9,13 +9,13 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
-    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 
-    url(r'^admin/', admin.site.urls, name='sam_admin'),
-    url(r'^logout/$', LogoutView.as_view(), {'template_name': 'accounts/login.html'}, name='logout'),
-    url(r'^login/$', LoginView.as_view(), {'template_name': 'accounts/login.html'}, name='login'),
+    path('admin/', admin.site.urls, name='sam_admin'),
+    path('logout/', LogoutView.as_view(), {'template_name': 'accounts/login.html'}, name='logout'),
+    path('login/', LoginView.as_view(), {'template_name': 'accounts/login.html'}, name='login'),
 
-    url(r'^home/', include('home.urls', namespace='home')),
-    url(r'^', include('home.urls', namespace='home_from_blank')),
+    path('home/', include('home.urls', namespace='home')),
+    path('', include('home.urls', namespace='home_from_blank')),
 ]
