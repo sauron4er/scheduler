@@ -88,5 +88,5 @@ def post_visit(request):
 @login_required(login_url='login')
 def get_visits(request, first_day):
     first_date = datetime.strptime(first_day, "%d.%m.%y").date()
-    visits = get_visits_list(request, first_date)
+    visits = get_visits_list(first_date)
     return HttpResponse(json.dumps(visits))

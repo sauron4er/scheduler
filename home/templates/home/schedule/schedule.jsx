@@ -51,8 +51,10 @@ function Schedule() {
         console.log(response);
       })
       .catch((error) => notify(error));
-    //TODO створити діапазон в три тижні з понеділка цього тижня до неділі третього,
-    // зробити запит на сервер з цим діапазоном
+  }
+
+  function filterVisitsByWeeks() {
+
   }
 
   function getWeek(day) {
@@ -73,9 +75,11 @@ function Schedule() {
         <div className='font-weight-bold mb-2'>Навігація (приклеїти до верхньої межі екрану)</div>
         <div className='font-weight-bold ml-auto'>View switcher</div>
       </div>
-      <Week week={state.first_week} />
-      <Week week={state.second_week} />
-      <Week week={state.third_week} />
+      <Week week={state.first_week} visits={state.first_week_visits} />
+      {/*<Week week={1}/>*/}
+      {/*TODO Переробити Week, щоб він отримував лише цифру з порядковим номером тижня, а все інше брав з schedulerState*/}
+      <Week week={state.second_week} visits={state.second_week_visits} />
+      <Week week={state.third_week} visits={state.third_week_visits} />
       <NewVisit />
     </>
   );

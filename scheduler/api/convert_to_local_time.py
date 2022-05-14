@@ -10,6 +10,8 @@ def convert_to_localtime(utctime, frmt):
         fmt = '%Y-%m-%d %H:%M'
     elif frmt == 'datetime_picker':
         fmt = '%Y-%m-%dT%H:%M:%S'
+    elif frmt != '':
+        fmt = frmt
     else:
         fmt = '%d.%m.%Y %H:%M'
 
