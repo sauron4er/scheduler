@@ -3,9 +3,10 @@ import { store, view } from '@risingstack/react-easy-state';
 const schedulerState = store({
   schedule: [],
   today_string: '',
-  first_week: [],
-  second_week: [],
-  third_week: [],
+  visits: [],
+  first_week_dates: [],
+  second_week_dates: [],
+  third_week_dates: [],
   clicked_day: null,
   clicked_time: null
 });

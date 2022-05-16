@@ -7,23 +7,27 @@ import Row from 'home/templates/home/schedule/row';
 
 function Week(props) {
   const [state, setState] = useSetState({
-    today_index: 0
+    week: [],
+    today_index: 0,
   });
 
-  useEffect(() => {});
+  useEffect(() => {
+    switch (props.week_number) {
+      case 1:
+        setState({week: schedulerState.first_week_dates})
+        break;
+      case 2:
+        setState({week: schedulerState.second_week_dates})
+        break;
+      case 3:
+        setState({week: schedulerState.third_week_dates})
+        break;
+    }
+  }, [props.week_number]);
 
   useEffect(() => {
     getTodayInThisWeekIndex();
   }, [props.week]);
-
-  useEffect(() => {
-    getVisits();
-    getDoctors();
-  }, []);
-
-  function getVisits() {}
-
-  function getDoctors() {}
 
   function getTodayInThisWeekIndex() {
     // TODO оновлення дати в 00:00 (якщо програму наприклад не закрили)
@@ -39,54 +43,55 @@ function Week(props) {
   }
 
   return (
-    <>
+    <If condition={state.week.length}>
+      {/*TODO Переробити на Suspence*/}
       <table className='table table-sm scheduler'>
         <thead>
           <tr>
             <th scope='col' className='scheduler_th'></th>
             <th scope='col' className={`${state.today_index === 1 ? 'today' : ''} scheduler_th`}>
-              Пн, {props.week[0]}
+              Пн, {state.week[0]}
             </th>
             <th scope='col' className={`${state.today_index === 2 ? 'today' : ''} scheduler_th`}>
-              Вт, {props.week[1]}
+              Вт, {state.week[1]}
             </th>
             <th scope='col' className={`${state.today_index === 3 ? 'today' : ''} scheduler_th`}>
-              Ср, {props.week[2]}
+              Ср, {state.week[2]}
             </th>
             <th scope='col' className={`${state.today_index === 4 ? 'today' : ''} scheduler_th`}>
-              Чт, {props.week[3]}
+              Чт, {state.week[3]}
             </th>
             <th scope='col' className={`${state.today_index === 5 ? 'today' : ''} scheduler_th`}>
-              Пт, {props.week[4]}
+              Пт, {state.week[4]}
             </th>
             <th scope='col' className={`${state.today_index === 6 ? 'today' : ''} scheduler_th`}>
-              Сб, {props.week[5]}
+              Сб, {state.week[5]}
             </th>
             <th scope='col' className={`${state.today_index === 7 ? 'today' : ''} scheduler_th`}>
-              Нд, {props.week[6]}
+              Нд, {state.week[6]}
             </th>
           </tr>
         </thead>
         <tbody>
-          <Row week={props.week} time='8:00' />
-          <Row week={props.week} time='9:00' />
-          <Row week={props.week} time='10:00' />
-          <Row week={props.week} time='11:00' />
-          <Row week={props.week} time='12:00' />
-          <Row week={props.week} time='13:00' />
-          <Row week={props.week} time='14:00' />
-          <Row week={props.week} time='15:00' />
-          <Row week={props.week} time='16:00' />
-          <Row week={props.week} time='17:00' />
-          <Row week={props.week} time='18:00' />
+          <Row week={state.week} time='8:00' />
+          <Row week={state.week} time='9:00' />
+          <Row week={state.week} time='10:00' />
+          <Row week={state.week} time='11:00' />
+          <Row week={state.week} time='12:00' />
+          <Row week={state.week} time='13:00' />
+          <Row week={state.week} time='14:00' />
+          <Row week={state.week} time='15:00' />
+          <Row week={state.week} time='16:00' />
+          <Row week={state.week} time='17:00' />
+          <Row week={state.week} time='18:00' />
         </tbody>
       </table>
-    </>
+    </If>
   );
 }
 
 Week.defaultProps = {
-  week: []
+  week_number: 0
 };
 
 export default view(Week);

@@ -42,19 +42,19 @@ function Schedule() {
     const third_week = getWeek(today);
     getInitialVisits(first_day_of_first_week)
     setState({first_week, second_week, third_week, first_day_of_first_week});
+    schedulerState.first_week_dates = first_week
+    schedulerState.second_week_dates = second_week
+    schedulerState.third_week_dates = third_week
   }, []);
 
   function getInitialVisits(first_day_of_first_week) {
     axiosGetRequest(`get_visits/${first_day_of_first_week}/`)
       .then((response) => {
         setState({visits: response});
+        schedulerState.visits = response
         console.log(response);
       })
       .catch((error) => notify(error));
-  }
-
-  function filterVisitsByWeeks() {
-
   }
 
   function getWeek(day) {
@@ -75,8 +75,8 @@ function Schedule() {
         <div className='font-weight-bold mb-2'>Навігація (приклеїти до верхньої межі екрану)</div>
         <div className='font-weight-bold ml-auto'>View switcher</div>
       </div>
-      <Week week={state.first_week} visits={state.first_week_visits} />
-      {/*<Week week={1}/>*/}
+      {/*<Week week={state.first_week} />*/}
+      <Week week_number={1}/>
       {/*TODO Переробити Week, щоб він отримував лише цифру з порядковим номером тижня, а все інше брав з schedulerState*/}
       <Week week={state.second_week} visits={state.second_week_visits} />
       <Week week={state.third_week} visits={state.third_week_visits} />

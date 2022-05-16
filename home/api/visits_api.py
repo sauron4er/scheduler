@@ -20,20 +20,35 @@ def add_visit(request):
 
 
 @try_except
-def get_visits_list(first_date):
-    last_date = first_date + timedelta(days=20)
+def get_visits_list(first_monday):
+    first_sunday = first_monday + timedelta(days=6)
+    second_monday = first_sunday + timedelta(days=1)
+    second_sunday = second_monday + timedelta(days=6)
+    third_monday = second_sunday + timedelta(days=1)
+    third_sunday = third_monday + timedelta(days=6)
+
+    three_weeks_visits = Visit.objects.filter(is_active=True)
+
+    first_week_visits = get_weeks_visits(three_weeks_visits, first_monday, first_sunday)
+    second_week_visits = get_weeks_visits(three_weeks_visits, second_monday, second_sunday)
+    third_week_visits = get_weeks_visits(three_weeks_visits, third_monday, third_sunday)
+
+    visits = {'1': first_week_visits,
+              '2': second_week_visits,
+              '3': third_week_visits}
+
+    return visits
+
+
+@try_except
+def get_weeks_visits(all_visits_query, monday, sunday):
     visits = [{
         'id': visit.id,
         'client': visit.client.name,
         'employee': visit.employee.name,
-        # 'start_date': convert_to_localtime(visit.start, '%d.%m.%y'),
-        # 'start_time': convert_to_localtime(visit.start, '%H:%M'),
-        # 'finish_date': convert_to_localtime(visit.finish, '%d.%m.%y'),
-        # 'finish_time': convert_to_localtime(visit.finish, '%H:%M'),
         'start': convert_to_localtime(visit.finish, '%d.%m.%y %H:%M'),
         'finish': convert_to_localtime(visit.finish, '%d.%m.%y %H:%M'),
         'note': visit.note
-    } for visit in Visit.objects
-        .filter(start__range=(first_date, last_date))
-        .filter(is_active=True)]
+    } for visit in all_visits_query
+        .filter(start__range=(monday, sunday))]
     return visits
