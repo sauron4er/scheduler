@@ -13,12 +13,15 @@ function Cell(props) {
     schedulerState.clicked_time = props.time;
   }
 
-  return <td className='scheduler_td' onClick={onClick}></td>;
+  return <td className='scheduler_td' onClick={onClick}>
+    <If condition={props.visits.length > 0}>!</If>
+  </td>;
 }
 
 Cell.defaultProps = {
   day: '',
-  time: []
+  time: [],
+  visits: []
 };
 
 export default view(Cell);

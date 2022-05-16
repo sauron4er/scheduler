@@ -33,9 +33,9 @@ def get_visits_list(first_monday):
     second_week_visits = get_weeks_visits(three_weeks_visits, second_monday, second_sunday)
     third_week_visits = get_weeks_visits(three_weeks_visits, third_monday, third_sunday)
 
-    visits = {'1': first_week_visits,
-              '2': second_week_visits,
-              '3': third_week_visits}
+    visits = {'first_week': first_week_visits,
+              'second_week': second_week_visits,
+              'third_week': third_week_visits}
 
     return visits
 
@@ -46,6 +46,10 @@ def get_weeks_visits(all_visits_query, monday, sunday):
         'id': visit.id,
         'client': visit.client.name,
         'employee': visit.employee.name,
+        'start_date': convert_to_localtime(visit.finish, '%d.%m.%y'),
+        'start_time': convert_to_localtime(visit.finish, '%H:%M'),
+        'finish_date': convert_to_localtime(visit.finish, '%d.%m.%y'),
+        'finish_time': convert_to_localtime(visit.finish, '%H:%M'),
         'start': convert_to_localtime(visit.finish, '%d.%m.%y %H:%M'),
         'finish': convert_to_localtime(visit.finish, '%d.%m.%y %H:%M'),
         'note': visit.note
