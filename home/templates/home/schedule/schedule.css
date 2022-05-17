@@ -38,3 +38,9 @@
 .scheduler_td {
   height: 30px;
 }
+
+.visits_container {
+  background: red;
+  /*TODO flex: ;*/
+  width: 95%
+}

@@ -3,7 +3,7 @@
   "assets": {
     "home.js": {
       "name": "home.js",
-      "path": "E:\\Code\\scheduler\\static\\bundles\\home.js",
+      "path": "C:\\Users\\Stas\\Documents\\Code\\scheduler\\static\\bundles\\home.js",
       "publicPath": "/static/home.js"
     }
   },
@@ -12,7 +12,5 @@
       "home.js"
     ]
   },
-  "publicPath": "/static/",
-  "error": "ModuleBuildError",
-  "message": "Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: E:\\Code\\scheduler\\home\\templates\\home\\schedule\\week.jsx: Unexpected token, expected \",\" (20:39)\n\n  18 |         setState({\n  19 |           week_dates: schedulerState.first_week_dates,\n> 20 |           visits: schedulerState.visits.1\n     |                                        ^\n  21 |         });\n  22 |         break;\n  23 |       case 2:\n    at instantiate (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:72:32)\n    at constructor (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:358:12)\n    at Object.raise (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:3335:19)\n    at Object.unexpected (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:3373:16)\n    at Object.expect (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:4002:28)\n    at Object.parseObjectLike (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:13486:14)\n    at Object.parseExprAtom (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:12890:23)\n    at Object.parseExprAtom (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:8034:20)\n    at Object.parseExprSubscripts (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:12540:23)\n    at Object.parseUpdate (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:12519:21)"
+  "publicPath": "/static/"
 }
