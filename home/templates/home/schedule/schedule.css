@@ -40,7 +40,17 @@
 }
 
 .visits_container {
-  background: red;
+  background: lightblue;
   /*TODO flex: ;*/
-  width: 95%
+  width: 93%;
+}
+
+.visit {
+  background: red;
+
+  padding: 2px;
+}
+
+.visit:not(:first-of-type) {
+  margin-left: 3px;
 }

@@ -19,7 +19,7 @@ function Cell(props) {
       <If condition={props.visits.length > 0}>
         <div className='visits_container' onClick={() => {}}>
           <For each='visit' of={props.visits} index='index'>
-            !!
+            <span class='visit'>!!</span>
           </For>
         </div>
       </If>
