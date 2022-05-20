@@ -12,6 +12,11 @@ function Cell(props) {
     schedulerState.clicked_time = props.time;
   }
 
+  function onVisitClick(e) {
+    e.stopPropagation();
+    console.log(1);
+  }
+
   // TODO Чому візит записується на годину пізніше??
 
   return (
@@ -19,7 +24,9 @@ function Cell(props) {
       <If condition={props.visits.length > 0}>
         <div className='visits_container' onClick={() => {}}>
           <For each='visit' of={props.visits} index='index'>
-            <span class='visit'>!!</span>
+            <small key={index} className='visit' onClick={onVisitClick}>
+              {`${visit.client.substring(0,5)}...`}
+            </small>
           </For>
         </div>
       </If>

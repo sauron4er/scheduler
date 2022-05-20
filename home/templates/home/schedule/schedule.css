@@ -43,12 +43,17 @@
   background: lightblue;
   /*TODO flex: ;*/
   width: 93%;
+
+  display: flex;
+  box-sizing: border-box;
 }
 
 .visit {
   background: red;
-
   padding: 2px;
+  cursor: default;
+
+  flex: 1;
 }
 
 .visit:not(:first-of-type) {
