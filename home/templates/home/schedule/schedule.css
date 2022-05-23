@@ -40,20 +40,26 @@
 }
 
 .visits_container {
-  background: lightblue;
-  /*TODO flex: ;*/
   width: 93%;
-
   display: flex;
   box-sizing: border-box;
 }
 
 .visit {
-  background: red;
-  padding: 2px;
-  cursor: default;
-
   flex: 1;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+  background: #bde2fd;
+  border-radius: 5px;
+  padding: 2px 5px;
+  cursor: default;
+}
+
+.visit:hover {
+  background: #9ed4fd;
 }
 
 .visit:not(:first-of-type) {

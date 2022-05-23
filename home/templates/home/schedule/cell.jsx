@@ -25,7 +25,8 @@ function Cell(props) {
         <div className='visits_container' onClick={() => {}}>
           <For each='visit' of={props.visits} index='index'>
             <small key={index} className='visit' onClick={onVisitClick}>
-              {`${visit.client.substring(0,5)}...`}
+              {/*{`${visit.client.substring(0,5)}...`}*/}
+              {visit.client}
             </small>
           </For>
         </div>
