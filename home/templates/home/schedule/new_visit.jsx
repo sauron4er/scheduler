@@ -6,8 +6,8 @@ import schedulerState from 'home/templates/home/schedule/state';
 import SubmitButton from 'templates/components/form_modules/submit_button';
 import AsyncSelector from 'templates/components/form_modules/selectors/async_selector';
 import 'static/css/modal.css';
-import TextInput from '../../../../templates/components/form_modules/text_input';
-import {axiosPostRequest} from '../../../../templates/components/axios_requests';
+import TextInput from 'templates/components/form_modules/text_input';
+import {axiosPostRequest} from 'templates/components/axios_requests';
 
 function NewVisit() {
   const [state, setState] = useSetState({

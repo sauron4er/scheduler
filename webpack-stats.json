@@ -3,7 +3,7 @@
   "assets": {
     "home.js": {
       "name": "home.js",
-      "path": "C:\\Users\\Stas\\Documents\\Code\\scheduler\\static\\bundles\\home.js",
+      "path": "E:\\Code\\scheduler\\static\\bundles\\home.js",
       "publicPath": "/static/home.js"
     }
   },
@@ -12,7 +12,5 @@
       "home.js"
     ]
   },
-  "publicPath": "/static/",
-  "error": "ModuleBuildError",
-  "message": "Module build failed (from ./node_modules/css-loader/dist/cjs.js):\nCssSyntaxError\n\n(60:10) C:\\Users\\Stas\\Documents\\Code\\scheduler\\home\\templates\\home\\schedule\\schedule.css Missed semicolon\n\n  58 |   background: #4589b6;\n  59 |   border:\n> 60 |   padding: 2px;\n     |          ^\n  61 |   cursor: default;\n  62 | }\n"
+  "publicPath": "/static/"
 }
