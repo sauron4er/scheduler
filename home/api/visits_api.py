@@ -47,12 +47,11 @@ def get_weeks_visits(all_visits_query, monday, sunday):
         'id': visit.id,
         'client': visit.client.name,
         'employee': visit.employee.name,
-        'start_date': convert_to_localtime(visit.start, '%d.%m.%y'),
-        'start_time': convert_to_localtime(visit.start, '%H:%M'),
-        'finish_date': convert_to_localtime(visit.finish, '%d.%m.%y'),
-        'finish_time': convert_to_localtime(visit.finish, '%H:%M'),
-        'start': convert_to_localtime(visit.start, '%d.%m.%y %H:%M'),
-        'finish': convert_to_localtime(visit.finish, '%d.%m.%y %H:%M'),
+        'date': convert_to_localtime(visit.start, '%d.%m.%y'),
+        'start': convert_to_localtime(visit.start, '%H:%M'),
+        'finish': convert_to_localtime(visit.finish, '%H:%M'),
+        # 'start': convert_to_localtime(visit.start, '%d.%m.%y %H:%M'),
+        # 'finish': convert_to_localtime(visit.finish, '%d.%m.%y %H:%M'),
         'note': visit.note
     } for visit in all_visits_query
         .filter(start__range=(monday, sunday))]

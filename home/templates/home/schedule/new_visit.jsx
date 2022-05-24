@@ -41,6 +41,7 @@ function NewVisit() {
   }
 
   function closeModal() {
+    schedulerState.clicked_week = null;
     schedulerState.clicked_day = null;
     schedulerState.clicked_time = null;
     setState({
@@ -51,12 +52,6 @@ function NewVisit() {
       employee_color: '',
       note: ''
     });
-  }
-
-  function getStartDayTime() {
-    console.log(schedulerState.clicked_day);
-    console.log(schedulerState.clicked_time);
-    return ''
   }
 
   function postNewVisit() {
@@ -74,7 +69,15 @@ function NewVisit() {
   function postVisit(formData) {
     axiosPostRequest('post_visit', formData)
       .then((response) => {
-        schedulerState.refresh = true;
+        const {client, employee, note} = state;
+        const new_visit = {
+          id: response,
+          week: schedulerState.clicked_week,
+          day: schedulerState.clicked_day,
+          time: schedulerState.clicked_time,
+          client, employee, note
+        }
+        schedulerState.add_to_schedule(new_visit)
         closeModal();
       })
       .catch((error) => notify(error));

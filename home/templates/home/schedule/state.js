@@ -8,7 +8,8 @@ const schedulerState = store({
   second_week_dates: [],
   third_week_dates: [],
   clicked_day: null,
-  clicked_time: null
+  clicked_time: null,
+  add_to_schedule: (new_visit) => {}
 });
 
 export default schedulerState;

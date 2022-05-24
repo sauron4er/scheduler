@@ -4,6 +4,7 @@ import {store, view} from '@risingstack/react-easy-state';
 import schedulerState from 'home/templates/home/schedule/state';
 import './schedule.css';
 import Row from 'home/templates/home/schedule/row';
+import Cell from './cell';
 
 function Week(props) {
   const [state, setState] = useSetState({
@@ -23,12 +24,14 @@ function Week(props) {
       case 2:
         setState({
           week_dates: schedulerState.second_week_dates,
-          visits: schedulerState.visits.second_week});
+          visits: schedulerState.visits.second_week
+        });
         break;
       case 3:
         setState({
           week_dates: schedulerState.third_week_dates,
-          visits: schedulerState.visits.third_week});
+          visits: schedulerState.visits.third_week
+        });
         break;
     }
   }, [props.week_number]);
@@ -51,11 +54,11 @@ function Week(props) {
   }
 
   function getVisitsByTime(time) {
-    let visits = []
+    let visits = [];
     if (state.visits.length > 0 && time) {
-      visits = state.visits.filter(visit => visit.start_time === time)
+      visits = state.visits.filter((visit) => visit.start === time);
     }
-    return visits
+    return visits;
   }
 
   return (
@@ -88,17 +91,17 @@ function Week(props) {
           </tr>
         </thead>
         <tbody>
-          <Row visits={getVisitsByTime('8:00')} week={state.week_dates} time='8:00' />
-          <Row visits={getVisitsByTime('9:00')} week={state.week_dates} time='9:00' />
-          <Row visits={getVisitsByTime('10:00')} week={state.week_dates} time='10:00' />
-          <Row visits={getVisitsByTime('11:00')} week={state.week_dates} time='11:00' />
-          <Row visits={getVisitsByTime('12:00')} week={state.week_dates} time='12:00' />
-          <Row visits={getVisitsByTime('13:00')} week={state.week_dates} time='13:00' />
-          <Row visits={getVisitsByTime('14:00')} week={state.week_dates} time='14:00' />
-          <Row visits={getVisitsByTime('15:00')} week={state.week_dates} time='15:00' />
-          <Row visits={getVisitsByTime('16:00')} week={state.week_dates} time='16:00' />
-          <Row visits={getVisitsByTime('17:00')} week={state.week_dates} time='17:00' />
-          <Row visits={getVisitsByTime('18:00')} week={state.week_dates} time='18:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('8:00')} week={state.week_dates} time='8:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('9:00')} week={state.week_dates} time='9:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('10:00')} week={state.week_dates} time='10:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('11:00')} week={state.week_dates} time='11:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('12:00')} week={state.week_dates} time='12:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('13:00')} week={state.week_dates} time='13:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('14:00')} week={state.week_dates} time='14:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('15:00')} week={state.week_dates} time='15:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('16:00')} week={state.week_dates} time='16:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('17:00')} week={state.week_dates} time='17:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('18:00')} week={state.week_dates} time='18:00' />
         </tbody>
       </table>
     </>
