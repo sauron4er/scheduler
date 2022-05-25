@@ -8,6 +8,7 @@ import {axiosGetRequest} from '../../../../templates/components/axios_requests';
 import {notify} from '../../../../templates/components/form_modules/modules_config';
 import {Loader} from 'templates/components/form_modules/loaders';
 
+//TODO чому не показує візити на наступний тиждень?
 //TODO Виправити запис "added" у базу даних
 //TODO Підписка на події у базі даних
 //TODO Зробити так, щоб зміни, внесені на одному компі, відразу відображалися і на другому

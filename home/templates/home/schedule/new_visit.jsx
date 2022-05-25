@@ -69,13 +69,13 @@ function NewVisit() {
   function postVisit(formData) {
     axiosPostRequest('post_visit', formData)
       .then((response) => {
-        const {client, employee, note} = state;
+        const {client, client_name, employee, employee_name, note} = state;
         const new_visit = {
           id: response,
           week: schedulerState.clicked_week,
-          day: schedulerState.clicked_day,
-          time: schedulerState.clicked_time,
-          client, employee, note
+          date: schedulerState.clicked_day,
+          start: schedulerState.clicked_time,
+          client, client_name, employee, employee_name, note
         }
         schedulerState.add_to_schedule(new_visit)
         closeModal();

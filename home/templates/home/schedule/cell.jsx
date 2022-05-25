@@ -8,7 +8,6 @@ function Cell(props) {
   const [state, setState] = useSetState({});
 
   function onClick() {
-    console.log(props.week_number);
     schedulerState.clicked_week = props.week_number;
     schedulerState.clicked_day = props.day;
     schedulerState.clicked_time = props.time;
@@ -25,8 +24,7 @@ function Cell(props) {
         <div className='visits_container'>
           <For each='visit' of={props.visits} index='index'>
             <small key={index} className='visit' onClick={onVisitClick}>
-              {/*{`${visit.client.substring(0,5)}...`}*/}
-              {visit.client}
+              {visit.client_name}
             </small>
           </For>
         </div>
