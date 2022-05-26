@@ -22,6 +22,8 @@ function Week(props) {
         });
         break;
       case 2:
+        // console.log(schedulerState.second_week_dates);
+        // console.log(schedulerState.visits.second_week);
         setState({
           week_dates: schedulerState.second_week_dates,
           visits: schedulerState.visits.second_week

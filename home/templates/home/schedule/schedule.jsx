@@ -34,10 +34,10 @@ function Schedule() {
       .toString()
       .slice(-2)}`;
 
-    const first_week = getWeek(today);
+    const first_week = getWeekDates(today);
     const first_day_of_first_week = first_week[0];
-    const second_week = getWeek(today);
-    const third_week = getWeek(today);
+    const second_week = getWeekDates(today);
+    const third_week = getWeekDates(today);
     getInitialVisits(first_day_of_first_week);
     setState({first_day_of_first_week});
     schedulerState.first_week_dates = first_week;
@@ -54,7 +54,7 @@ function Schedule() {
       .catch((error) => notify(error));
   }
 
-  function getWeek(day) {
+  function getWeekDates(day) {
     let week = [];
     for (let i = 1; i <= 7; i++) {
       const new_date = day.getDate() - day.getDay() + i;
