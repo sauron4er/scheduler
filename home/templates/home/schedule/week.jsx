@@ -4,7 +4,6 @@ import {store, view} from '@risingstack/react-easy-state';
 import schedulerState from 'home/templates/home/schedule/state';
 import './schedule.css';
 import Row from 'home/templates/home/schedule/row';
-import Cell from './cell';
 
 function Week(props) {
   const [state, setState] = useSetState({
@@ -22,8 +21,6 @@ function Week(props) {
         });
         break;
       case 2:
-        // console.log(schedulerState.second_week_dates);
-        // console.log(schedulerState.visits.second_week);
         setState({
           week_dates: schedulerState.second_week_dates,
           visits: schedulerState.visits.second_week
@@ -93,8 +90,8 @@ function Week(props) {
           </tr>
         </thead>
         <tbody>
-          <Row week_number={props.week_number} visits={getVisitsByTime('8:00')} week={state.week_dates} time='8:00' />
-          <Row week_number={props.week_number} visits={getVisitsByTime('9:00')} week={state.week_dates} time='9:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('08:00')} week={state.week_dates} time='8:00' />
+          <Row week_number={props.week_number} visits={getVisitsByTime('09:00')} week={state.week_dates} time='9:00' />
           <Row week_number={props.week_number} visits={getVisitsByTime('10:00')} week={state.week_dates} time='10:00' />
           <Row week_number={props.week_number} visits={getVisitsByTime('11:00')} week={state.week_dates} time='11:00' />
           <Row week_number={props.week_number} visits={getVisitsByTime('12:00')} week={state.week_dates} time='12:00' />

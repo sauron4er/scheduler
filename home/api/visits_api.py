@@ -49,6 +49,7 @@ def get_weeks_visits(all_visits_query, monday, sunday):
         'client_name': visit.client.name,
         'employee': visit.employee.id,
         'employee_name': visit.employee.name,
+        'employee_color': visit.employee.color,
         'date': convert_to_localtime(visit.start, '%d.%m.%y'),
         'start': convert_to_localtime(visit.start, '%H:%M'),
         'finish': convert_to_localtime(visit.finish, '%H:%M'),

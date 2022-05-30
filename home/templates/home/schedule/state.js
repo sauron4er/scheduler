@@ -10,6 +10,14 @@ const schedulerState = store({
   clicked_week: null,
   clicked_day: null,
   clicked_time: null,
+  clicked_visit: {
+    client: 0,
+    client_name: '',
+    employee: 0,
+    employee_name: '',
+    employee_color: '',
+    note: ''
+  },
   add_to_schedule: (new_visit) => {
     switch (schedulerState.clicked_week) {
       case 1:

@@ -13,9 +13,12 @@ function Cell(props) {
     schedulerState.clicked_time = props.time;
   }
 
-  function onVisitClick(e) {
+  function onVisitClick(e, visit) {
     e.stopPropagation();
-    console.log(1);
+    schedulerState.clicked_week = props.week_number;
+    schedulerState.clicked_day = props.day;
+    schedulerState.clicked_time = props.time;
+    schedulerState.clicked_visit = visit;
   }
 
   return (
@@ -23,7 +26,7 @@ function Cell(props) {
       <If condition={props.visits.length > 0}>
         <div className='visits_container'>
           <For each='visit' of={props.visits} index='index'>
-            <small key={index} className='visit' onClick={onVisitClick}>
+            <small key={index} className='visit' onClick={e=>onVisitClick(e, visit)}>
               {visit.client_name}
             </small>
           </For>

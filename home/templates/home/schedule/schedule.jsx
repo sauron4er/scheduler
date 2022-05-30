@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import {store, view} from '@risingstack/react-easy-state';
-import schedulerState from 'home/templates/home/schedule/state';
-import Week from 'home/templates/home/schedule/week';
+import schedulerState from './state';
+import Week from './week';
 import NewVisit from 'home/templates/home/schedule/new_visit';
-import {axiosGetRequest} from '../../../../templates/components/axios_requests';
-import {notify} from '../../../../templates/components/form_modules/modules_config';
+import {axiosGetRequest} from 'templates/components/axios_requests';
+import {notify} from 'templates/components/form_modules/modules_config';
 import {Loader} from 'templates/components/form_modules/loaders';
+import VisitModal from "./visit_modal";
 
 //TODO чому не показує візити на наступний тиждень?
 //TODO Виправити запис "added" у базу даних
@@ -18,6 +19,7 @@ import {Loader} from 'templates/components/form_modules/loaders';
 //TODO Визначати вихідні однією галочкою
 //TODO Заборона записувати клієнтів заднім числом, максимум в межах дня
 //TODO notify для помилок
+//TODO вічна прокрутка тижнів? При прокручування до кінця підгружається новий компонент week
 
 function Schedule() {
   const [state, setState] = useSetState({
@@ -76,7 +78,8 @@ function Schedule() {
         <Week week_number={1} />
         <Week week_number={2} />
         <Week week_number={3} />
-        <NewVisit />
+        {/*<NewVisit />*/}
+        <VisitModal />
       </When>
       <Otherwise>
         <Loader />

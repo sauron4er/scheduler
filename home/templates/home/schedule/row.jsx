@@ -10,12 +10,6 @@ function Row(props) {
 
   });
 
-  //TODO Переробити на мемо, щоб не рендерилося при незмінному visits
-  if (props.week_number===2 && props.visits.length > 0) {
-    console.log(props.time);
-    console.log(props.visits);
-  }
-
   useEffect(() => {
 
   }, [])
