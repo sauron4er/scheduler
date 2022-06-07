@@ -12,5 +12,7 @@
       "home.js"
     ]
   },
-  "publicPath": "/static/"
+  "publicPath": "/static/",
+  "error": "ModuleNotFoundError",
+  "message": "Module not found: Error: Can't resolve 'edms/api/get_emp_seats' in 'C:\\Users\\Stas\\Documents\\Code\\scheduler\\templates'"
 }

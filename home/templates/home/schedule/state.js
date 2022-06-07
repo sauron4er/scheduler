@@ -1,4 +1,5 @@
 import { store, view } from '@risingstack/react-easy-state';
+import {getIndex} from "templates/my_extras";
 
 const schedulerState = store({
   schedule: [],
@@ -11,6 +12,7 @@ const schedulerState = store({
   clicked_day: null,
   clicked_time: null,
   clicked_visit: {
+    id: 0,
     client: 0,
     client_name: '',
     employee: 0,
@@ -18,19 +20,45 @@ const schedulerState = store({
     employee_color: '',
     note: ''
   },
-  add_to_schedule: (new_visit) => {
+  add_visit: (new_visit) => {
     switch (schedulerState.clicked_week) {
       case 1:
         schedulerState.visits.first_week.push(new_visit)
-        console.log(schedulerState.visits.first_week);
         break;
       case 2:
         schedulerState.visits.second_week.push(new_visit)
-        console.log(schedulerState.visits.second_week);
         break;
       case 3:
         schedulerState.visits.third_week.push(new_visit)
-        console.log(schedulerState.visits.third_week);
+        break;
+    }
+  },
+  change_visit: (visit) => {
+    let visit_index = -1;
+    let visits = [];
+    switch (schedulerState.clicked_week) {
+      case 1:
+        visit_index = getIndex(visit.id, schedulerState.visits.first_week)
+        schedulerState.visits.first_week[visit_index] = visit
+        console.log(schedulerState.visits.first_week);
+        break;
+
+        // visit_index = getIndex(visit.id, schedulerState.visits.first_week)
+        // visits = [...schedulerState.visits.first_week]
+        // visits[visit_index] = visit
+        // schedulerState.visits.first_week = [...visits]
+        // break;
+      case 2:
+        visit_index = getIndex(visit.id, schedulerState.visits.second_week)
+        visits = [...schedulerState.visits.second_week]
+        visits[visit_index] = visit
+        schedulerState.visits.first_week = [...visits]
+        break;
+      case 3:
+        visit_index = getIndex(visit.id, schedulerState.visits.third_week)
+        visits = [...schedulerState.visits.third_week]
+        visits[visit_index] = visit
+        schedulerState.visits.first_week = [...visits]
         break;
     }
   }

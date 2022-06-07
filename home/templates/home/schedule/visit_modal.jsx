@@ -11,6 +11,7 @@ import {axiosPostRequest} from 'templates/components/axios_requests';
 
 function VisitModal() {
   const [state, setState] = useSetState({
+    id: 0,
     client: 0,
     client_name: '',
     employee: 0,
@@ -21,6 +22,7 @@ function VisitModal() {
 
   useEffect(() => {
     setState({
+      id: schedulerState.clicked_visit.id,
       client: schedulerState.clicked_visit.client,
       client_name: schedulerState.clicked_visit.client_name,
       employee: schedulerState.clicked_visit.employee,
@@ -56,6 +58,7 @@ function VisitModal() {
     schedulerState.clicked_day = null;
     schedulerState.clicked_time = null;
     setState({
+      id: 0,
       client: 0,
       client_name: '',
       employee: 0,
@@ -66,9 +69,9 @@ function VisitModal() {
   }
 
   function postNewVisit() {
-    const {client, employee, note} = state;
+    const {id, client, employee, note} = state;
     let formData = new FormData();
-    formData.append('id', '0');
+    formData.append('id', id);
     formData.append('client', client);
     formData.append('employee', employee);
     formData.append('note', note);
@@ -84,7 +87,7 @@ function VisitModal() {
     axiosPostRequest('post_visit', formData)
       .then((response) => {
         const {client, client_name, employee, employee_name, note} = state;
-        const new_visit = {
+        const visit = {
           id: response,
           week: schedulerState.clicked_week,
           date: schedulerState.clicked_day,
@@ -95,7 +98,9 @@ function VisitModal() {
           employee_name,
           note
         };
-        schedulerState.add_to_schedule(new_visit);
+        state.id === 0
+          ? schedulerState.add_visit(visit)
+          : schedulerState.change_visit(visit);
         closeModal();
       })
       .catch((error) => notify(error));

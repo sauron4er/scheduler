@@ -20,6 +20,22 @@ def add_visit(request):
 
 
 @try_except
+def change_visit(request):
+    start = datetime.strptime(request.POST['start'], '%d.%m.%y, %H:%M')
+    finish = datetime.strptime(request.POST['finish'], '%d.%m.%y, %H:%M')\
+        if 'finish' in request.POST else start + timedelta(hours=1)
+
+    visit = Visit.objects.get(pk=request.POST['id'])
+    visit.client_id = request.POST['client']
+    visit.employee_id = request.POST['employee']
+    visit.note = request.POST['note']
+    visit.start = start
+    visit.finish = finish
+    visit.save()
+    return visit.pk
+
+
+@try_except
 def get_visits_list(first_monday):
 
     first_sunday = first_monday + timedelta(days=6)

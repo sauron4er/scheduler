@@ -1,15 +1,12 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.db.models import Q
 from datetime import datetime
 import json
 from home.api.clients_api import get_clients_page, get_clients_for_select, add_client
 from home.api.employees_api import get_employees_page, get_employees_for_select, add_employee
-from home.api.visits_api import add_visit, get_visits_list
+from home.api.visits_api import add_visit, change_visit, get_visits_list
 from scheduler.api.try_except import try_except
-from home.models import Client, Employee
 
 
 @login_required(login_url='login')
@@ -80,8 +77,11 @@ def post_employee(request):
 @try_except
 @login_required(login_url='login')
 def post_visit(request):
-    new_visit_id = add_visit(request)
-    return HttpResponse(new_visit_id)
+    if request.POST['id'] == '0':
+        visit_id = add_visit(request)
+    else:
+        visit_id = change_visit(request)
+    return HttpResponse(visit_id)
 
 
 @try_except
