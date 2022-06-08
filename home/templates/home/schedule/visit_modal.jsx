@@ -21,15 +21,17 @@ function VisitModal() {
   });
 
   useEffect(() => {
-    setState({
-      id: schedulerState.clicked_visit.id,
-      client: schedulerState.clicked_visit.client,
-      client_name: schedulerState.clicked_visit.client_name,
-      employee: schedulerState.clicked_visit.employee,
-      employee_name: schedulerState.clicked_visit.employee_name,
-      employee_color: schedulerState.clicked_visit.employee_color,
-      note: schedulerState.clicked_visit.note
-    });
+    if (schedulerState.clicked_visit) {
+      setState({
+        id: schedulerState.clicked_visit.id,
+        client: schedulerState.clicked_visit.client,
+        client_name: schedulerState.clicked_visit.client_name,
+        employee: schedulerState.clicked_visit.employee,
+        employee_name: schedulerState.clicked_visit.employee_name,
+        employee_color: schedulerState.clicked_visit.employee_color,
+        note: schedulerState.clicked_visit.note
+      });
+    }
   }, [schedulerState.clicked_visit]);
 
   function onClientChange(e) {
@@ -57,6 +59,7 @@ function VisitModal() {
     schedulerState.clicked_week = null;
     schedulerState.clicked_day = null;
     schedulerState.clicked_time = null;
+    schedulerState.clicked_visit = null;
     setState({
       id: 0,
       client: 0,
@@ -80,7 +83,6 @@ function VisitModal() {
     postVisit(formData);
   }
 
-  //TODO Редагування. Наразі створює новий замість редагування
   //TODO Автоматичне оновлення списку без перезагрузки сторінки
 
   function postVisit(formData) {
@@ -98,9 +100,7 @@ function VisitModal() {
           employee_name,
           note
         };
-        state.id === 0
-          ? schedulerState.add_visit(visit)
-          : schedulerState.change_visit(visit);
+        state.id === 0 ? schedulerState.add_visit(visit) : schedulerState.change_visit(visit);
         closeModal();
       })
       .catch((error) => notify(error));

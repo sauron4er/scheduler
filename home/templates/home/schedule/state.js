@@ -39,15 +39,10 @@ const schedulerState = store({
     switch (schedulerState.clicked_week) {
       case 1:
         visit_index = getIndex(visit.id, schedulerState.visits.first_week)
-        schedulerState.visits.first_week[visit_index] = visit
-        console.log(schedulerState.visits.first_week);
+        let assign=Object.assign(visits, schedulerState.visits.first_week)
+        visits[visit_index] = { ...visit }
+        let assign2=Object.assign(schedulerState.visits.first_week, visits)
         break;
-
-        // visit_index = getIndex(visit.id, schedulerState.visits.first_week)
-        // visits = [...schedulerState.visits.first_week]
-        // visits[visit_index] = visit
-        // schedulerState.visits.first_week = [...visits]
-        // break;
       case 2:
         visit_index = getIndex(visit.id, schedulerState.visits.second_week)
         visits = [...schedulerState.visits.second_week]

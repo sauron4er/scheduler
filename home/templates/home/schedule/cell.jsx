@@ -19,6 +19,7 @@ function Cell(props) {
     schedulerState.clicked_day = props.day;
     schedulerState.clicked_time = props.time;
     schedulerState.clicked_visit = visit;
+    console.log(schedulerState.clicked_visit.note);
   }
 
   return (
