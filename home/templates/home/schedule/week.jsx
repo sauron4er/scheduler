@@ -4,6 +4,8 @@ import {store, view} from '@risingstack/react-easy-state';
 import schedulerState from 'home/templates/home/schedule/state';
 import './schedule.css';
 import Row from 'home/templates/home/schedule/row';
+import { axiosGetRequest, axiosPostRequest } from "../../../../templates/components/axios_requests";
+import { notify } from "../../../../templates/components/form_modules/modules_config";
 
 function Week(props) {
   const [state, setState] = useSetState({
@@ -13,23 +15,42 @@ function Week(props) {
   });
 
   useEffect(() => {
+    getVisits()
+  }, []);
+
+  function getVisits() {
+    let formData = new FormData();
+    formData.append('first_day_of_first_week', schedulerState.first_day_of_first_week);
+    formData.append('week_number', props.week_number);
+    axiosPostRequest(`get_visits`, formData)
+      .then((response) => {
+        console.log(response);
+        setState({
+          visits: response,
+          loading: false
+        });
+      })
+      .catch((error) => notify(error));
+  }
+
+  useEffect(() => {
     switch (props.week_number) {
       case 1:
         setState({
           week_dates: schedulerState.first_week_dates,
-          visits: schedulerState.visits.first_week
+          // visits: schedulerState.visits.first_week
         });
         break;
       case 2:
         setState({
           week_dates: schedulerState.second_week_dates,
-          visits: schedulerState.visits.second_week
+          // visits: schedulerState.visits.second_week
         });
         break;
       case 3:
         setState({
           week_dates: schedulerState.third_week_dates,
-          visits: schedulerState.visits.third_week
+          // visits: schedulerState.visits.third_week
         });
         break;
     }

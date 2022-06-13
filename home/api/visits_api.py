@@ -36,8 +36,7 @@ def change_visit(request):
 
 
 @try_except
-def get_visits_list(first_monday):
-
+def get_visits_list_old(first_monday):
     first_sunday = first_monday + timedelta(days=6)
     second_monday = first_sunday + timedelta(days=1)
     second_sunday = second_monday + timedelta(days=6)
@@ -74,4 +73,30 @@ def get_weeks_visits(all_visits_query, monday, sunday):
         'note': visit.note
     } for visit in all_visits_query
         .filter(start__range=(monday, sunday))]
+    return visits
+
+
+@try_except
+def get_visits_list(first_day_of_first_week, week_number):
+    monday_delta = 7 * int(week_number)
+    sunday_delta = 6 + 7 * int(week_number)
+    monday = first_day_of_first_week + timedelta(days=monday_delta)
+    sunday = first_day_of_first_week + timedelta(days=sunday_delta)
+
+    visits = [{
+        'id': visit.id,
+        'client': visit.client.id,
+        'client_name': visit.client.name,
+        'employee': visit.employee.id,
+        'employee_name': visit.employee.name,
+        'employee_color': visit.employee.color,
+        'date': convert_to_localtime(visit.start, '%d.%m.%y'),
+        'start': convert_to_localtime(visit.start, '%H:%M'),
+        'finish': convert_to_localtime(visit.finish, '%H:%M'),
+        # 'start': convert_to_localtime(visit.start, '%d.%m.%y %H:%M'),
+        # 'finish': convert_to_localtime(visit.finish, '%d.%m.%y %H:%M'),
+        'note': visit.note
+    } for visit in Visit.objects\
+        .filter(start__range=(monday, sunday))\
+        .filter(is_active=True)]
     return visits

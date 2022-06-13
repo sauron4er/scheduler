@@ -5,7 +5,7 @@ from datetime import datetime
 import json
 from home.api.clients_api import get_clients_page, get_clients_for_select, add_client
 from home.api.employees_api import get_employees_page, get_employees_for_select, add_employee
-from home.api.visits_api import add_visit, change_visit, get_visits_list
+from home.api.visits_api import add_visit, change_visit, get_visits_list, get_visits_list_old
 from scheduler.api.try_except import try_except
 
 
@@ -86,7 +86,17 @@ def post_visit(request):
 
 @try_except
 @login_required(login_url='login')
-def get_visits(request, first_day):
+def get_visits_old(request, first_day):
     first_date = datetime.strptime(first_day, "%d.%m.%y").date()
-    visits = get_visits_list(first_date)
+    visits = get_visits_list_old(first_date)
     return HttpResponse(json.dumps(visits))
+
+
+@try_except
+@login_required(login_url='login')
+def get_visits(request):
+    first_day_of_first_week = datetime.strptime(request.POST['first_day_of_first_week'], "%d.%m.%y").date()
+    visits = get_visits_list(first_day_of_first_week,
+                             request.POST['week_number'])
+    return HttpResponse(json.dumps(visits))
+

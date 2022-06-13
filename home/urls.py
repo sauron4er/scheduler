@@ -2,7 +2,7 @@ from django.urls import path, re_path
 from .views import home, schedule, \
     clients, get_clients, get_clients_select, post_client, \
     employees, get_employees, get_employees_select, post_employee, \
-    post_visit, get_visits
+    post_visit, get_visits, get_visits_old
 
 app_name = 'home'
 
@@ -20,7 +20,7 @@ urlpatterns = [
     re_path(r'get_employees/(?P<page>\d+)/', get_employees, name='get_employees'),
     path('post_employee', post_employee, name='post_employee'),
 
-    re_path(r'get_visits/(?P<first_day>\d{2}.\d{2}.\d{2})/', get_visits, name='get_visits'),
-    # path(r'^get_visits/(?P<first_day>\w+)/$', get_visits, name='get_visits'),
+    re_path(r'get_visits/(?P<first_day>\d{2}.\d{2}.\d{2})/', get_visits_old, name='get_visits'),
+    path('get_visits', get_visits, name='get_visits_new'),
     path('post_visit', post_visit, name='post_visit'),
 ]

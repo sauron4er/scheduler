@@ -3,6 +3,7 @@ import {getIndex} from "templates/my_extras";
 
 const schedulerState = store({
   schedule: [],
+  first_day_of_first_week: '',
   today_string: '',
   visits: [],
   first_week_dates: [],

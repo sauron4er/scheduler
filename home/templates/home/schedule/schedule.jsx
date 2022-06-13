@@ -9,7 +9,6 @@ import {notify} from 'templates/components/form_modules/modules_config';
 import {Loader} from 'templates/components/form_modules/loaders';
 import VisitModal from "./visit_modal";
 
-//TODO чому не показує візити на наступний тиждень?
 //TODO Виправити запис "added" у базу даних
 //TODO Підписка на події у базі даних
 //TODO Зробити так, щоб зміни, внесені на одному компі, відразу відображалися і на другому
@@ -40,21 +39,22 @@ function Schedule() {
     const first_day_of_first_week = first_week[0];
     const second_week = getWeekDates(today);
     const third_week = getWeekDates(today);
-    getInitialVisits(first_day_of_first_week);
+    // getInitialVisits(first_day_of_first_week);
     setState({first_day_of_first_week});
+    schedulerState.first_day_of_first_week = first_day_of_first_week;
     schedulerState.first_week_dates = first_week;
     schedulerState.second_week_dates = second_week;
     schedulerState.third_week_dates = third_week;
   }, []);
 
-  function getInitialVisits(first_day_of_first_week) {
-    axiosGetRequest(`get_visits/${first_day_of_first_week}/`)
-      .then((response) => {
-        setState({loading: false});
-        schedulerState.visits = response;
-      })
-      .catch((error) => notify(error));
-  }
+  // function getInitialVisits(first_day_of_first_week) {
+  //   axiosGetRequest(`get_visits/${first_day_of_first_week}/`)
+  //     .then((response) => {
+  //       setState({loading: false});
+  //       schedulerState.visits = response;
+  //     })
+  //     .catch((error) => notify(error));
+  // }
 
   function getWeekDates(day) {
     let week = [];
@@ -75,9 +75,9 @@ function Schedule() {
           <div className='font-weight-bold mb-2'>Навігація (приклеїти до верхньої межі екрану)</div>
           <div className='font-weight-bold ml-auto'>View switcher</div>
         </div>
+        <Week week_number={0} />
         <Week week_number={1} />
         <Week week_number={2} />
-        <Week week_number={3} />
         {/*<NewVisit />*/}
         <VisitModal />
       </When>
