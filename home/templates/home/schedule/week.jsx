@@ -4,7 +4,7 @@ import {store, view} from '@risingstack/react-easy-state';
 import schedulerState from 'home/templates/home/schedule/state';
 import './schedule.css';
 import Row from 'home/templates/home/schedule/row';
-import { axiosGetRequest, axiosPostRequest } from "../../../../templates/components/axios_requests";
+import { axiosPostRequest } from "../../../../templates/components/axios_requests";
 import { notify } from "../../../../templates/components/form_modules/modules_config";
 
 function Week(props) {
@@ -34,31 +34,29 @@ function Week(props) {
   }
 
   useEffect(() => {
-    switch (props.week_number) {
-      case 1:
-        setState({
-          week_dates: schedulerState.first_week_dates,
-          // visits: schedulerState.visits.first_week
-        });
-        break;
-      case 2:
-        setState({
-          week_dates: schedulerState.second_week_dates,
-          // visits: schedulerState.visits.second_week
-        });
-        break;
-      case 3:
-        setState({
-          week_dates: schedulerState.third_week_dates,
-          // visits: schedulerState.visits.third_week
-        });
-        break;
-    }
+    const today = new Date();
+    setState({week_dates: getWeekDates(today)})
   }, [props.week_number]);
 
   useEffect(() => {
     getTodayInThisWeekIndex();
   }, [state.week_dates]);
+
+  function getWeekDates(today) {
+    console.log(today);
+    const today_in_that_week = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7*props.week_number);
+    console.log(today_in_that_week);
+
+    let week = [];
+    for (let i = 1; i <= 7; i++) {
+      const new_date = today_in_that_week.getDate() - today_in_that_week.getDay() + i;
+      const new_day = new Date(today_in_that_week.setDate(new_date));
+      week.push(
+        `${('0' + new_day.getDate()).slice(-2)}.${('0' + (new_day.getMonth() + 1)).slice(-2)}.${new_day.getFullYear().toString().slice(-2)}`
+      );
+    }
+    return week;
+  }
 
   function getTodayInThisWeekIndex() {
     // TODO оновлення дати в 00:00 (якщо програму наприклад не закрили)

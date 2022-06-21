@@ -1,13 +1,9 @@
 import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
-import {store, view} from '@risingstack/react-easy-state';
+import {view} from '@risingstack/react-easy-state';
 import schedulerState from './state';
-import Week from './week';
-import NewVisit from 'home/templates/home/schedule/new_visit';
-import {axiosGetRequest} from 'templates/components/axios_requests';
-import {notify} from 'templates/components/form_modules/modules_config';
-import {Loader} from 'templates/components/form_modules/loaders';
-import VisitModal from "./visit_modal";
+import VisitModal from './visit_modal';
+import Week from "./week";
 
 //TODO Виправити запис "added" у базу даних
 //TODO Підписка на події у базі даних
@@ -22,9 +18,6 @@ import VisitModal from "./visit_modal";
 
 function Schedule() {
   const [state, setState] = useSetState({
-    first_day_of_first_week: '',
-    client: 0,
-    client_name: '',
     loading: true
   });
 
@@ -35,56 +28,37 @@ function Schedule() {
       .toString()
       .slice(-2)}`;
 
-    const first_week = getWeekDates(today);
-    const first_day_of_first_week = first_week[0];
-    const second_week = getWeekDates(today);
-    const third_week = getWeekDates(today);
-    // getInitialVisits(first_day_of_first_week);
-    setState({first_day_of_first_week});
-    schedulerState.first_day_of_first_week = first_day_of_first_week;
-    schedulerState.first_week_dates = first_week;
-    schedulerState.second_week_dates = second_week;
-    schedulerState.third_week_dates = third_week;
+    schedulerState.first_day_of_first_week = getFirstDateOfFirstWeek(today);
   }, []);
 
-  // function getInitialVisits(first_day_of_first_week) {
-  //   axiosGetRequest(`get_visits/${first_day_of_first_week}/`)
-  //     .then((response) => {
-  //       setState({loading: false});
-  //       schedulerState.visits = response;
-  //     })
-  //     .catch((error) => notify(error));
-  // }
-
-  function getWeekDates(day) {
-    let week = [];
-    for (let i = 1; i <= 7; i++) {
-      const new_date = day.getDate() - day.getDay() + i;
-      const new_day = new Date(day.setDate(new_date));
-      week.push(
-        `${('0' + new_day.getDate()).slice(-2)}.${('0' + (new_day.getMonth() + 1)).slice(-2)}.${new_day.getFullYear().toString().slice(-2)}`
-      );
-    }
-    return week;
+  function getFirstDateOfFirstWeek(day) {
+    const new_date = day.getDate() - day.getDay() + 1;
+    const new_day = new Date(day.setDate(new_date));
+    return `${('0' + new_day.getDate()).slice(-2)}.${('0' + (new_day.getMonth() + 1)).slice(-2)}.${new_day
+      .getFullYear()
+      .toString()
+      .slice(-2)}`;
   }
 
   return (
-    <Choose>
-      <When condition={!state.loading}>
-        <div className='d-flex'>
-          <div className='font-weight-bold mb-2'>Навігація (приклеїти до верхньої межі екрану)</div>
-          <div className='font-weight-bold ml-auto'>View switcher</div>
-        </div>
-        <Week week_number={0} />
-        <Week week_number={1} />
-        <Week week_number={2} />
-        {/*<NewVisit />*/}
-        <VisitModal />
-      </When>
-      <Otherwise>
-        <Loader />
-      </Otherwise>
-    </Choose>
+    <>
+      {/*<Choose>*/}
+      {/*<When condition={!state.loading}>*/}
+      <div className='d-flex'>
+        <div className='font-weight-bold mb-2'>Навігація (приклеїти до верхньої межі екрану)</div>
+        <div className='font-weight-bold ml-auto'>View switcher</div>
+      </div>
+      <Week week_number={0} />
+      <Week week_number={1} />
+      <Week week_number={2} />
+      {/*<NewVisit />*/}
+      <VisitModal />
+      {/*</When>*/}
+      {/*  <Otherwise>*/}
+      {/*    <Loader />*/}
+      {/*  </Otherwise>*/}
+      {/*</Choose>*/}
+    </>
   );
 }
 
