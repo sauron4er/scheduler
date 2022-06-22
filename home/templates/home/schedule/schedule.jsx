@@ -42,22 +42,16 @@ function Schedule() {
 
   return (
     <>
-      {/*<Choose>*/}
-      {/*<When condition={!state.loading}>*/}
       <div className='d-flex'>
         <div className='font-weight-bold mb-2'>Навігація (приклеїти до верхньої межі екрану)</div>
         <div className='font-weight-bold ml-auto'>View switcher</div>
       </div>
+      {/*TODO add concurrent mode*/}
       <Week week_number={0} />
       <Week week_number={1} />
       <Week week_number={2} />
       {/*<NewVisit />*/}
       <VisitModal />
-      {/*</When>*/}
-      {/*  <Otherwise>*/}
-      {/*    <Loader />*/}
-      {/*  </Otherwise>*/}
-      {/*</Choose>*/}
     </>
   );
 }

@@ -12,7 +12,5 @@
       "home.js"
     ]
   },
-  "publicPath": "/static/",
-  "error": "ModuleBuildError",
-  "message": "Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\Users\\Stas\\Documents\\Code\\scheduler\\home\\templates\\home\\schedule\\schedule.jsx: Unterminated JSX contents. (89:9)\n\n  87 |     {/*  </Otherwise>*/}\n  88 |     {/*</Choose>*/}\n> 89 |       </>\n     |          ^\n  90 |   );\n  91 | }\n  92 |\n    at instantiate (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:72:32)\n    at constructor (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:358:12)\n    at Object.raise (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:3335:19)\n    at Object.jsxReadToken (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:7627:20)\n    at Object.getTokenFromCode (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:8047:19)\n    at Object.nextToken (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:2019:10)\n    at Object.next (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:1923:10)\n    at Object.eat (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:1928:12)\n    at Object.expect (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:4002:10)\n    at Object.jsxParseClosingElementAt (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:7918:12)"
+  "publicPath": "/static/"
 }

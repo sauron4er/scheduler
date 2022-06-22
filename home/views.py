@@ -95,8 +95,7 @@ def get_visits_old(request, first_day):
 @try_except
 @login_required(login_url='login')
 def get_visits(request):
-    first_day_of_first_week = datetime.strptime(request.POST['first_day_of_first_week'], "%d.%m.%y").date()
-    visits = get_visits_list(first_day_of_first_week,
-                             request.POST['week_number'])
+    first_day = datetime.strptime(request.POST['first_day'], "%d.%m.%y").date()
+    visits = get_visits_list(first_day)
     return HttpResponse(json.dumps(visits))
 

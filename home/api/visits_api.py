@@ -77,11 +77,8 @@ def get_weeks_visits(all_visits_query, monday, sunday):
 
 
 @try_except
-def get_visits_list(first_day_of_first_week, week_number):
-    monday_delta = 7 * int(week_number)
-    sunday_delta = 6 + 7 * int(week_number)
-    monday = first_day_of_first_week + timedelta(days=monday_delta)
-    sunday = first_day_of_first_week + timedelta(days=sunday_delta)
+def get_visits_list(first_day):
+    seventh_day = first_day + timedelta(days=6)
 
     visits = [{
         'id': visit.id,
@@ -97,6 +94,6 @@ def get_visits_list(first_day_of_first_week, week_number):
         # 'finish': convert_to_localtime(visit.finish, '%d.%m.%y %H:%M'),
         'note': visit.note
     } for visit in Visit.objects\
-        .filter(start__range=(monday, sunday))\
+        .filter(start__range=(first_day, seventh_day))\
         .filter(is_active=True)]
     return visits
