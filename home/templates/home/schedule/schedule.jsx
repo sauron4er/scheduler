@@ -5,7 +5,9 @@ import schedulerState from './state';
 import VisitModal from './visit_modal';
 import Week from "./week";
 
-//TODO Виправити запис "added" у базу даних
+//TODO В модальному вікні візита зробити біля імені клієнта кнопку "знак питання",
+// вона відкриває нове модальне вікно, в якому показано історію клієнта.
+//TODO вічна прокрутка тижнів? При прокручування до кінця підгружається новий компонент week
 //TODO Підписка на події у базі даних
 //TODO Зробити так, щоб зміни, внесені на одному компі, відразу відображалися і на другому
 //TODO Робота без інтернета: показувати лише збережену востаннє базу, не давати зберігати нові дані.
@@ -14,7 +16,7 @@ import Week from "./week";
 //TODO Визначати вихідні однією галочкою
 //TODO Заборона записувати клієнтів заднім числом, максимум в межах дня
 //TODO notify для помилок
-//TODO вічна прокрутка тижнів? При прокручування до кінця підгружається новий компонент week
+
 
 function Schedule() {
   const [state, setState] = useSetState({
@@ -46,7 +48,7 @@ function Schedule() {
         <div className='font-weight-bold mb-2'>Навігація (приклеїти до верхньої межі екрану)</div>
         <div className='font-weight-bold ml-auto'>View switcher</div>
       </div>
-      {/*TODO add concurrent mode*/}
+
       <Week week_number={0} />
       <Week week_number={1} />
       <Week week_number={2} />

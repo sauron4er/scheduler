@@ -1,4 +1,4 @@
-Django==4.0.4  # 3.2.13
-django-webpack-loader==1.5.0  # 0.7.0
+Django==4.0.5
+django-webpack-loader==1.6.0
 django-widget-tweaks==1.4.12
-mysqlclient==2.1.0
+mysqlclient==2.1.1

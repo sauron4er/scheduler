@@ -44,7 +44,6 @@ def get_clients_select(request):
 @login_required(login_url='login')
 def post_client(request):
     client = add_client(request)
-    # TODO Чому при зміні клієнта змінюється поле Added?
     return HttpResponse(client.pk)
 
 
