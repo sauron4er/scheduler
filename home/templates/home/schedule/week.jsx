@@ -17,17 +17,19 @@ function Week(props) {
   });
 
   useEffect(() => {
-    const today = new Date();
-    setState({week_dates: getWeekDates(today)});
+    setState({week_dates: getWeekDates()});
   }, [props.week_number]);
 
-  function getWeekDates(today) {
-    const today_in_that_week = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7 * props.week_number);
-
+  function getWeekDates() {
+    const today = new Date();
+    const today_in_this_week = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7 * props.week_number);
     let week = [];
+
     for (let i = 1; i <= 7; i++) {
-      const new_date = today_in_that_week.getDate() - today_in_that_week.getDay() + i;
-      const new_day = new Date(today_in_that_week.setDate(new_date));
+      const todays_day_number = today_in_this_week.getDay() === 0 ? 7 : today_in_this_week.getDay()
+      const new_date = today_in_this_week.getDate() - todays_day_number + i;
+
+      const new_day = new Date(today_in_this_week.setDate(new_date));
       week.push(
         `${('0' + new_day.getDate()).slice(-2)}.${('0' + (new_day.getMonth() + 1)).slice(-2)}.${new_day.getFullYear().toString().slice(-2)}`
       );

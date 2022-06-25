@@ -3,7 +3,7 @@
   "assets": {
     "home.js": {
       "name": "home.js",
-      "path": "C:\\Users\\Stas\\Documents\\Code\\scheduler\\static\\bundles\\home.js",
+      "path": "E:\\Code\\scheduler\\static\\bundles\\home.js",
       "publicPath": "/static/home.js"
     }
   },
@@ -12,5 +12,7 @@
       "home.js"
     ]
   },
-  "publicPath": "/static/"
+  "publicPath": "/static/",
+  "error": "ModuleNotFoundError",
+  "message": "Module not found: Error: Can't resolve 'static/css/button_plus.css' in 'E:\\Code\\scheduler\\home\\templates\\home\\schedule'"
 }

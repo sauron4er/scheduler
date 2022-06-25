@@ -78,7 +78,7 @@ def get_weeks_visits(all_visits_query, monday, sunday):
 
 @try_except
 def get_visits_list(first_day):
-    seventh_day = first_day + timedelta(days=6)
+    seventh_day = first_day + timedelta(days=7)
 
     visits = [{
         'id': visit.id,

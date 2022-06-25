@@ -42,6 +42,18 @@ function Schedule() {
       .slice(-2)}`;
   }
 
+  function getWeeks() {
+    let weeks = []
+    for (let i = 0; i < schedulerState.number_of_weeks; i++) {
+      weeks.push(<Week key={i} week_number={i} />)
+    }
+    return weeks
+  }
+
+  function addWeek() {
+    schedulerState.number_of_weeks++;
+  }
+
   return (
     <>
       <div className='d-flex'>
@@ -49,9 +61,12 @@ function Schedule() {
         <div className='font-weight-bold ml-auto'>View switcher</div>
       </div>
 
-      <Week week_number={0} />
-      <Week week_number={1} />
-      <Week week_number={2} />
+      {getWeeks()}
+
+      <div className='text-center'>
+        <button className='btn btn-outline-dark mb-3' onClick={e => addWeek()}>+</button>
+      </div>
+
       {/*<NewVisit />*/}
       <VisitModal />
     </>
