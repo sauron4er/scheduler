@@ -19,7 +19,26 @@ function Cell(props) {
     schedulerState.clicked_day = props.day;
     schedulerState.clicked_time = props.time;
     schedulerState.clicked_visit = visit;
-    console.log(schedulerState.clicked_visit.note);
+  }
+
+  function onVisitHover(e, client_name) {
+    e.stopPropagation();
+
+    const x = e.pageX;
+    const y = e.pageY + 10;
+    const el = $("#popup");
+    el.css('position', 'absolute');
+    el.css("left", x);
+    el.css("top", y);
+    el.css("display", 'block');
+
+    schedulerState.hovered_visits_client_name = client_name
+    // document.getElementById('popup').style.display = 'block';
+  }
+
+  function onVisitHoverOut(e, client_name) {
+    e.stopPropagation();
+    document.getElementById('popup').style.display = 'none';
   }
 
   return (
@@ -27,7 +46,13 @@ function Cell(props) {
       <If condition={props.visits.length > 0}>
         <div className='visits_container'>
           <For each='visit' of={props.visits} index='index'>
-            <small key={index} className='visit' onClick={e=>onVisitClick(e, visit)}>
+            <small
+              key={index}
+              className='visit'
+              onClick={(e) => onVisitClick(e, visit)}
+              onMouseOver={(e) => onVisitHover(e, visit.client_name)}
+              onMouseOut={onVisitHoverOut}
+            >
               {visit.client_name}
             </small>
           </For>

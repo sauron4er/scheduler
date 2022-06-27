@@ -3,8 +3,9 @@ import useSetState from 'templates/hooks/useSetState';
 import {view} from '@risingstack/react-easy-state';
 import schedulerState from './state';
 import VisitModal from './visit_modal';
-import Week from "./week";
+import Week from './week';
 
+// Показувати ім'я клієнта при наведенні на візит
 //TODO В модальному вікні візита зробити біля імені клієнта кнопку "знак питання",
 // вона відкриває нове модальне вікно, в якому показано історію клієнта.
 //TODO вічна прокрутка тижнів? При прокручування до кінця підгружається новий компонент week
@@ -16,7 +17,7 @@ import Week from "./week";
 //TODO Визначати вихідні однією галочкою
 //TODO Заборона записувати клієнтів заднім числом, максимум в межах дня
 //TODO notify для помилок
-
+//TODO переробити таблицю з візитами на 7 окремих таблиць для кожного дня окремо? Чи лиш для телефона?
 
 function Schedule() {
   const [state, setState] = useSetState({
@@ -43,11 +44,11 @@ function Schedule() {
   }
 
   function getWeeks() {
-    let weeks = []
+    let weeks = [];
     for (let i = 0; i < schedulerState.number_of_weeks; i++) {
-      weeks.push(<Week key={i} week_number={i} />)
+      weeks.push(<Week key={i} week_number={i} />);
     }
-    return weeks
+    return weeks;
   }
 
   function addWeek() {
@@ -64,11 +65,17 @@ function Schedule() {
       {getWeeks()}
 
       <div className='text-center'>
-        <button className='btn btn-outline-dark mb-3' onClick={e => addWeek()}>+</button>
+        <button className='btn btn-outline-dark mb-3' onClick={(e) => addWeek()}>
+          +
+        </button>
       </div>
 
       {/*<NewVisit />*/}
       <VisitModal />
+
+      <div id='popup' style={{display: 'none'}}>
+        {schedulerState.hovered_visits_client_name}
+      </div>
     </>
   );
 }

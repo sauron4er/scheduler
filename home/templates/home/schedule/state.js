@@ -22,6 +22,7 @@ const schedulerState = store({
     employee_color: '',
     note: ''
   },
+  hovered_visits_client_name: '',
   add_visit: (new_visit) => {
     switch (schedulerState.clicked_week) {
       case 1:
