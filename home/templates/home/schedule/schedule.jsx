@@ -4,20 +4,23 @@ import {view} from '@risingstack/react-easy-state';
 import schedulerState from './state';
 import VisitModal from './visit_modal';
 import Week from './week';
+import WeekExperimental from 'home/templates/home/schedule/week_experimental';
 
-// Показувати ім'я клієнта при наведенні на візит
-//TODO В модальному вікні візита зробити біля імені клієнта кнопку "знак питання",
-// вона відкриває нове модальне вікно, в якому показано історію клієнта.
-//TODO вічна прокрутка тижнів? При прокручування до кінця підгружається новий компонент week
+
+//TODO оновлювати таблицю або візит при редагуванні
+//TODO В модальному вікні візита показувати номер телефона клієнта і кнопку для відкриття його модалки,
+// в якій його історія і нотатки.
+//TODO Визначати вихідні однією галочкою
+
+//TODO Мобільна версія для андроіда і іОс, але браузер теж має працювати на маленьких екранах
+
+//TODO переробити таблицю з візитами на 7 окремих таблиць для кожного дня окремо? Чи лиш для телефона?
+
+//TODO drag&drop
 //TODO Підписка на події у базі даних
-//TODO Зробити так, щоб зміни, внесені на одному компі, відразу відображалися і на другому
 //TODO Робота без інтернета: показувати лише збережену востаннє базу, не давати зберігати нові дані.
 //     Bootstrap скачати, зберігати дані у local session?
-//TODO Мобільна версія для гугл-плея і іОс, але браузер теж має працювати на маленьких екранах
-//TODO Визначати вихідні однією галочкою
-//TODO Заборона записувати клієнтів заднім числом, максимум в межах дня
-//TODO notify для помилок
-//TODO переробити таблицю з візитами на 7 окремих таблиць для кожного дня окремо? Чи лиш для телефона?
+
 
 function Schedule() {
   const [state, setState] = useSetState({
@@ -57,10 +60,7 @@ function Schedule() {
 
   return (
     <>
-      <div className='d-flex'>
-        <div className='font-weight-bold mb-2'>Навігація (приклеїти до верхньої межі екрану)</div>
-        <div className='font-weight-bold ml-auto'>View switcher</div>
-      </div>
+      <WeekExperimental />
 
       {getWeeks()}
 
@@ -73,8 +73,18 @@ function Schedule() {
       {/*<NewVisit />*/}
       <VisitModal />
 
-      <div id='popup' style={{display: 'none'}}>
+      <div className='css_visit_popup' id='popup' style={{display: 'none'}}>
         {schedulerState.hovered_visits_client_name}
+        <If condition={schedulerState.hovered_visits_client_phone}>
+          <div>
+            <small>{schedulerState.hovered_visits_client_phone}</small>
+          </div>
+        </If>
+        <If condition={schedulerState.hovered_visits_note}>
+          <div>
+            <small>{schedulerState.hovered_visits_note}</small>
+          </div>
+        </If>
       </div>
     </>
   );

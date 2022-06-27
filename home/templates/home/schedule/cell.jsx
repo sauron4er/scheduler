@@ -21,19 +21,22 @@ function Cell(props) {
     schedulerState.clicked_visit = visit;
   }
 
-  function onVisitHover(e, client_name) {
+  function onVisitHover(e) {
     e.stopPropagation();
+    const visit = JSON.parse(e.target.dataset.info)
+    schedulerState.hovered_visits_client_name = visit.client_name
+    schedulerState.hovered_visits_note = visit.note
+    schedulerState.hovered_visits_client_phone = visit.client_phone
 
-    const x = e.pageX;
-    const y = e.pageY + 10;
+    const hovered_visit = document.getElementById(e.target.id)
+    const rect = hovered_visit.getBoundingClientRect();
+
     const el = $("#popup");
     el.css('position', 'absolute');
-    el.css("left", x);
-    el.css("top", y);
+    el.css("left", rect.left);
+    el.css("top", rect.top + 25);
     el.css("display", 'block');
 
-    schedulerState.hovered_visits_client_name = client_name
-    // document.getElementById('popup').style.display = 'block';
   }
 
   function onVisitHoverOut(e, client_name) {
@@ -49,8 +52,10 @@ function Cell(props) {
             <small
               key={index}
               className='visit'
+              id={visit.id}
+              data-info={JSON.stringify(visit)}
               onClick={(e) => onVisitClick(e, visit)}
-              onMouseOver={(e) => onVisitHover(e, visit.client_name)}
+              onMouseOver={onVisitHover}
               onMouseOut={onVisitHoverOut}
             >
               {visit.client_name}

@@ -84,6 +84,7 @@ def get_visits_list(first_day):
         'id': visit.id,
         'client': visit.client.id,
         'client_name': visit.client.name,
+        'client_phone': visit.client.phone or '',
         'employee': visit.employee.id,
         'employee_name': visit.employee.name,
         'employee_color': visit.employee.color,

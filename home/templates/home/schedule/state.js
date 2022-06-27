@@ -3,7 +3,7 @@ import {getIndex} from "templates/my_extras";
 
 const schedulerState = store({
   schedule: [],
-  number_of_weeks: 2,
+  number_of_weeks: 0,
   first_day_of_first_week: '',
   today_string: '',
   visits: [],
@@ -23,6 +23,8 @@ const schedulerState = store({
     note: ''
   },
   hovered_visits_client_name: '',
+  hovered_visits_note: '',
+  hovered_visits_client_phone: '',
   add_visit: (new_visit) => {
     switch (schedulerState.clicked_week) {
       case 1:

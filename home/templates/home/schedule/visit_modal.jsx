@@ -122,6 +122,7 @@ function VisitModal() {
           onChange={onClientChange}
           value={{id: state.client, name: state.client_name}}
         />
+        <small>Інфо про клієнта</small>
         <hr />
         <AsyncSelector
           className='css_select_in_modal'

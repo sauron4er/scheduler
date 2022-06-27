@@ -32,6 +32,12 @@
 .time {
   border-right: 1px solid lightgray;
   width: 4%;
+  float:left
+}
+
+.day {
+  float:left;
+  width: 13%;
 }
 
 .scheduler_th,
@@ -64,4 +70,10 @@
 
 .visit:not(:first-of-type) {
   margin-left: 3px;
+}
+
+.css_visit_popup {
+  background: #dceffd;
+  border-radius: 5px;
+  padding: 2px 5px;
 }
