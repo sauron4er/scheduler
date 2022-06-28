@@ -32,7 +32,7 @@ class Visit(models.Model):
     employee = models.ForeignKey(Employee, related_name='visits', on_delete=models.RESTRICT)
     start = models.DateTimeField()
     finish = models.DateTimeField()
-    price = models.CharField(max_length=10)
+    price = models.CharField(max_length=10, null=True)
     note = models.CharField(max_length=500, null=True)
     is_active = models.BooleanField(default=True)
 

@@ -10,10 +10,6 @@ function Row(props) {
 
   });
 
-  useEffect(() => {
-
-  }, [])
-
   function getVisitsByDay(day) {
     let visits = []
     if (props.visits && day) {

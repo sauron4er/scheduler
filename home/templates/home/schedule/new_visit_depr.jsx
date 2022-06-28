@@ -77,7 +77,7 @@ function NewVisit() {
           start: schedulerState.clicked_time,
           client, client_name, employee, employee_name, note
         }
-        schedulerState.add_to_schedule(new_visit)
+        // schedulerState.add_to_schedule(new_visit)
         closeModal();
       })
       .catch((error) => notify(error));

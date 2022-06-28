@@ -6,7 +6,9 @@ import './schedule.css';
 import Row from 'home/templates/home/schedule/row';
 import {axiosPostRequest} from 'templates/components/axios_requests';
 import {notify} from 'templates/components/form_modules/modules_config';
-import {Loader} from "templates/components/form_modules/loaders";
+import {Loader} from 'templates/components/form_modules/loaders';
+import VisitModal from 'home/templates/home/schedule/visit_modal';
+import {getIndex} from 'templates/my_extras';
 
 function Week(props) {
   const [state, setState] = useSetState({
@@ -15,6 +17,13 @@ function Week(props) {
     today_index: 0,
     loading: true
   });
+
+  useEffect(() => {
+    if (schedulerState.updateVisits) {
+      console.log(schedulerState.updateVisits);
+      getVisits();
+    }
+  }, [schedulerState.updateVisits]);
 
   useEffect(() => {
     setState({week_dates: getWeekDates()});
@@ -26,7 +35,7 @@ function Week(props) {
     let week = [];
 
     for (let i = 1; i <= 7; i++) {
-      const todays_day_number = today_in_this_week.getDay() === 0 ? 7 : today_in_this_week.getDay()
+      const todays_day_number = today_in_this_week.getDay() === 0 ? 7 : today_in_this_week.getDay();
       const new_date = today_in_this_week.getDate() - todays_day_number + i;
 
       const new_day = new Date(today_in_this_week.setDate(new_date));
@@ -78,6 +87,19 @@ function Week(props) {
     return visits;
   }
 
+  function addVisitToList(visit) {
+    let visits_new = [...state.visits];
+    visits_new.push(visit);
+    setState({visits: [...visits_new]});
+  }
+
+  function changeVisitInList(visit) {
+    const index = getIndex(visit.id, state.visits);
+    let visits_new = [...state.visits];
+    visits_new[index] = {...visit};
+    setState({visits: [...visits_new]});
+  }
+
   return (
     <Choose>
       <When condition={!state.loading}>
@@ -109,8 +131,8 @@ function Week(props) {
             </tr>
           </thead>
           <tbody>
-            <Row week_number={props.week_number} visits={getVisitsByTime('08:00')} week={state.week_dates} time='8:00' />
-            <Row week_number={props.week_number} visits={getVisitsByTime('09:00')} week={state.week_dates} time='9:00' />
+            <Row week_number={props.week_number} visits={getVisitsByTime('08:00')} week={state.week_dates} time='08:00' />
+            <Row week_number={props.week_number} visits={getVisitsByTime('09:00')} week={state.week_dates} time='09:00' />
             <Row week_number={props.week_number} visits={getVisitsByTime('10:00')} week={state.week_dates} time='10:00' />
             <Row week_number={props.week_number} visits={getVisitsByTime('11:00')} week={state.week_dates} time='11:00' />
             <Row week_number={props.week_number} visits={getVisitsByTime('12:00')} week={state.week_dates} time='12:00' />
@@ -122,6 +144,7 @@ function Week(props) {
             <Row week_number={props.week_number} visits={getVisitsByTime('18:00')} week={state.week_dates} time='18:00' />
           </tbody>
         </table>
+        <VisitModal opened={schedulerState.clicked_week === props.week_number} addVisit={addVisitToList} changeVisit={changeVisitInList} />
       </When>
       <Otherwise>
         <Loader />

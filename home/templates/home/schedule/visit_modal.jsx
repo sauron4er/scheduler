@@ -9,7 +9,7 @@ import 'static/css/modal.css';
 import TextInput from 'templates/components/form_modules/text_input';
 import {axiosPostRequest} from 'templates/components/axios_requests';
 
-function VisitModal() {
+function VisitModal(props) {
   const [state, setState] = useSetState({
     id: 0,
     client: 0,
@@ -21,7 +21,7 @@ function VisitModal() {
   });
 
   useEffect(() => {
-    if (schedulerState.clicked_visit) {
+    if (props.opened && schedulerState.clicked_visit) {
       setState({
         id: schedulerState.clicked_visit.id,
         client: schedulerState.clicked_visit.client,
@@ -32,7 +32,7 @@ function VisitModal() {
         note: schedulerState.clicked_visit.note
       });
     }
-  }, [schedulerState.clicked_visit]);
+  }, [props.opened]);
 
   function onClientChange(e) {
     setState({
@@ -83,12 +83,10 @@ function VisitModal() {
     postVisit(formData);
   }
 
-  //TODO Автоматичне оновлення списку без перезагрузки сторінки
-
   function postVisit(formData) {
     axiosPostRequest('post_visit', formData)
       .then((response) => {
-        const {client, client_name, employee, employee_name, note} = state;
+        const {client, client_name, employee, employee_name, employee_color, note} = state;
         const visit = {
           id: response,
           week: schedulerState.clicked_week,
@@ -98,19 +96,21 @@ function VisitModal() {
           client_name,
           employee,
           employee_name,
+          employee_color,
           note
         };
-        state.id === 0 ? schedulerState.add_visit(visit) : schedulerState.change_visit(visit);
+
+        state.id === 0 ? props.addVisit(visit) : props.changeVisit(visit);
         closeModal();
       })
       .catch((error) => notify(error));
   }
 
   return (
-    <Modal open={schedulerState.clicked_time} onClose={closeModal}>
+    <Modal open={props.opened} onClose={closeModal}>
       <div className='modal-header'>
         <h5>
-          {state.client_name ? 'Прийом:' : 'Новий прийом: '}
+          {state.client_name ? 'Прийом: ' : 'Новий прийом: '}
           {schedulerState.clicked_day} на {schedulerState.clicked_time}
         </h5>
       </div>
@@ -141,5 +141,11 @@ function VisitModal() {
     </Modal>
   );
 }
+
+VisitModal.defaultProps = {
+  opened: false,
+  addVisit: () => {},
+  changeVisit: () => {}
+};
 
 export default view(VisitModal);

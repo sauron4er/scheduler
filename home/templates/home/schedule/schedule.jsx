@@ -2,30 +2,31 @@ import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import {view} from '@risingstack/react-easy-state';
 import schedulerState from './state';
-import VisitModal from './visit_modal';
 import Week from './week';
-import WeekExperimental from 'home/templates/home/schedule/week_experimental';
 
+//TODO інфа про клієнта при перегляді візиту: телефон, нотатка, майбутні прийоми, історія попередніх прийомів.
+//TODO можливість видаляти майбутні прийоми прямо звідси
 
-//TODO оновлювати таблицю або візит при редагуванні
-//TODO В модальному вікні візита показувати номер телефона клієнта і кнопку для відкриття його модалки,
-// в якій його історія і нотатки.
 //TODO Визначати вихідні однією галочкою
 
 //TODO Мобільна версія для андроіда і іОс, але браузер теж має працювати на маленьких екранах
 
-//TODO переробити таблицю з візитами на 7 окремих таблиць для кожного дня окремо? Чи лиш для телефона?
+//TODO у мобільній верісї показувати один день на екран, але свайпити дні направо-наліво (може свайпити тижні вверх-вниз?)
 
-//TODO drag&drop
+//TODO drag&drop, в т.ч. і між тижнями
+//TODO візити на півгодини або більше ніж на годину
 //TODO Підписка на події у базі даних
 //TODO Робота без інтернета: показувати лише збережену востаннє базу, не давати зберігати нові дані.
 //     Bootstrap скачати, зберігати дані у local session?
+//TODO перевести тригер оновлення візитів у web worker
 
+setInterval(() => {schedulerState.updateVisits = !schedulerState.updateVisits}, 300000)
 
 function Schedule() {
-  const [state, setState] = useSetState({
-    loading: true
-  });
+  const [state, setState] = useSetState({});
+
+  // setInterval(() => {schedulerState.updateVisits = true}, 600000)
+
 
   useEffect(() => {
     const today = new Date();
@@ -60,8 +61,6 @@ function Schedule() {
 
   return (
     <>
-      <WeekExperimental />
-
       {getWeeks()}
 
       <div className='text-center'>
@@ -69,9 +68,6 @@ function Schedule() {
           +
         </button>
       </div>
-
-      {/*<NewVisit />*/}
-      <VisitModal />
 
       <div className='css_visit_popup' id='popup' style={{display: 'none'}}>
         {schedulerState.hovered_visits_client_name}
@@ -82,7 +78,7 @@ function Schedule() {
         </If>
         <If condition={schedulerState.hovered_visits_note}>
           <div>
-            <small>{schedulerState.hovered_visits_note}</small>
+            <small className='font-italic'>{schedulerState.hovered_visits_note}</small>
           </div>
         </If>
       </div>
