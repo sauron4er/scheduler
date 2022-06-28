@@ -10,6 +10,7 @@
 
 .scheduler_th {
   text-align: center;
+  height: 30px;
 }
 
 .scheduler_th:not(:last-of-type) {
@@ -18,6 +19,10 @@
 
 .scheduler_th:first-of-type {
   width: 60px;
+}
+
+.scheduler_td {
+  height: 30px;
 }
 
 .scheduler_td:not(:last-of-type) {
@@ -31,18 +36,24 @@
 
 .time {
   border-right: 1px solid lightgray;
+}
+
+.css_time_table {
+  border-right: 1px solid lightgray;
   width: 4%;
-  float:left
-}
-
-.day {
+  min-width: 60px;
   float:left;
-  width: 13%;
 }
 
-.scheduler_th,
-.scheduler_td {
-  height: 30px;
+.css_day_table {
+  width: 13.5%;
+  min-width: 180px;
+  float:left;
+}
+
+.css_week_table {
+  overflow: auto;
+  white-space: nowrap;
 }
 
 .visits_container {

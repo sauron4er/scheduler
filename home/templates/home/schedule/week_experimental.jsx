@@ -55,7 +55,7 @@ function WeekExperimental(props) {
   }
 
   return (
-    <div className='row'>
+    <div className='css_week_table'>
       <TimeColExperimental />
       <For each='day' of={state.week_dates} index='idx'>
         <DayExperimental key={day} date={day} />

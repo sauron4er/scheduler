@@ -12,7 +12,7 @@ function DayExperimental(props) {
   return (
     <Choose>
       <When condition={!state.loading}>
-        <table className='table table-sm day'>
+        <table className='table table-sm css_day_table'>
           <thead>
             <tr>
               <th scope='col' className={`${state.today_index === 1 ? 'today' : ''} scheduler_th`}>
