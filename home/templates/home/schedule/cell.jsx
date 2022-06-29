@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import {store, view} from '@risingstack/react-easy-state';
 import schedulerState from 'home/templates/home/schedule/state';
-import './schedule.css';
+import 'static/css/schedule.css';
 
 function Cell(props) {
   const [state, setState] = useSetState({});
@@ -23,27 +23,25 @@ function Cell(props) {
 
   function onVisitHover(e) {
     e.stopPropagation();
-    const visit = JSON.parse(e.target.dataset.info)
-    schedulerState.hovered_visits_client_name = visit.client_name
-    schedulerState.hovered_visits_note = visit.note
-    schedulerState.hovered_visits_client_phone = visit.client_phone
-    schedulerState.hover = schedulerState.hover + 1
+    const visit = JSON.parse(e.target.dataset.info);
+    schedulerState.hovered_visits_week = props.week_number;
+    schedulerState.hovered_visit = visit;
+    schedulerState.hover = schedulerState.hover + 1;
 
-    const hovered_visit = document.getElementById(e.target.id)
+    const hovered_visit = document.getElementById(e.target.id);
     const rect = hovered_visit.getBoundingClientRect();
 
-    console.log(`visit: ${rect.top + 25}`);
-
-    const el = $("#popup");
-    el.css('position', 'absolute');
-    el.css("left", rect.left);
-    el.css("top", rect.top + 25);
-    el.css("display", 'block');
+    const el = $('#popup');
+    el.css('position', 'fixed');
+    el.css('left', rect.left);
+    el.css('top', rect.top + 25);
+    el.css('display', 'block');
 
   }
 
   function onVisitHoverOut(e, client_name) {
     e.stopPropagation();
+    schedulerState.hovered_visit = null
     document.getElementById('popup').style.display = 'none';
   }
 

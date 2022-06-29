@@ -7,6 +7,7 @@ const schedulerState = store({
   clicked_week: null,
   clicked_day: null,
   clicked_time: null,
+  clicked_client: null,
   clicked_visit: {
     id: 0,
     client: 0,
@@ -16,9 +17,9 @@ const schedulerState = store({
     employee_color: '',
     note: ''
   },
-  hovered_visits_client_name: '',
-  hovered_visits_note: '',
-  hovered_visits_client_phone: '',
+  hovered_visits_week: -1,
+  hovered_visit: '',
+  hovered_visit_position: {},
   hover: 0
 });
 

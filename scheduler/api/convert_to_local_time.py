@@ -1,5 +1,6 @@
 from django.utils import timezone
-import pytz
+from zoneinfo import ZoneInfo
+# import pytz
 import datetime
 
 
@@ -18,6 +19,8 @@ def convert_to_localtime(utctime, frmt):
     if not isinstance(utctime, datetime.datetime):
         utctime = datetime.datetime.combine(utctime, datetime.datetime.min.time())
 
-    utc = utctime.replace(tzinfo=pytz.UTC)
-    localtz = utc.astimezone(timezone.get_current_timezone())
+    # utc = utctime.replace(tzinfo=pytz.UTC)
+    # utc = utctime.replace(tzinfo=ZoneInfo("UTC"))
+
+    localtz = utctime.astimezone(timezone.get_current_timezone())
     return localtz.strftime(fmt)

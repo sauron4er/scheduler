@@ -81,7 +81,10 @@ def get_clients_for_select(request):
 
     clients_list = [{
         'id': client.id,
-        'name': client.name
+        'only_name': client.name,
+        'phone': client.phone,
+        'name': (client.name + ', ' + client.phone) if client.phone else client.name,
+        'note': client.note,
     } for client in clients_list]
 
     return clients_list

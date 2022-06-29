@@ -3,6 +3,7 @@ import useSetState from 'templates/hooks/useSetState';
 import {view} from '@risingstack/react-easy-state';
 import schedulerState from './state';
 import Week from './week';
+import VisitPopup from "./visit_popup";
 
 //TODO інфа про клієнта при перегляді візиту: телефон, нотатка, майбутні прийоми, історія попередніх прийомів.
 //TODO можливість видаляти майбутні прийоми прямо звідси
@@ -62,7 +63,7 @@ function Schedule() {
   return (
     <>
       {getWeeks()}
-
+      <VisitPopup />
       <div className='text-center'>
         <button className='btn btn-outline-dark mb-3' onClick={(e) => addWeek()}>
           +

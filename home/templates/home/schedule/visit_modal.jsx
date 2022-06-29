@@ -8,24 +8,38 @@ import AsyncSelector from 'templates/components/form_modules/selectors/async_sel
 import 'static/css/modal.css';
 import TextInput from 'templates/components/form_modules/text_input';
 import {axiosPostRequest} from 'templates/components/axios_requests';
+import VisitPopup from './visit_popup';
+import ClientModal from './client_modal';
 
 function VisitModal(props) {
   const [state, setState] = useSetState({
     id: 0,
     client: 0,
     client_name: '',
+    client_phone: '',
+    client_name_phone: '',
     employee: 0,
     employee_name: '',
     employee_color: '',
     note: ''
   });
 
+  function mergeClientNameAndPhone() {
+    if (schedulerState.clicked_visit.client_phone) {
+      return schedulerState.clicked_visit.client_name + ', ' + schedulerState.clicked_visit.client_phone;
+    } else {
+      return schedulerState.clicked_visit.client_name;
+    }
+  }
+
   useEffect(() => {
-    if (props.opened && schedulerState.clicked_visit) {
+    if (props.opened && schedulerState.clicked_visit?.id) {
       setState({
         id: schedulerState.clicked_visit.id,
         client: schedulerState.clicked_visit.client,
         client_name: schedulerState.clicked_visit.client_name,
+        client_phone: schedulerState.clicked_visit.client_phone,
+        client_name_and_phone: mergeClientNameAndPhone(),
         employee: schedulerState.clicked_visit.employee,
         employee_name: schedulerState.clicked_visit.employee_name,
         employee_color: schedulerState.clicked_visit.employee_color,
@@ -37,7 +51,9 @@ function VisitModal(props) {
   function onClientChange(e) {
     setState({
       client: e.id,
-      client_name: e.name
+      client_name: e.only_name,
+      client_phone: e.phone,
+      client_name_and_phone: e.name
     });
   }
 
@@ -64,6 +80,8 @@ function VisitModal(props) {
       id: 0,
       client: 0,
       client_name: '',
+      client_phone: '',
+      client_name_and_phone: '',
       employee: 0,
       employee_name: '',
       employee_color: '',
@@ -86,14 +104,15 @@ function VisitModal(props) {
   function postVisit(formData) {
     axiosPostRequest('post_visit', formData)
       .then((response) => {
-        const {client, client_name, employee, employee_name, employee_color, note} = state;
+        const {client, client_name, client_phone, employee, employee_name, employee_color, note} = state;
         const visit = {
           id: response,
           week: schedulerState.clicked_week,
           date: schedulerState.clicked_day,
           start: schedulerState.clicked_time,
-          client,
+          client: client,
           client_name,
+          client_phone,
           employee,
           employee_name,
           employee_color,
@@ -120,10 +139,11 @@ function VisitModal(props) {
           fieldName='Клієнт'
           url='get_clients_select'
           onChange={onClientChange}
-          value={{id: state.client, name: state.client_name}}
+          value={{id: state.client, name: state.client_name_and_phone}}
         />
-        <small>Інфо про клієнта</small>
+        <ClientModal id={state.client} name={state.client_name} />
         <hr />
+
         <AsyncSelector
           className='css_select_in_modal'
           fieldName='Спеціаліст'

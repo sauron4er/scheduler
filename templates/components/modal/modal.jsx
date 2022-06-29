@@ -9,7 +9,8 @@ const Modal = (props) => {
         className='css_modal'
         style={{
           // transform: props.open ? 'translateY(0)' : 'translateY(-100vh)',
-          opacity: props.open ? 1 : 0
+          opacity: props.open ? 1 : 0,
+          ...props.style
         }}
       >
         <button type='button' className='close' aria-label='Close' onClick={props.onClose}>
@@ -23,7 +24,8 @@ const Modal = (props) => {
 
 Modal.defaultProps = {
   open: false,
-  onBackdropClick: () => {}
+  onBackdropClick: () => {},
+  style: {}
 };
 
 export default Modal;

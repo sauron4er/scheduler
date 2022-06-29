@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {store, view} from '@risingstack/react-easy-state';
-import './schedule.css';
+import '../../../../static/css/schedule.css';
 
 function TimeColExperimental() {
   return (
