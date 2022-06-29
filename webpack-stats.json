@@ -3,7 +3,7 @@
   "assets": {
     "home.js": {
       "name": "home.js",
-      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\home.js",
+      "path": "E:\\Code\\scheduler\\static\\bundles\\home.js",
       "publicPath": "/static/home.js"
     }
   },
