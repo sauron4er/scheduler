@@ -68,20 +68,6 @@ function Schedule() {
           +
         </button>
       </div>
-
-      <div className='css_visit_popup' id='popup' style={{display: 'none'}}>
-        {schedulerState.hovered_visits_client_name}
-        <If condition={schedulerState.hovered_visits_client_phone}>
-          <div>
-            <small>{schedulerState.hovered_visits_client_phone}</small>
-          </div>
-        </If>
-        <If condition={schedulerState.hovered_visits_note}>
-          <div>
-            <small className='font-italic'>{schedulerState.hovered_visits_note}</small>
-          </div>
-        </If>
-      </div>
     </>
   );
 }

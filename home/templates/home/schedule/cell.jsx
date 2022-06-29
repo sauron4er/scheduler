@@ -27,9 +27,12 @@ function Cell(props) {
     schedulerState.hovered_visits_client_name = visit.client_name
     schedulerState.hovered_visits_note = visit.note
     schedulerState.hovered_visits_client_phone = visit.client_phone
+    schedulerState.hover = schedulerState.hover + 1
 
     const hovered_visit = document.getElementById(e.target.id)
     const rect = hovered_visit.getBoundingClientRect();
+
+    console.log(`visit: ${rect.top + 25}`);
 
     const el = $("#popup");
     el.css('position', 'absolute');

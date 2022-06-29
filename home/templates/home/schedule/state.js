@@ -19,6 +19,7 @@ const schedulerState = store({
   hovered_visits_client_name: '',
   hovered_visits_note: '',
   hovered_visits_client_phone: '',
+  hover: 0
 });
 
 export default schedulerState;

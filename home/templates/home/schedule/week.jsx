@@ -9,6 +9,7 @@ import {notify} from 'templates/components/form_modules/modules_config';
 import {Loader} from 'templates/components/form_modules/loaders';
 import VisitModal from 'home/templates/home/schedule/visit_modal';
 import {getIndex} from 'templates/my_extras';
+import VisitPopup from "./visit_popup";
 
 function Week(props) {
   const [state, setState] = useSetState({
@@ -145,6 +146,7 @@ function Week(props) {
           </tbody>
         </table>
         <VisitModal opened={schedulerState.clicked_week === props.week_number} addVisit={addVisitToList} changeVisit={changeVisitInList} />
+        <VisitPopup />
       </When>
       <Otherwise>
         <Loader />
