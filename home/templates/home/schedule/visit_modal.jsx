@@ -125,6 +125,10 @@ function VisitModal(props) {
       .catch((error) => notify(error));
   }
 
+  function changeClientPhoneInSelect(id, new_phone) {
+
+  }
+
   return (
     <Modal open={props.opened} onClose={closeModal}>
       <div className='modal-header'>
@@ -141,7 +145,7 @@ function VisitModal(props) {
           onChange={onClientChange}
           value={{id: state.client, name: state.client_name_and_phone}}
         />
-        <ClientModal id={state.client} name={state.client_name} />
+        <ClientModal id={state.client} name={state.client_name} onPhoneChange={changeClientPhoneInSelect} />
         <hr />
 
         <AsyncSelector

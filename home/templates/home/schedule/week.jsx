@@ -21,7 +21,6 @@ function Week(props) {
 
   useEffect(() => {
     if (schedulerState.updateVisits) {
-      console.log(schedulerState.updateVisits);
       getVisits();
     }
   }, [schedulerState.updateVisits]);

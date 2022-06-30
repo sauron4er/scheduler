@@ -24,7 +24,6 @@ function Cell(props) {
   function onVisitHover(e) {
     e.stopPropagation();
     const visit = JSON.parse(e.target.dataset.info);
-    console.log(visit.employee_color);
     schedulerState.hovered_visits_week = props.week_number;
     schedulerState.hovered_visit = visit;
     schedulerState.hover = schedulerState.hover + 1;
@@ -59,7 +58,8 @@ function Cell(props) {
               onClick={(e) => onVisitClick(e, visit)}
               onMouseOver={onVisitHover}
               onMouseOut={onVisitHoverOut}
-              style={visit.employee_color ? {boxShadow: `3px 2px 1px ${visit.employee_color}`}: null}
+              // style={visit.employee_color ? {boxShadow: `2px 2px 2px ${visit.employee_color}`}: null}
+              style={visit.employee_color ? {border: `1px solid ${visit.employee_color}`}: null}
             >
               {visit.client_name}
             </small>

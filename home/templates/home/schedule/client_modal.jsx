@@ -2,19 +2,21 @@ import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import Modal from 'templates/components/modal/modal';
 import {store, view} from '@risingstack/react-easy-state';
-import schedulerState from 'home/templates/home/schedule/state';
 import SubmitButton from 'templates/components/form_modules/submit_button';
-import AsyncSelector from 'templates/components/form_modules/selectors/async_selector';
 import 'static/css/modal.css';
 import TextInput from 'templates/components/form_modules/text_input';
 import {axiosGetRequest, axiosPostRequest} from 'templates/components/axios_requests';
-import {Loader} from '../../../../templates/components/form_modules/loaders';
+import {Loader} from 'templates/components/form_modules/loaders';
+import clientsState from 'home/templates/home/clients/state';
 
 function ClientModal(props) {
   const [state, setState] = useSetState({
     opened: false,
     loading: true,
-    client: {}
+    name: '',
+    phone: '',
+    address: '',
+    note: ''
   });
 
   useEffect(() => {
@@ -22,7 +24,10 @@ function ClientModal(props) {
       axiosGetRequest(`get_client/${props.id}`)
         .then((response) => {
           setState({
-            client: response,
+            name: response.name,
+            phone: response.phone,
+            address: response.address,
+            note: response.note,
             loading: false
           });
         })
@@ -41,6 +46,29 @@ function ClientModal(props) {
     });
   }
 
+  function onChange(e, type) {
+    setState({[type]: e.target.value});
+  }
+
+  function changeClient() {
+    const {id, name} = props;
+    const {phone, address, note} = state;
+    let formData = new FormData();
+    formData.append('id', id);
+    formData.append('name', name);
+    formData.append('phone', phone);
+    formData.append('address', address);
+    formData.append('note', note);
+
+    axiosPostRequest('post_client', formData)
+      .then((response) => {
+        //TODO не закривати вікно а показувати loading, після чого галочку "збережено"
+        //TODO  onPhoneChange
+        props.onPhoneChange(id, phone)
+      })
+      .catch((error) => notify(error));
+  }
+
   return (
     <>
       <button className={`btn btn-sm btn-outline-info mt-1 ${props.id ? 'visible' : 'invisible'}`} disabled={!props.id} onClick={openModal}>
@@ -50,21 +78,25 @@ function ClientModal(props) {
         <div className='modal-header'>
           <h5>{props.name}</h5>
         </div>
-        <div className='modal-body'>
-          <Choose>
-            <When condition={!state.loading}>
-              <TextInput text={state.client.phone} fieldName='Номер телефону' onChange={(e) => onChange(e, 'phone')} maxLength={10} />
+
+        <Choose>
+          <When condition={!state.loading}>
+            <div className='modal-body'>
+              <TextInput text={state.phone} fieldName='Номер телефону' onChange={(e) => onChange(e, 'phone')} maxLength={10} />
               <hr />
-              <TextInput text={state.client.address} fieldName='Адреса' onChange={(e) => onChange(e, 'address')} maxLength={100} />
+              <TextInput text={state.address} fieldName='Адреса' onChange={(e) => onChange(e, 'address')} maxLength={100} />
               <hr />
-              <TextInput text={state.client.note} fieldName='Нотатка' onChange={(e) => onChange(e, 'note')} maxLength={1000} />
-            </When>
-            <Otherwise>
-              <Loader />
-            </Otherwise>
-          </Choose>
-        </div>
-        <div className='modal-footer'></div>
+              <TextInput text={state.note} fieldName='Нотатка' onChange={(e) => onChange(e, 'note')} maxLength={1000} />
+            </div>
+            <div className='modal-footer'>
+              <SubmitButton name='change' text='Зберегти' onClick={changeClient} disabled={!state.name} />
+            </div>
+          </When>
+          <Otherwise>
+            <Loader />
+          </Otherwise>
+        </Choose>
+
       </Modal>
     </>
   );
@@ -72,7 +104,8 @@ function ClientModal(props) {
 
 ClientModal.defaultProps = {
   id: 0,
-  name: ''
+  name: '',
+  onPhoneChange: () => {}
 };
 
 export default view(ClientModal);
