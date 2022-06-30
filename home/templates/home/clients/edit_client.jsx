@@ -71,7 +71,7 @@ function EditClient(props) {
 
   return (
     <Modal open={clientsState.editing_opened} onClose={closeModal}>
-      <h5>Редагування</h5>
+      <h5>Клієнт</h5>
       <hr />
       <TextInput text={state.name} fieldName='Ім’я' onChange={(e) => onChange(e, 'name')} maxLength={100} />
       <hr />

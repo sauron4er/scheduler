@@ -3,7 +3,7 @@
   "assets": {
     "home.js": {
       "name": "home.js",
-      "path": "E:\\Code\\scheduler\\static\\bundles\\home.js",
+      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\home.js",
       "publicPath": "/static/home.js"
     }
   },
@@ -12,5 +12,7 @@
       "home.js"
     ]
   },
-  "publicPath": "/static/"
+  "publicPath": "/static/",
+  "error": "ModuleBuildError",
+  "message": "Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\home\\templates\\home\\schedule\\cell.jsx: Unexpected token (62:56)\n\n  60 |               onMouseOver={onVisitHover}\n  61 |               onMouseOut={onVisitHoverOut}\n> 62 |               style={visit.employee_color ? {boxShadow: }: null}\n     |                                                         ^\n  63 |             >\n  64 |               {visit.client_name}\n  65 |             </small>\n    at instantiate (D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:72:32)\n    at constructor (D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:358:12)\n    at Object.raise (D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:3341:19)\n    at Object.unexpected (D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:3379:16)\n    at Object.parseExprAtom (D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:13118:22)\n    at Object.parseExprAtom (D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:8041:20)\n    at Object.parseExprSubscripts (D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:12643:23)\n    at Object.parseUpdate (D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:12622:21)\n    at Object.parseMaybeUnary (D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:12593:23)\n    at Object.parseMaybeUnaryOrPrivate (D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:12387:61)"
 }

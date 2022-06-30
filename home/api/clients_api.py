@@ -1,7 +1,5 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.db.models import Q
+from django.shortcuts import get_object_or_404
 import json
 from scheduler.api.try_except import try_except
 from home.models import Client
@@ -106,4 +104,17 @@ def add_client(request):
         client.is_active = False
     client.save()
 
+    return client
+
+
+@try_except
+def get_client_info(pk):
+    client = get_object_or_404(Client, pk=pk)
+    client = {
+        'id': client.id,
+        'name': client.name,
+        'address': client.address,
+        'phone': client.phone,
+        'note': client.note
+    }
     return client

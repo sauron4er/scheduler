@@ -96,5 +96,6 @@ def get_visits_list(first_day):
         'note': visit.note
     } for visit in Visit.objects\
         .filter(start__range=(first_day, seventh_day))\
+        .filter(client__is_active=True)\
         .filter(is_active=True)]
     return visits

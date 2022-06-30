@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from datetime import datetime
 import json
-from home.api.clients_api import get_clients_page, get_clients_for_select, add_client
+from home.api.clients_api import get_clients_page, get_clients_for_select, add_client, get_client_info
 from home.api.employees_api import get_employees_page, get_employees_for_select, add_employee
 from home.api.visits_api import add_visit, change_visit, get_visits_list, get_visits_list_old
 from scheduler.api.try_except import try_except
@@ -45,6 +45,13 @@ def get_clients_select(request):
 def post_client(request):
     client = add_client(request)
     return HttpResponse(client.pk)
+
+
+@try_except
+@login_required(login_url='login')
+def get_client(request, pk):
+    client = get_client_info(pk)
+    return HttpResponse(json.dumps(client))
 
 
 @login_required(login_url='login')

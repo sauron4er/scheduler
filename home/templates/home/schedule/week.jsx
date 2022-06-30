@@ -146,9 +146,6 @@ function Week(props) {
           </tbody>
         </table>
         <VisitModal opened={schedulerState.clicked_week === props.week_number} addVisit={addVisitToList} changeVisit={changeVisitInList} />
-        {/*<If condition={schedulerState.hovered_visits_week === props.week_number}>*/}
-
-        {/*</If>*/}
       </When>
       <Otherwise>
         <Loader />
