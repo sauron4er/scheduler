@@ -3,7 +3,7 @@
   "assets": {
     "home.js": {
       "name": "home.js",
-      "path": "E:\\Code\\scheduler\\static\\bundles\\home.js",
+      "path": "C:\\Users\\Stas\\Documents\\Code\\scheduler\\static\\bundles\\home.js",
       "publicPath": "/static/home.js"
     }
   },
@@ -12,7 +12,5 @@
       "home.js"
     ]
   },
-  "publicPath": "/static/",
-  "error": "ModuleBuildError",
-  "message": "Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: E:\\Code\\scheduler\\home\\templates\\home\\schedule\\client_modal.jsx: Unexpected token, expected \",\" (45:20)\n\n  43 |   function onChange(e, type) {\n  44 |     console.log(1);\n> 45 |     setState({client[type]: e.target.value});\n     |                     ^\n  46 |   }\n  47 |\n  48 |   function changeClient() {\n    at instantiate (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:72:32)\n    at constructor (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:358:12)\n    at Object.raise (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:3341:19)\n    at Object.unexpected (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:3379:16)\n    at Object.expect (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:4008:28)\n    at Object.parseObjectLike (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:13590:14)\n    at Object.parseExprAtom (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:12993:23)\n    at Object.parseExprAtom (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:8041:20)\n    at Object.parseExprSubscripts (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:12643:23)\n    at Object.parseUpdate (E:\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:12622:21)"
+  "publicPath": "/static/"
 }
