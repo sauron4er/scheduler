@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import {store, view} from '@risingstack/react-easy-state';
-import schedulerState from 'home/templates/home/schedule/state';
-import '../../../../static/css/schedule.css';
+import 'static/css/schedule.css';
 import Cell from 'home/templates/home/schedule/cell';
 
 function Row(props) {

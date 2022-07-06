@@ -3,8 +3,13 @@
   "assets": {
     "home.js": {
       "name": "home.js",
-      "path": "C:\\Users\\Stas\\Documents\\Code\\scheduler\\static\\bundles\\home.js",
+      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\home.js",
       "publicPath": "/static/home.js"
+    },
+    "home.js.LICENSE.txt": {
+      "name": "home.js.LICENSE.txt",
+      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\home.js.LICENSE.txt",
+      "publicPath": "/static/home.js.LICENSE.txt"
     }
   },
   "chunks": {
