@@ -16,6 +16,7 @@ const Modal = (props) => {
         <button type='button' className='close' aria-label='Close' onClick={props.onClose}>
           <span aria-hidden='true'>&times;</span>
         </button>
+
         {props.children}
       </div>
     </If>
