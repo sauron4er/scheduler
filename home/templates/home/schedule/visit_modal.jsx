@@ -125,50 +125,44 @@ function VisitModal(props) {
       .catch((error) => notify(error));
   }
 
-  function changeClientPhoneInSelect(id, new_phone) {
-
-  }
+  function changeClientPhoneInSelect(id, new_phone) {}
 
   return (
-    <Modal open={props.opened} onClose={closeModal} style={{minWidth: '60%'}}>
-      <div className='d-flex'>
-        <div className="col-lg-9">
-          <div className="modal-header">
-            <h5>
-              {state.client_name ? "Прийом: " : "Новий прийом: "}
-              {schedulerState.clicked_day} на {schedulerState.clicked_time}
-            </h5>
-          </div>
-          <div className="modal-body">
-            <AsyncSelector
-              className="css_select_in_modal"
-              fieldName="Клієнт"
-              url="get_clients_select"
-              onChange={onClientChange}
-              value={{ id: state.client, name: state.client_name_and_phone }}
-            />
-            <ClientModal id={state.client} name={state.client_name} onPhoneChange={changeClientPhoneInSelect} />
-            <hr />
-
-            <AsyncSelector
-              className="css_select_in_modal"
-              fieldName="Спеціаліст"
-              url="get_employees_select"
-              onChange={onEmployeeChange}
-              value={{ id: state.employee, name: state.employee_name }}
-              color={state.employee_color}
-            />
-            <hr />
-            <TextInput text={state.note} fieldName="Нотатка" onChange={onNoteChange} maxLength={500} />
-          </div>
-          <div className="modal-footer">
-            <SubmitButton name="change" text="Зберегти" onClick={postNewVisit}
-                          disabled={!state.client || !state.employee} />
-          </div>
+    <div id='visit_modal'>
+      <Modal open={props.opened} onClose={closeModal}>
+        <div className='modal-header'>
+          <h5>
+            {state.client_name ? 'Прийом: ' : 'Новий прийом: '}
+            {schedulerState.clicked_day} на {schedulerState.clicked_time}
+          </h5>
         </div>
-        <div className='col-lg-3'>Інфа про клієнта</div>
-      </div>
-    </Modal>
+        <div className='modal-body'>
+          <AsyncSelector
+            className='css_select_in_modal'
+            fieldName='Клієнт'
+            url='get_clients_select'
+            onChange={onClientChange}
+            value={{id: state.client, name: state.client_name_and_phone}}
+          />
+          <ClientModal id={state.client} name={state.client_name} onPhoneChange={changeClientPhoneInSelect} />
+          <hr />
+
+          <AsyncSelector
+            className='css_select_in_modal'
+            fieldName='Спеціаліст'
+            url='get_employees_select'
+            onChange={onEmployeeChange}
+            value={{id: state.employee, name: state.employee_name}}
+            color={state.employee_color}
+          />
+          <hr />
+          <TextInput text={state.note} fieldName='Нотатка' onChange={onNoteChange} maxLength={500} />
+        </div>
+        <div className='modal-footer'>
+          <SubmitButton name='change' text='Зберегти' onClick={postNewVisit} disabled={!state.client || !state.employee} />
+        </div>
+      </Modal>
+    </div>
   );
 }
 
