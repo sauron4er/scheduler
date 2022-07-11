@@ -36,13 +36,30 @@ function Cell(props) {
     el.css('left', rect.left);
     el.css('top', rect.top + 25);
     el.css('display', 'block');
-
   }
 
   function onVisitHoverOut(e, client_name) {
     e.stopPropagation();
-    schedulerState.hovered_visit = null
+    schedulerState.hovered_visit = null;
     document.getElementById('popup').style.display = 'none';
+  }
+
+  function getVisitStyle(employee_color) {
+    const is_color_dark = isEmployeeColorDark(employee_color);
+    if (is_color_dark) {
+      return {backgroundImage: `linear-gradient(to right, ${employee_color}, white)`, color: 'white'};
+    } else {
+      return {backgroundImage: `linear-gradient(to right, ${employee_color}, white)`, color: 'black'};
+    }
+  }
+
+  function isEmployeeColorDark(hexcolor) {
+    const r = parseInt(hexcolor.substr(0, 2), 16);
+    const g = parseInt(hexcolor.substr(2, 2), 16);
+    const b = parseInt(hexcolor.substr(4, 2), 16);
+    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+    return yiq >= 128;
+    // return yiq >= 128 ? 'black' : 'white';
   }
 
   return (
@@ -58,8 +75,8 @@ function Cell(props) {
               onClick={(e) => onVisitClick(e, visit)}
               onMouseOver={onVisitHover}
               onMouseOut={onVisitHoverOut}
-              // style={visit.employee_color ? {boxShadow: `2px 2px 2px ${visit.employee_color}`}: null}
-              style={visit.employee_color ? {border: `1px solid ${visit.employee_color}`}: null}
+              // style={visit.employee_color ? {border: `1.5px solid ${visit.employee_color}`}: null}
+              style={getVisitStyle(visit.employee_color)}
             >
               {visit.client_name}
             </small>

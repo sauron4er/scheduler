@@ -24,9 +24,11 @@
   padding: 16px;
   box-sizing: border-box;
   transition: all 0.3s ease-out;
-  min-width: 250px;
-  max-width: 350px;
+  /*min-width: 250px;*/
+  /*max-width: 350px;*/
+  width: 350px;
   position: fixed;
+  overflow-y: scroll;
 }
 
 @media (min-width: 600px) {

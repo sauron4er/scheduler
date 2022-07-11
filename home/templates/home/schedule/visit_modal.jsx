@@ -145,7 +145,7 @@ function VisitModal(props) {
           onChange={onClientChange}
           value={{id: state.client, name: state.client_name_and_phone}}
         />
-        <ClientModal id={state.client} name={state.client_name} onPhoneChange={changeClientPhoneInSelect} />
+        {/*<ClientModal id={state.client} name={state.client_name} onPhoneChange={changeClientPhoneInSelect} />*/}
         <hr />
 
         <AsyncSelector
@@ -160,6 +160,7 @@ function VisitModal(props) {
         <TextInput text={state.note} fieldName='Нотатка' onChange={onNoteChange} maxLength={500} />
       </div>
       <div className='modal-footer'>
+        <SubmitButton name='delete' text='Видалити' onClick={postNewVisit} disabled={!state.client || !state.employee} />
         <SubmitButton name='change' text='Зберегти' onClick={postNewVisit} disabled={!state.client || !state.employee} />
       </div>
       <If condition={schedulerState.clicked_visit?.client}>

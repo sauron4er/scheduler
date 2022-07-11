@@ -28,16 +28,17 @@ function ClientVisits(props) {
         </li>
       </ul>
 
-      <table className='table table-sm css_table small mt-1'>
-        <thead className='thead-light'>
+      <div className='p-1'>
+        <table className='table table-sm css_table small'>
+          <thead className='thead-light'>
           <tr>
             <th>Дата</th>
             <th>Лікар</th>
             <th>Нотатка</th>
             {/*<th></th>*/}
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           <For each='visit' of={state.table_mode === 'future' ? props.future : props.past} index='idx'>
             <tr key={idx}>
               <td className='css_td'>{`${visit.date}, ${visit.start}`}</td>
@@ -45,8 +46,9 @@ function ClientVisits(props) {
               <td className='css_td'>{visit.note}</td>
             </tr>
           </For>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </>
   );
 }

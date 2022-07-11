@@ -58,10 +58,8 @@ def get_client(request, pk):
 @login_required(login_url='login')
 def get_client_for_scheduler(request, pk):
     client_info = get_client_info(pk)
-
-    today = date.today()
     future = get_client_visits(pk, datetime.now(), 'future')
-    past = get_client_visits(pk, today, 'past')
+    past = get_client_visits(pk, datetime.now(), 'past')
     return HttpResponse(json.dumps({'info': client_info, 'future': future, 'past': past}))
 
 

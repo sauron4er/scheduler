@@ -71,14 +71,19 @@
   white-space: nowrap;
   overflow: hidden;
 
-  background: #bde2fd;
+  /*background: rgb(5,80,252);*/
+  /*background: linear-gradient(90deg, rgba(5,80,252,1) 0%, rgba(255,255,255,0.5634628851540616) 38%, rgba(255,255,255,1) 100%);*/
+
+  /*background: #bde2fd;*/
+
+
   border-radius: 5px;
   padding: 2px 5px;
   cursor: default;
 }
 
 .visit:hover {
-  background: #89cafc;
+  /*background: #89cafc;*/
 }
 
 .visit:not(:first-of-type) {
