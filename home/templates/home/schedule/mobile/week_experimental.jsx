@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import {store, view} from '@risingstack/react-easy-state';
-import '../../../../static/css/schedule.css';
-import TimeColExperimental from 'home/templates/home/schedule/time_col_experimental';
-import DayExperimental from 'home/templates/home/schedule/day_experimental';
+import 'static/css/schedule.css';
+import TimeColExperimental from 'home/templates/home/schedule/mobile/time_col_experimental';
+import DayExperimental from 'home/templates/home/schedule/mobile/day_experimental';
 
 function WeekExperimental(props) {
   const [state, setState] = useSetState({

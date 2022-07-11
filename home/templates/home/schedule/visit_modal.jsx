@@ -8,8 +8,8 @@ import AsyncSelector from 'templates/components/form_modules/selectors/async_sel
 import 'static/css/modal.css';
 import TextInput from 'templates/components/form_modules/text_input';
 import {axiosPostRequest} from 'templates/components/axios_requests';
-import VisitPopup from './visit_popup';
 import ClientModal from './client_modal';
+import ClientPopup from 'home/templates/home/schedule/popups/client_popup';
 
 function VisitModal(props) {
   const [state, setState] = useSetState({
@@ -75,7 +75,9 @@ function VisitModal(props) {
     schedulerState.clicked_week = null;
     schedulerState.clicked_day = null;
     schedulerState.clicked_time = null;
-    schedulerState.clicked_visit = null;
+    schedulerState.clicked_visit = {
+      client: 0
+    };
     setState({
       id: 0,
       client: 0,
@@ -128,41 +130,42 @@ function VisitModal(props) {
   function changeClientPhoneInSelect(id, new_phone) {}
 
   return (
-    <div id='visit_modal'>
-      <Modal open={props.opened} onClose={closeModal}>
-        <div className='modal-header'>
-          <h5>
-            {state.client_name ? 'Прийом: ' : 'Новий прийом: '}
-            {schedulerState.clicked_day} на {schedulerState.clicked_time}
-          </h5>
-        </div>
-        <div className='modal-body'>
-          <AsyncSelector
-            className='css_select_in_modal'
-            fieldName='Клієнт'
-            url='get_clients_select'
-            onChange={onClientChange}
-            value={{id: state.client, name: state.client_name_and_phone}}
-          />
-          <ClientModal id={state.client} name={state.client_name} onPhoneChange={changeClientPhoneInSelect} />
-          <hr />
+    <Modal open={props.opened} onClose={closeModal} id='visit_modal'>
+      <div className='modal-header'>
+        <h5>
+          {state.client_name ? 'Прийом: ' : 'Новий прийом: '}
+          {schedulerState.clicked_day} на {schedulerState.clicked_time}
+        </h5>
+      </div>
+      <div className='modal-body'>
+        <AsyncSelector
+          className='css_select_in_modal'
+          fieldName='Клієнт'
+          url='get_clients_select'
+          onChange={onClientChange}
+          value={{id: state.client, name: state.client_name_and_phone}}
+        />
+        <ClientModal id={state.client} name={state.client_name} onPhoneChange={changeClientPhoneInSelect} />
+        <hr />
 
-          <AsyncSelector
-            className='css_select_in_modal'
-            fieldName='Спеціаліст'
-            url='get_employees_select'
-            onChange={onEmployeeChange}
-            value={{id: state.employee, name: state.employee_name}}
-            color={state.employee_color}
-          />
-          <hr />
-          <TextInput text={state.note} fieldName='Нотатка' onChange={onNoteChange} maxLength={500} />
-        </div>
-        <div className='modal-footer'>
-          <SubmitButton name='change' text='Зберегти' onClick={postNewVisit} disabled={!state.client || !state.employee} />
-        </div>
-      </Modal>
-    </div>
+        <AsyncSelector
+          className='css_select_in_modal'
+          fieldName='Спеціаліст'
+          url='get_employees_select'
+          onChange={onEmployeeChange}
+          value={{id: state.employee, name: state.employee_name}}
+          color={state.employee_color}
+        />
+        <hr />
+        <TextInput text={state.note} fieldName='Нотатка' onChange={onNoteChange} maxLength={500} />
+      </div>
+      <div className='modal-footer'>
+        <SubmitButton name='change' text='Зберегти' onClick={postNewVisit} disabled={!state.client || !state.employee} />
+      </div>
+      <If condition={schedulerState.clicked_visit?.client}>
+        <ClientPopup />
+      </If>
+    </Modal>
   );
 }
 

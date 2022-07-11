@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import {store, view} from '@risingstack/react-easy-state';
-import '../../../../static/css/schedule.css';
+import 'static/css/schedule.css';
 import {Loader} from "templates/components/form_modules/loaders";
 
 function DayExperimental(props) {

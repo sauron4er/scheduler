@@ -3,7 +3,7 @@
   "assets": {
     "home.js": {
       "name": "home.js",
-      "path": "C:\\Users\\Stas\\Documents\\Code\\scheduler\\static\\bundles\\home.js",
+      "path": "E:\\Code\\scheduler\\static\\bundles\\home.js",
       "publicPath": "/static/home.js"
     }
   },
@@ -12,7 +12,5 @@
       "home.js"
     ]
   },
-  "publicPath": "/static/",
-  "error": "ModuleBuildError",
-  "message": "Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\Users\\Stas\\Documents\\Code\\scheduler\\home\\templates\\home\\schedule\\client_info.jsx: Unexpected token (24:65)\n\n  22 |\n  23 |   return (\n> 24 |     <div className='css_client_info bg-danger' id={'client_info'}}>\n     |                                                                  ^\n  25 |       !!!\n  26 |     </div>\n  27 |   );\n    at instantiate (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:72:32)\n    at constructor (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:358:12)\n    at Object.raise (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:3341:19)\n    at Object.unexpected (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:3379:16)\n    at Object.jsxParseIdentifier (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:7785:12)\n    at Object.jsxParseNamespacedName (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:7795:23)\n    at Object.jsxParseAttribute (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:7893:22)\n    at Object.jsxParseOpeningElementAfterName (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:7913:28)\n    at Object.jsxParseOpeningElementAt (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:7906:17)\n    at Object.jsxParseElementAt (C:\\Users\\Stas\\Documents\\Code\\scheduler\\node_modules\\@babel\\parser\\lib\\index.js:7937:33)"
+  "publicPath": "/static/"
 }

@@ -113,8 +113,8 @@ def get_client_info(pk):
     client = {
         'id': client.id,
         'name': client.name,
-        'address': client.address,
-        'phone': client.phone,
-        'note': client.note
+        'address': client.address or '',
+        'phone': client.phone or '',
+        'note': client.note or ''
     }
     return client

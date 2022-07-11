@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 from .views import home, schedule, \
-    clients, get_clients, get_clients_select, post_client, get_client, \
+    clients, get_clients, get_clients_select, post_client, get_client, get_client_for_scheduler, \
     employees, get_employees, get_employees_select, post_employee, \
     post_visit, get_visits, get_visits_old
 
@@ -9,6 +9,7 @@ app_name = 'home'
 urlpatterns = [
     path('', home, name='home'),
     path('schedule', schedule, name='schedule'),
+    re_path(r'get_client_for_scheduler/(?P<pk>\d+)/', get_client_for_scheduler, name='get_client_for_scheduler'),
 
     path('clients', clients, name='clients'),
     path('get_clients_select', get_clients_select, name='get_clients_select'),

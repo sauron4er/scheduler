@@ -18,7 +18,7 @@ function VisitPopup(props) {
   }, [schedulerState.hovered_visit]);
 
   return (
-    <div className='css_visit_popup' id={'popup'} style={{display: 'none'}}>
+    <div className='css_visit_popup' id='popup' style={{display: 'none'}}>
       <If condition={schedulerState.hovered_visit}>
         {schedulerState.hovered_visit.client_name}
         <If condition={schedulerState.hovered_visit.client_phone}>

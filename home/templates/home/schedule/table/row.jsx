@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import {store, view} from '@risingstack/react-easy-state';
 import 'static/css/schedule.css';
-import Cell from 'home/templates/home/schedule/cell';
+import Cell from 'home/templates/home/schedule/table/cell';
 
 function Row(props) {
   const [state, setState] = useSetState({

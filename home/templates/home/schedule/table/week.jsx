@@ -3,13 +3,12 @@ import useSetState from 'templates/hooks/useSetState';
 import {store, view} from '@risingstack/react-easy-state';
 import schedulerState from 'home/templates/home/schedule/state';
 import 'static/css/schedule.css';
-import Row from 'home/templates/home/schedule/row';
+import Row from 'home/templates/home/schedule/table/row';
 import {axiosPostRequest} from 'templates/components/axios_requests';
 import {notify} from 'templates/components/form_modules/modules_config';
 import {Loader} from 'templates/components/form_modules/loaders';
 import VisitModal from 'home/templates/home/schedule/visit_modal';
 import {getIndex} from 'templates/my_extras';
-import ClientInfo from './client_info';
 
 function Week(props) {
   const [state, setState] = useSetState({
@@ -103,7 +102,7 @@ function Week(props) {
   return (
     <Choose>
       <When condition={!state.loading}>
-        <table className='table table-sm scheduler'>
+        <table id={`week_${props.week_number}`} className='table table-sm scheduler'>
           <thead>
             <tr>
               <th scope='col' className='scheduler_th'></th>
@@ -145,9 +144,6 @@ function Week(props) {
           </tbody>
         </table>
         <VisitModal opened={schedulerState.clicked_week === props.week_number} addVisit={addVisitToList} changeVisit={changeVisitInList} />
-        <If condition={schedulerState.clicked_visit?.client}>
-          <ClientInfo />
-        </If>
       </When>
       <Otherwise>
         <Loader />

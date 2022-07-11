@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
-from datetime import datetime
+from datetime import datetime, date
 import json
 from home.api.clients_api import get_clients_page, get_clients_for_select, add_client, get_client_info
 from home.api.employees_api import get_employees_page, get_employees_for_select, add_employee
-from home.api.visits_api import add_visit, change_visit, get_visits_list, get_visits_list_old
+from home.api.visits_api import add_visit, change_visit, get_visits_list, get_visits_list_old, get_client_visits
 from scheduler.api.try_except import try_except
 
 
@@ -52,6 +52,17 @@ def post_client(request):
 def get_client(request, pk):
     client = get_client_info(pk)
     return HttpResponse(json.dumps(client))
+
+
+@try_except
+@login_required(login_url='login')
+def get_client_for_scheduler(request, pk):
+    client_info = get_client_info(pk)
+
+    today = date.today()
+    future = get_client_visits(pk, datetime.now(), 'future')
+    past = get_client_visits(pk, today, 'past')
+    return HttpResponse(json.dumps({'info': client_info, 'future': future, 'past': past}))
 
 
 @login_required(login_url='login')
