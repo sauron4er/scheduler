@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Select from 'react-select';
 import {axiosGetRequest} from 'templates/components/axios_requests';
-import {notify} from 'templates/components/form_modules/modules_config';
+import {notify} from 'templates/components/react_toastify_settings';
 import { Loader } from "templates/components/form_modules/loaders";
 
 class SelectorWithFilterAndAxios extends React.Component {

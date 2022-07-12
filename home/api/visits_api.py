@@ -1,13 +1,15 @@
+from django.utils.timezone import make_aware
 from datetime import datetime, timedelta, date
+from django.shortcuts import get_object_or_404
+from scheduler.api.convert_to_local_time import convert_to_localtime
 from scheduler.api.try_except import try_except
 from home.models import Visit
-from scheduler.api.convert_to_local_time import convert_to_localtime
 
 
 @try_except
 def add_visit(request):
-    start = datetime.strptime(request.POST['start'], '%d.%m.%y, %H:%M')
-    finish = datetime.strptime(request.POST['finish'], '%d.%m.%y, %H:%M')\
+    start = make_aware(datetime.strptime(request.POST['start'], '%d.%m.%y, %H:%M'))
+    finish = make_aware(datetime.strptime(request.POST['finish'], '%d.%m.%y, %H:%M'))\
         if 'finish' in request.POST else start + timedelta(hours=1)
 
     new_visit = Visit(client_id=request.POST['client'],
@@ -21,8 +23,8 @@ def add_visit(request):
 
 @try_except
 def change_visit(request):
-    start = datetime.strptime(request.POST['start'], '%d.%m.%y, %H:%M')
-    finish = datetime.strptime(request.POST['finish'], '%d.%m.%y, %H:%M')\
+    start = make_aware(datetime.strptime(request.POST['start'], '%d.%m.%y, %H:%M'))
+    finish = make_aware(datetime.strptime(request.POST['finish'], '%d.%m.%y, %H:%M')) \
         if 'finish' in request.POST else start + timedelta(hours=1)
 
     visit = Visit.objects.get(pk=request.POST['id'])
@@ -36,50 +38,8 @@ def change_visit(request):
 
 
 @try_except
-def get_visits_list_old(first_monday):
-    first_sunday = first_monday + timedelta(days=6)
-    second_monday = first_sunday + timedelta(days=1)
-    second_sunday = second_monday + timedelta(days=6)
-    third_monday = second_sunday + timedelta(days=1)
-    third_sunday = third_monday + timedelta(days=6)
-
-    three_weeks_visits = Visit.objects.filter(is_active=True)
-
-    first_week_visits = get_weeks_visits(three_weeks_visits, first_monday, first_sunday)
-    second_week_visits = get_weeks_visits(three_weeks_visits, second_monday, second_sunday)
-    third_week_visits = get_weeks_visits(three_weeks_visits, third_monday, third_sunday)
-
-    visits = {'first_week': first_week_visits,
-              'second_week': second_week_visits,
-              'third_week': third_week_visits}
-
-    return visits
-
-
-@try_except
-def get_weeks_visits(all_visits_query, monday, sunday):
-    visits = [{
-        'id': visit.id,
-        'client': visit.client.id,
-        'client_name': visit.client.name,
-        'employee': visit.employee.id,
-        'employee_name': visit.employee.name,
-        'employee_color': visit.employee.color,
-        'date': convert_to_localtime(visit.start, '%d.%m.%y'),
-        'start': convert_to_localtime(visit.start, '%H:%M'),
-        'finish': convert_to_localtime(visit.finish, '%H:%M'),
-        # 'start': convert_to_localtime(visit.start, '%d.%m.%y %H:%M'),
-        # 'finish': convert_to_localtime(visit.finish, '%d.%m.%y %H:%M'),
-        'note': visit.note
-    } for visit in all_visits_query
-        .filter(start__range=(monday, sunday))]
-    return visits
-
-
-@try_except
 def get_visits_list(first_day):
     seventh_day = first_day + timedelta(days=7)
-
     visits = [{
         'id': visit.id,
         'client': visit.client.id,
@@ -94,9 +54,9 @@ def get_visits_list(first_day):
         # 'start': convert_to_localtime(visit.start, '%d.%m.%y %H:%M'),
         # 'finish': convert_to_localtime(visit.finish, '%d.%m.%y %H:%M'),
         'note': visit.note
-    } for visit in Visit.objects\
-        .filter(start__range=(first_day, seventh_day))\
-        .filter(client__is_active=True)\
+    } for visit in Visit.objects \
+        .filter(start__range=(first_day, seventh_day)) \
+        .filter(client__is_active=True) \
         .filter(is_active=True)]
     return visits
 
@@ -125,3 +85,11 @@ def get_client_visits(client_id, now, direction=''):
         'note': visit.note
     } for visit in visits]
     return visits
+
+
+@try_except
+def deactivate_visit(pk):
+    visit = get_object_or_404(Visit, pk=pk)
+    visit.is_active = False
+    visit.save()
+    return 'ok'

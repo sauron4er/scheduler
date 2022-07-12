@@ -20,13 +20,13 @@ function Row(props) {
   return (
     <tr>
       <td className='time'>{props.time}</td>
-      <Cell week_number={props.week_number} day={props.week[0]} time={props.time} visits={getVisitsByDay(props.week[0])} />
-      <Cell week_number={props.week_number} day={props.week[1]} time={props.time} visits={getVisitsByDay(props.week[1])} />
-      <Cell week_number={props.week_number} day={props.week[2]} time={props.time} visits={getVisitsByDay(props.week[2])} />
-      <Cell week_number={props.week_number} day={props.week[3]} time={props.time} visits={getVisitsByDay(props.week[3])} />
-      <Cell week_number={props.week_number} day={props.week[4]} time={props.time} visits={getVisitsByDay(props.week[4])} />
-      <Cell week_number={props.week_number} day={props.week[5]} time={props.time} visits={getVisitsByDay(props.week[5])} />
-      <Cell week_number={props.week_number} day={props.week[6]} time={props.time} visits={getVisitsByDay(props.week[6])} />
+      <Cell week_number={props.week_number} day={props.week[0]} time={props.time} visits={getVisitsByDay(props.week[0].date)} />
+      <Cell week_number={props.week_number} day={props.week[1]} time={props.time} visits={getVisitsByDay(props.week[1].date)} />
+      <Cell week_number={props.week_number} day={props.week[2]} time={props.time} visits={getVisitsByDay(props.week[2].date)} />
+      <Cell week_number={props.week_number} day={props.week[3]} time={props.time} visits={getVisitsByDay(props.week[3].date)} />
+      <Cell week_number={props.week_number} day={props.week[4]} time={props.time} visits={getVisitsByDay(props.week[4].date)} />
+      <Cell week_number={props.week_number} day={props.week[5]} time={props.time} visits={getVisitsByDay(props.week[5].date)} />
+      <Cell week_number={props.week_number} day={props.week[6]} time={props.time} visits={getVisitsByDay(props.week[6].date)} />
     </tr>
   );
 }

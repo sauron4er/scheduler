@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import {store, view} from '@risingstack/react-easy-state';
-import schedulerState from 'home/templates/home/schedule/state';
+import schedulerState from 'home/templates/home/state';
 import 'static/css/schedule.css';
 
 function Cell(props) {
@@ -9,14 +9,14 @@ function Cell(props) {
 
   function onClick() {
     schedulerState.clicked_week = props.week_number;
-    schedulerState.clicked_day = props.day;
+    schedulerState.clicked_day = props.day.date;
     schedulerState.clicked_time = props.time;
   }
 
   function onVisitClick(e, visit) {
     e.stopPropagation();
     schedulerState.clicked_week = props.week_number;
-    schedulerState.clicked_day = props.day;
+    schedulerState.clicked_day = props.day.date;
     schedulerState.clicked_time = props.time;
     schedulerState.clicked_visit = visit;
   }
@@ -44,46 +44,38 @@ function Cell(props) {
     document.getElementById('popup').style.display = 'none';
   }
 
-  function getVisitStyle(employee_color) {
-    const is_color_dark = isEmployeeColorDark(employee_color);
-    if (is_color_dark) {
-      return {backgroundImage: `linear-gradient(to right, ${employee_color}, white)`, color: 'white'};
-    } else {
-      return {backgroundImage: `linear-gradient(to right, ${employee_color}, white)`, color: 'black'};
-    }
-  }
-
-  function isEmployeeColorDark(hexcolor) {
-    const r = parseInt(hexcolor.substr(0, 2), 16);
-    const g = parseInt(hexcolor.substr(2, 2), 16);
-    const b = parseInt(hexcolor.substr(4, 2), 16);
-    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-    return yiq >= 128;
-    // return yiq >= 128 ? 'black' : 'white';
-  }
+  console.log();
 
   return (
-    <td className='scheduler_td' onClick={onClick}>
-      <If condition={props.visits.length > 0}>
-        <div className='visits_container'>
-          <For each='visit' of={props.visits} index='index'>
-            <small
-              key={index}
-              className='visit'
-              id={visit.id}
-              data-info={JSON.stringify(visit)}
-              onClick={(e) => onVisitClick(e, visit)}
-              onMouseOver={onVisitHover}
-              onMouseOut={onVisitHoverOut}
-              // style={visit.employee_color ? {border: `1.5px solid ${visit.employee_color}`}: null}
-              style={getVisitStyle(visit.employee_color)}
-            >
-              {visit.client_name}
-            </small>
-          </For>
-        </div>
-      </If>
-    </td>
+    <Choose>
+      <When condition={!props.day.is_holiday}>
+        <td className={`${schedulerState.today_string === props.day.date ? 'td_today' : ''} scheduler_td`} onClick={onClick}>
+          <If condition={props.visits.length > 0}>
+            <div className='visits_container'>
+              <For each='visit' of={props.visits} index='index'>
+                <small
+                  key={index}
+                  className='visit'
+                  id={visit.id}
+                  data-info={JSON.stringify(visit)}
+                  onClick={(e) => onVisitClick(e, visit)}
+                  onMouseOver={onVisitHover}
+                  onMouseOut={onVisitHoverOut}
+                  // style={visit.employee_color ? {border: `2px solid ${visit.employee_color}`}: null}
+                  style={visit.employee_color ? {boxShadow: `${visit.employee_color} 1px 1.5px 2.6px`} : null}
+                  // style={visit.employee_color ? {backgroundImage: `linear-gradient(to right, ${visit.employee_color}, white)`}: null}
+                >
+                  {visit.client_name}
+                </small>
+              </For>
+            </div>
+          </If>
+        </td>
+      </When>
+      <Otherwise>
+        <td className='scheduler_holiday'></td>
+      </Otherwise>
+    </Choose>
   );
 }
 

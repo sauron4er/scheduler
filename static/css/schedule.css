@@ -6,8 +6,12 @@
   box-shadow: 2px 0 5px #afafaf;
 }
 
-.today {
+.th_today {
   background: #dceffd;
+}
+
+.td_today {
+  background: #F1F9FF;
 }
 
 .scheduler_th {
@@ -34,6 +38,11 @@
 .scheduler_td:hover {
   background: #dceffd;
   /*width: 13.714%*/
+}
+
+.scheduler_holiday {
+  height: 30px;
+  background: #F5F5F5;
 }
 
 .time {
@@ -74,7 +83,7 @@
   /*background: rgb(5,80,252);*/
   /*background: linear-gradient(90deg, rgba(5,80,252,1) 0%, rgba(255,255,255,0.5634628851540616) 38%, rgba(255,255,255,1) 100%);*/
 
-  /*background: #bde2fd;*/
+  background: white;
 
 
   border-radius: 5px;
@@ -84,6 +93,7 @@
 
 .visit:hover {
   /*background: #89cafc;*/
+  background: white;
 }
 
 .visit:not(:first-of-type) {
@@ -98,4 +108,16 @@
 
 .css_tab {
   cursor: pointer;
+}
+
+.css_header_cell {
+  display:flex;
+  justify-content:center;
+}
+
+.css_header_date {
+    flex:1;
+   display: flex;
+   justify-content: center;
+   transform: translateX(10px);/*D element Width[if needed]*/
 }

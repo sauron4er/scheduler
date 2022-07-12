@@ -2,14 +2,15 @@ import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import Modal from 'templates/components/modal/modal';
 import {store, view} from '@risingstack/react-easy-state';
-import schedulerState from 'home/templates/home/schedule/state';
+import schedulerState from 'home/templates/home/state';
 import SubmitButton from 'templates/components/form_modules/submit_button';
 import AsyncSelector from 'templates/components/form_modules/selectors/async_selector';
 import 'static/css/modal.css';
 import TextInput from 'templates/components/form_modules/text_input';
-import {axiosPostRequest} from 'templates/components/axios_requests';
-import ClientModal from './client_modal';
+import {axiosGetRequest, axiosPostRequest} from 'templates/components/axios_requests';
 import ClientPopup from 'home/templates/home/schedule/popups/client_popup';
+import {notify} from 'templates/components/react_toastify_settings';
+import {getIndex} from 'templates/my_extras';
 
 function VisitModal(props) {
   const [state, setState] = useSetState({
@@ -66,9 +67,7 @@ function VisitModal(props) {
   }
 
   function onNoteChange(e) {
-    setState({
-      note: e.target.value
-    });
+    setState({note: e.target.value});
   }
 
   function closeModal() {
@@ -127,7 +126,16 @@ function VisitModal(props) {
       .catch((error) => notify(error));
   }
 
-  function changeClientPhoneInSelect(id, new_phone) {}
+  function deleteVisit() {
+    axiosGetRequest(`del_visit/${state.id}`)
+      .then((response) => {
+        props.removeVisit(state.id)
+        closeModal();
+      })
+      .catch((error) => {
+        notify('Щось пішло не так');
+      });
+  }
 
   return (
     <Modal open={props.opened} onClose={closeModal} id='visit_modal'>
@@ -145,7 +153,6 @@ function VisitModal(props) {
           onChange={onClientChange}
           value={{id: state.client, name: state.client_name_and_phone}}
         />
-        {/*<ClientModal id={state.client} name={state.client_name} onPhoneChange={changeClientPhoneInSelect} />*/}
         <hr />
 
         <AsyncSelector
@@ -160,8 +167,8 @@ function VisitModal(props) {
         <TextInput text={state.note} fieldName='Нотатка' onChange={onNoteChange} maxLength={500} />
       </div>
       <div className='modal-footer'>
-        <SubmitButton name='delete' text='Видалити' onClick={postNewVisit} disabled={!state.client || !state.employee} />
-        <SubmitButton name='change' text='Зберегти' onClick={postNewVisit} disabled={!state.client || !state.employee} />
+        <SubmitButton className='text-danger' text='Видалити' onClick={deleteVisit} disabled={!state.client || !state.employee} />
+        <SubmitButton text='Зберегти' onClick={postNewVisit} disabled={!state.client || !state.employee} />
       </div>
       <If condition={schedulerState.clicked_visit?.client}>
         <ClientPopup />
@@ -173,7 +180,8 @@ function VisitModal(props) {
 VisitModal.defaultProps = {
   opened: false,
   addVisit: () => {},
-  changeVisit: () => {}
+  changeVisit: () => {},
+  removeVisit: () => {}
 };
 
 export default view(VisitModal);

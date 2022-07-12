@@ -2,7 +2,7 @@ import { store, view } from '@risingstack/react-easy-state';
 
 const schedulerState = store({
   updateVisits: false,
-  number_of_weeks: 2,
+  number_of_weeks: 1,
   today_string: '',
   clicked_week: null,
   clicked_day: null,

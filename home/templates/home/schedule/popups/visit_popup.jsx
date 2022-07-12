@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {store, view} from '@risingstack/react-easy-state';
-import schedulerState from 'home/templates/home/schedule/state';
+import schedulerState from 'home/templates/home/state';
 import 'static/css/schedule.css';
 
 function VisitPopup(props) {

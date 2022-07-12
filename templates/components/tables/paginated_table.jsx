@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import {axiosPostRequest} from 'templates/components/axios_requests';
-import {notify} from 'templates/components/form_modules/modules_config';
-import '../../../static/css/table.css';
+import {notify} from 'templates/components/react_toastify_settings';
+import 'static/css/table.css';
 import Pagination from 'templates/components/tables/pagination';
 import Filter from 'templates/components/tables/filter';
 

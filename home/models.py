@@ -38,3 +38,8 @@ class Visit(models.Model):
 
     def __str__(self):
         return self.client.name + ', ' + self.start.__str__()
+
+
+class Holiday(models.Model):
+    date = models.DateField()
+    is_active = models.BooleanField(default=True)

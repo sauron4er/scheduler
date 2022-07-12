@@ -1,6 +1,5 @@
 import {toast} from 'react-toastify';
 
-// Спливаючі повідомлення
 export const notify = (message) =>
   toast.error(message, {
     position: 'bottom-right',

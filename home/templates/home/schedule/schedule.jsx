@@ -1,20 +1,24 @@
 import React, {useEffect} from 'react';
 import useSetState from 'templates/hooks/useSetState';
 import {view} from '@risingstack/react-easy-state';
-import schedulerState from './state';
+import schedulerState from '../state';
 import Week from './table/week';
 import VisitPopup from "./popups/visit_popup";
+import {ToastContainer} from 'react-toastify';
 
 
-//TODO можливість видалити візит
 //TODO Визначати вихідні однією галочкою
-//TODO Підсвічувати не лише заголовок сьогоднішнього дня, а й всі cell
+//TODO Зробити поле "лікар" необов’язковим при створенні візиту
+
 
 //TODO можливість змінити дату і час візиту прямо на його вкладці. Після цього автоматично оновити week або обидва.
 //TODO можливість редагувати поля інфи клієнта прямо у client_popup
 //TODO можливість видаляти майбутні прийоми прямо у client_popup
 //TODO drag&drop, в т.ч. і між тижнями
 //TODO візити на півгодини або більше ніж на годину
+//TODO зробити варіант "вихідний" тільки для одного лікаря. В такі дні він зникає зі списку на призначення
+// TODO оновлення дати в 00:00 (якщо програму наприклад не закрили)
+
 
 //TODO Мобільна версія для андроіда і іОс, але браузер теж має працювати на маленьких екранах
 //TODO у мобільній верісї показувати один день на екран, але свайпити дні направо-наліво (може свайпити тижні вверх-вниз?)
@@ -29,9 +33,6 @@ setInterval(() => {schedulerState.updateVisits = !schedulerState.updateVisits}, 
 
 function Schedule() {
   const [state, setState] = useSetState({});
-
-  // setInterval(() => {schedulerState.updateVisits = true}, 600000)
-
 
   useEffect(() => {
     const today = new Date();
@@ -73,6 +74,7 @@ function Schedule() {
           +
         </button>
       </div>
+      <ToastContainer />
     </>
   );
 }
