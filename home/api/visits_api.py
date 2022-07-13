@@ -13,10 +13,11 @@ def add_visit(request):
         if 'finish' in request.POST else start + timedelta(hours=1)
 
     new_visit = Visit(client_id=request.POST['client'],
-                      employee_id=request.POST['employee'],
                       note=request.POST['note'],
                       start=start,
                       finish=finish)
+    if request.POST['employee'] != '0':
+        new_visit.employee_id = request.POST['employee']
     new_visit.save()
     return new_visit.pk
 
@@ -29,7 +30,8 @@ def change_visit(request):
 
     visit = Visit.objects.get(pk=request.POST['id'])
     visit.client_id = request.POST['client']
-    visit.employee_id = request.POST['employee']
+    if request.POST['employee'] != '0':
+        visit.employee_id = request.POST['employee']
     visit.note = request.POST['note']
     visit.start = start
     visit.finish = finish
@@ -45,9 +47,9 @@ def get_visits_list(first_day):
         'client': visit.client.id,
         'client_name': visit.client.name,
         'client_phone': visit.client.phone or '',
-        'employee': visit.employee.id,
-        'employee_name': visit.employee.name,
-        'employee_color': visit.employee.color,
+        'employee': visit.employee.id if visit.employee else 0,
+        'employee_name': visit.employee.name if visit.employee else '',
+        'employee_color': visit.employee.color if visit.employee else '',
         'date': convert_to_localtime(visit.start, '%d.%m.%y'),
         'start': convert_to_localtime(visit.start, '%H:%M'),
         'finish': convert_to_localtime(visit.finish, '%H:%M'),
@@ -76,9 +78,9 @@ def get_client_visits(client_id, now, direction=''):
 
     visits = [{
         'id': visit.id,
-        'employee': visit.employee.id,
-        'employee_name': visit.employee.name,
-        'employee_color': visit.employee.color,
+        'employee': visit.employee.id if visit.employee else 0,
+        'employee_name': visit.employee.name if visit.employee else '',
+        'employee_color': visit.employee.color if visit.employee else '',
         'date': convert_to_localtime(visit.start, '%d.%m.%y'),
         'start': convert_to_localtime(visit.start, '%H:%M'),
         'finish': convert_to_localtime(visit.finish, '%H:%M'),

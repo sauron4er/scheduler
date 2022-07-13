@@ -29,7 +29,7 @@ class Employee(models.Model):
 
 class Visit(models.Model):
     client = models.ForeignKey(Client, related_name='visits', on_delete=models.RESTRICT)
-    employee = models.ForeignKey(Employee, related_name='visits', on_delete=models.RESTRICT)
+    employee = models.ForeignKey(Employee, related_name='visits', on_delete=models.RESTRICT, null=True)
     start = models.DateTimeField()
     finish = models.DateTimeField()
     price = models.CharField(max_length=10, null=True)

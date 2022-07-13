@@ -5,6 +5,11 @@
       "name": "home.js",
       "path": "E:\\Code\\scheduler\\static\\bundles\\home.js",
       "publicPath": "/static/home.js"
+    },
+    "home.js.LICENSE.txt": {
+      "name": "home.js.LICENSE.txt",
+      "path": "E:\\Code\\scheduler\\static\\bundles\\home.js.LICENSE.txt",
+      "publicPath": "/static/home.js.LICENSE.txt"
     }
   },
   "chunks": {
@@ -12,7 +17,5 @@
       "home.js"
     ]
   },
-  "publicPath": "/static/",
-  "error": "ModuleNotFoundError",
-  "message": "Module not found: Error: Can't resolve 'home/templates/home/schedule/state' in 'E:\\Code\\scheduler\\home\\templates\\home\\schedule\\popups'"
+  "publicPath": "/static/"
 }

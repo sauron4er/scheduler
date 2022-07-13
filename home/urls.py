@@ -2,7 +2,7 @@ from django.urls import path, re_path
 from .views import home, schedule, \
     clients, get_clients, get_clients_select, post_client, get_client, get_client_for_scheduler, \
     employees, get_employees, get_employees_select, post_employee, \
-    post_visit, get_week, del_visit
+    post_visit, get_week, del_visit, toggle_holiday
 
 app_name = 'home'
 
@@ -25,4 +25,5 @@ urlpatterns = [
     path('get_week', get_week, name='get_week'),
     path('post_visit', post_visit, name='post_visit'),
     re_path(r'del_visit/(?P<pk>\d+)', del_visit, name='del_visit'),
+    path('toggle_holiday', toggle_holiday, name='toggle_holiday'),
 ]

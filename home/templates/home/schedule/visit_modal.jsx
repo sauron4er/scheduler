@@ -10,7 +10,6 @@ import TextInput from 'templates/components/form_modules/text_input';
 import {axiosGetRequest, axiosPostRequest} from 'templates/components/axios_requests';
 import ClientPopup from 'home/templates/home/schedule/popups/client_popup';
 import {notify} from 'templates/components/react_toastify_settings';
-import {getIndex} from 'templates/my_extras';
 
 function VisitModal(props) {
   const [state, setState] = useSetState({
@@ -167,8 +166,8 @@ function VisitModal(props) {
         <TextInput text={state.note} fieldName='Нотатка' onChange={onNoteChange} maxLength={500} />
       </div>
       <div className='modal-footer'>
-        <SubmitButton className='text-danger' text='Видалити' onClick={deleteVisit} disabled={!state.client || !state.employee} />
-        <SubmitButton text='Зберегти' onClick={postNewVisit} disabled={!state.client || !state.employee} />
+        <SubmitButton className='text-dark mr-auto' text='Видалити' onClick={deleteVisit} disabled={!state.id} />
+        <SubmitButton text='Зберегти' onClick={postNewVisit} disabled={!state.client} />
       </div>
       <If condition={schedulerState.clicked_visit?.client}>
         <ClientPopup />

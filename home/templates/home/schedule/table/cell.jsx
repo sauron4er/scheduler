@@ -8,9 +8,11 @@ function Cell(props) {
   const [state, setState] = useSetState({});
 
   function onClick() {
-    schedulerState.clicked_week = props.week_number;
-    schedulerState.clicked_day = props.day.date;
-    schedulerState.clicked_time = props.time;
+    if (!props.day.is_holiday) {
+      schedulerState.clicked_week = props.week_number;
+      schedulerState.clicked_day = props.day.date;
+      schedulerState.clicked_time = props.time;
+    }
   }
 
   function onVisitClick(e, visit) {
@@ -44,38 +46,35 @@ function Cell(props) {
     document.getElementById('popup').style.display = 'none';
   }
 
-  console.log();
+  function getTdClass() {
+    let classes = props.day.is_holiday ? 'scheduler_holiday' : 'scheduler_td';
+    if (schedulerState.today_string === props.day.date) classes += ' td_today';
+    return classes;
+  }
 
   return (
-    <Choose>
-      <When condition={!props.day.is_holiday}>
-        <td className={`${schedulerState.today_string === props.day.date ? 'td_today' : ''} scheduler_td`} onClick={onClick}>
-          <If condition={props.visits.length > 0}>
-            <div className='visits_container'>
-              <For each='visit' of={props.visits} index='index'>
-                <small
-                  key={index}
-                  className='visit'
-                  id={visit.id}
-                  data-info={JSON.stringify(visit)}
-                  onClick={(e) => onVisitClick(e, visit)}
-                  onMouseOver={onVisitHover}
-                  onMouseOut={onVisitHoverOut}
-                  // style={visit.employee_color ? {border: `2px solid ${visit.employee_color}`}: null}
-                  style={visit.employee_color ? {boxShadow: `${visit.employee_color} 1px 1.5px 2.6px`} : null}
-                  // style={visit.employee_color ? {backgroundImage: `linear-gradient(to right, ${visit.employee_color}, white)`}: null}
-                >
-                  {visit.client_name}
-                </small>
-              </For>
-            </div>
-          </If>
-        </td>
-      </When>
-      <Otherwise>
-        <td className='scheduler_holiday'></td>
-      </Otherwise>
-    </Choose>
+    <td className={getTdClass()} onClick={onClick}>
+      <If condition={props.visits.length > 0}>
+        <div className='visits_container'>
+          <For each='visit' of={props.visits} index='index'>
+            <small
+              key={`work_day_${index}`}
+              className='visit'
+              id={visit.id}
+              data-info={JSON.stringify(visit)}
+              onClick={(e) => onVisitClick(e, visit)}
+              onMouseOver={onVisitHover}
+              onMouseOut={onVisitHoverOut}
+              // style={visit.employee_color ? {border: `2px solid ${visit.employee_color}`}: null}
+              style={visit.employee_color ? {boxShadow: `${visit.employee_color} 1px 1.5px 2.6px`} : {border: `1px solid lightgrey`}}
+              // style={visit.employee_color ? {backgroundImage: `linear-gradient(to right, ${visit.employee_color}, white)`}: null}
+            >
+              {visit.client_name}
+            </small>
+          </For>
+        </div>
+      </If>
+    </td>
   );
 }
 

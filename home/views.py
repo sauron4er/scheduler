@@ -1,7 +1,8 @@
-from django.utils.timezone import make_aware
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from datetime import datetime, date, timedelta
+from django.utils.timezone import make_aware
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 import json
@@ -142,3 +143,23 @@ def get_week_dates(first_day):
         })
 
     return dates
+
+
+@try_except
+@login_required(login_url='login')
+def toggle_holiday(request):
+    is_holiday = request.POST['is_holiday'] == 'true'
+    day = datetime.strptime(request.POST['date'], '%d.%m.%y').strftime('%Y-%m-%d')
+    if is_holiday:
+        holiday = Holiday.objects.filter(date=day)
+        if holiday:
+            holiday[0].is_active = True
+            holiday[0].save()
+        else:
+            new_holiday = Holiday(date=day)
+            new_holiday.save()
+    else:
+        holiday = get_object_or_404(Holiday, date=day)
+        holiday.is_active = False
+        holiday.save()
+    return HttpResponse('ok')

@@ -10,6 +10,8 @@ import {notify} from 'templates/components/react_toastify_settings';
 import {Loader} from 'templates/components/form_modules/loaders';
 import VisitModal from 'home/templates/home/schedule/visit_modal';
 import {getIndex} from 'templates/my_extras';
+import Header from 'home/templates/home/schedule/table/header';
+import HeaderCell from 'home/templates/home/schedule/table/header_cell';
 
 function Week(props) {
   const [state, setState] = useSetState({
@@ -85,10 +87,15 @@ function Week(props) {
     setState({visits: [...visits_new]});
   }
 
-  function disableDay(date) {
-    //TODO призначити день вихідним
-    //TODO зробити cells неактивними якщо день вихідний
-    console.log(date);
+  function toggleHoliday(date, is_holiday) {
+    let week_dates = [...state.week_dates]
+    for (const i in week_dates) {
+      if (week_dates[i].date === date) {
+        week_dates[i].is_holiday = is_holiday;
+        break;
+      }
+    }
+    setState({week_dates: [...week_dates]})
   }
 
   return (
@@ -96,72 +103,7 @@ function Week(props) {
       <When condition={!state.loading}>
         <table id={`week_${props.week_number}`} className='table table-sm scheduler'>
           <thead>
-            <tr>
-              <th scope='col' className='scheduler_th'></th>
-              <th scope='col' className={`${state.week_dates[0].is_today ? 'th_today' : ''} scheduler_th`}>
-                <div className='css_header_cell'>
-                  <div className='css_header_date'>Пн, {state.week_dates[0].date}</div>
-                  <label className='css_switch' htmlFor='checkbox' onClick={(e) => disableDay(state.week_dates[0].date)}>
-                    <input type='checkbox' id={`chkbx_week_${props.week_number}_0`} />
-                    <div className='css_slider css_round' />
-                  </label>
-                </div>
-              </th>
-              <th scope='col' className={`${state.week_dates[1].is_today ? 'th_today' : ''} scheduler_th`}>
-                <div className='css_header_cell'>
-                  <div className='css_header_date'>Вт, {state.week_dates[1].date}</div>
-                  <label className='css_switch' htmlFor='checkbox' onClick={(e) => disableDay(state.week_dates[1].date)}>
-                    <input type='checkbox' id={`chkbx_week_${props.week_number}_1`} />
-                    <div className='css_slider css_round' />
-                  </label>
-                </div>
-              </th>
-              <th scope='col' className={`${state.week_dates[2].is_today ? 'th_today' : ''} scheduler_th`}>
-                <div className='css_header_cell'>
-                  <div className='css_header_date'>Ср, {state.week_dates[2].date}</div>
-                  <label className='css_switch' htmlFor='checkbox' onClick={(e) => disableDay(state.week_dates[2].date)}>
-                    <input type='checkbox' id={`chkbx_week_${props.week_number}_2`} />
-                    <div className='css_slider css_round' />
-                  </label>
-                </div>
-              </th>
-              <th scope='col' className={`${state.week_dates[3].is_today ? 'th_today' : ''} scheduler_th`}>
-                <div className='css_header_cell'>
-                  <div className='css_header_date'>Чт, {state.week_dates[3].date}</div>
-                  <label className='css_switch' htmlFor='checkbox' onClick={(e) => disableDay(state.week_dates[3].date)}>
-                    <input type='checkbox' id={`chkbx_week_${props.week_number}_3`} />
-                    <div className='css_slider css_round' />
-                  </label>
-                </div>
-              </th>
-              <th scope='col' className={`${state.week_dates[4].is_today ? 'th_today' : ''} scheduler_th`}>
-                <div className='css_header_cell'>
-                  <div className='css_header_date'>Пт, {state.week_dates[4].date}</div>
-                  <label className='css_switch' htmlFor='checkbox' onClick={(e) => disableDay(state.week_dates[4].date)}>
-                    <input type='checkbox' id={`chkbx_week_${props.week_number}_4`} />
-                    <div className='css_slider css_round' />
-                  </label>
-                </div>
-              </th>
-              <th scope='col' className={`${state.week_dates[5].is_today ? 'th_today' : ''} scheduler_th`}>
-                <div className='css_header_cell'>
-                  <div className='css_header_date'>Сб, {state.week_dates[5].date}</div>
-                  <label className='css_switch' htmlFor='checkbox' onClick={(e) => disableDay(state.week_dates[5].date)}>
-                    <input type='checkbox' id={`chkbx_week_${props.week_number}_5`} />
-                    <div className='css_slider css_round' />
-                  </label>
-                </div>
-              </th>
-              <th scope='col' className={`${state.week_dates[6].is_today ? 'th_today' : ''} scheduler_th`}>
-                <div className='css_header_cell'>
-                  <div className='css_header_date'>Нд, {state.week_dates[6].date}</div>
-                  <label className='css_switch' htmlFor='checkbox' onClick={(e) => disableDay(state.week_dates[6].date)}>
-                    <input type='checkbox' id={`chkbx_week_${props.week_number}_6`} />
-                    <div className='css_slider css_round' />
-                  </label>
-                </div>
-              </th>
-            </tr>
+            <Header week_number={props.week_number} week_dates={state.week_dates} toggleHoliday={toggleHoliday} />
           </thead>
           <tbody>
             <Row week_number={props.week_number} visits={getVisitsByTime('08:00')} week={state.week_dates} time='08:00' />
