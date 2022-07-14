@@ -1,8 +1,6 @@
 .css_modal {
   position: fixed;
-  left: 15%;
   top: 7%;
-
   max-height: 93%;
   max-width: 90%;
   overflow: auto;
@@ -14,6 +12,24 @@
   padding: 16px;
   box-sizing: border-box;
   transition: all 0.3s ease-out;
+}
+
+@media (min-width: 600px) {
+  .css_modal {
+    width: 500px;
+    left: calc(50% - 250px);
+
+  }
+}
+
+.css_backdrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .css_client_popup {
@@ -29,27 +45,4 @@
   width: 350px;
   position: fixed;
   overflow-y: scroll;
-}
-
-@media (min-width: 600px) {
-  .css_modal {
-    width: 500px;
-    left: calc(50% - 250px);
-  }
-}
-
-.css_backdrop {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  z-index: 100;
-  left: 0;
-  top: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.css_select_in_modal {
-  /*position:relative;*/
-  /*z-index: 1100;*/
-  /*overflow-y: unset !important;*/
 }

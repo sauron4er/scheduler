@@ -1,8 +1,12 @@
+@media screen and (min-width: 1250px) {
+  .scheduler {
+    table-layout: fixed;
+  }
+}
+
 .scheduler {
   margin-bottom: 20px;
-  table-layout: fixed;
   width: 100%;
-  background: white;
   box-shadow: 2px 0 5px #afafaf;
 }
 
@@ -23,7 +27,7 @@
   border-right: 1px solid lightgray;
 }
 
-.scheduler_th:first-of-type {
+.scheduler_time_header {
   width: 53px;
 }
 
@@ -37,7 +41,25 @@
 
 .scheduler_td:hover {
   background: #dceffd;
-  /*width: 13.714%*/
+}
+
+@media screen and (max-width: 1250px) {
+  .scheduler_td, .scheduler_th {
+    min-width: 320px;
+    max-width: 320px;
+  }
+
+  .scheduler_td:first-of-type {
+    position: sticky;
+    left: 0;
+    z-index: 600;
+  }
+
+  .scheduler_time_header {
+    position: sticky;
+    left: 0;
+    z-index: 600;
+  }
 }
 
 .scheduler_holiday {
@@ -49,24 +71,6 @@
   border-right: 1px solid lightgray;
 }
 
-.css_time_table {
-  border-right: 1px solid lightgray;
-  width: 4%;
-  min-width: 60px;
-  float:left;
-}
-
-.css_day_table {
-  width: 13.5%;
-  min-width: 180px;
-  float:left;
-}
-
-.css_week_table {
-  overflow: auto;
-  white-space: nowrap;
-}
-
 .visits_container {
   width: 93%;
   display: flex;
@@ -75,17 +79,10 @@
 
 .visit {
   flex: 1;
-
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-
-  /*background: rgb(5,80,252);*/
-  /*background: linear-gradient(90deg, rgba(5,80,252,1) 0%, rgba(255,255,255,0.5634628851540616) 38%, rgba(255,255,255,1) 100%);*/
-
   background: white;
-
-
   border-radius: 5px;
   padding: 2px 5px;
   cursor: default;
@@ -116,8 +113,8 @@
 }
 
 .css_header_date {
-    flex:1;
-   display: flex;
-   justify-content: center;
-   transform: translateX(10px);/*D element Width[if needed]*/
+  flex:1;
+  display: flex;
+  justify-content: center;
+  transform: translateX(10px);
 }

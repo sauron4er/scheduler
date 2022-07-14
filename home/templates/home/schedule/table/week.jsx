@@ -11,7 +11,6 @@ import {Loader} from 'templates/components/form_modules/loaders';
 import VisitModal from 'home/templates/home/schedule/visit_modal';
 import {getIndex} from 'templates/my_extras';
 import Header from 'home/templates/home/schedule/table/header';
-import HeaderCell from 'home/templates/home/schedule/table/header_cell';
 
 function Week(props) {
   const [state, setState] = useSetState({
@@ -28,7 +27,7 @@ function Week(props) {
   }, [schedulerState.updateVisits]);
 
   useEffect(() => {
-    getWeek()
+    getWeek();
   }, [props.week_number]);
 
   function getFirstDayDate() {
@@ -88,37 +87,39 @@ function Week(props) {
   }
 
   function toggleHoliday(date, is_holiday) {
-    let week_dates = [...state.week_dates]
+    let week_dates = [...state.week_dates];
     for (const i in week_dates) {
       if (week_dates[i].date === date) {
         week_dates[i].is_holiday = is_holiday;
         break;
       }
     }
-    setState({week_dates: [...week_dates]})
+    setState({week_dates: [...week_dates]});
   }
 
   return (
     <Choose>
       <When condition={!state.loading}>
-        <table id={`week_${props.week_number}`} className='table table-sm scheduler'>
-          <thead>
-            <Header week_number={props.week_number} week_dates={state.week_dates} toggleHoliday={toggleHoliday} />
-          </thead>
-          <tbody>
-            <Row week_number={props.week_number} visits={getVisitsByTime('08:00')} week={state.week_dates} time='08:00' />
-            <Row week_number={props.week_number} visits={getVisitsByTime('09:00')} week={state.week_dates} time='09:00' />
-            <Row week_number={props.week_number} visits={getVisitsByTime('10:00')} week={state.week_dates} time='10:00' />
-            <Row week_number={props.week_number} visits={getVisitsByTime('11:00')} week={state.week_dates} time='11:00' />
-            <Row week_number={props.week_number} visits={getVisitsByTime('12:00')} week={state.week_dates} time='12:00' />
-            <Row week_number={props.week_number} visits={getVisitsByTime('13:00')} week={state.week_dates} time='13:00' />
-            <Row week_number={props.week_number} visits={getVisitsByTime('14:00')} week={state.week_dates} time='14:00' />
-            <Row week_number={props.week_number} visits={getVisitsByTime('15:00')} week={state.week_dates} time='15:00' />
-            <Row week_number={props.week_number} visits={getVisitsByTime('16:00')} week={state.week_dates} time='16:00' />
-            <Row week_number={props.week_number} visits={getVisitsByTime('17:00')} week={state.week_dates} time='17:00' />
-            <Row week_number={props.week_number} visits={getVisitsByTime('18:00')} week={state.week_dates} time='18:00' />
-          </tbody>
-        </table>
+        <div className='table-responsive' style={{overflowX: 'auto'}}>
+          <table id={`week_${props.week_number}`} className='table table-sm scheduler'>
+            <thead>
+              <Header week_number={props.week_number} week_dates={state.week_dates} toggleHoliday={toggleHoliday} />
+            </thead>
+            <tbody>
+              <Row week_number={props.week_number} visits={getVisitsByTime('08:00')} week={state.week_dates} time='08:00' />
+              <Row week_number={props.week_number} visits={getVisitsByTime('09:00')} week={state.week_dates} time='09:00' />
+              <Row week_number={props.week_number} visits={getVisitsByTime('10:00')} week={state.week_dates} time='10:00' />
+              <Row week_number={props.week_number} visits={getVisitsByTime('11:00')} week={state.week_dates} time='11:00' />
+              <Row week_number={props.week_number} visits={getVisitsByTime('12:00')} week={state.week_dates} time='12:00' />
+              <Row week_number={props.week_number} visits={getVisitsByTime('13:00')} week={state.week_dates} time='13:00' />
+              <Row week_number={props.week_number} visits={getVisitsByTime('14:00')} week={state.week_dates} time='14:00' />
+              <Row week_number={props.week_number} visits={getVisitsByTime('15:00')} week={state.week_dates} time='15:00' />
+              <Row week_number={props.week_number} visits={getVisitsByTime('16:00')} week={state.week_dates} time='16:00' />
+              <Row week_number={props.week_number} visits={getVisitsByTime('17:00')} week={state.week_dates} time='17:00' />
+              <Row week_number={props.week_number} visits={getVisitsByTime('18:00')} week={state.week_dates} time='18:00' />
+            </tbody>
+          </table>
+        </div>
         <VisitModal
           opened={schedulerState.clicked_week === props.week_number}
           addVisit={addVisitToList}

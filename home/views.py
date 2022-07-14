@@ -113,7 +113,6 @@ def del_visit(request, pk):
 @login_required(login_url='login')
 def get_week(request):
     day_one = make_aware(datetime.strptime(request.POST['first_day'], "%d.%m.%y"))
-
     week_dates = get_week_dates(day_one)
     visits = get_visits_list(day_one)
     return HttpResponse(json.dumps({'visits': visits, 'week_dates': week_dates}))
@@ -139,10 +138,30 @@ def get_week_dates(first_day):
         dates.append({
             'date': raw_date.strftime("%d.%m.%y"),
             'is_holiday': Holiday.objects.filter(date=raw_date).filter(is_active=True).exists(),
-            'is_today': raw_date.date() == today
+            'is_today': raw_date.date() == today,
+            'day_name': get_day_name(raw_date)
         })
 
     return dates
+
+
+@try_except
+def get_day_name(date):
+    weekday = date.weekday()
+    if weekday == 0:
+        return 'Пн'
+    elif weekday == 1:
+        return 'Вт'
+    elif weekday == 2:
+        return 'Ср'
+    elif weekday == 3:
+        return 'Чт'
+    elif weekday == 4:
+        return 'Пт'
+    elif weekday == 5:
+        return 'Сб'
+    elif weekday == 6:
+        return 'Нд'
 
 
 @try_except
