@@ -33,6 +33,7 @@
 
 .scheduler_time_header {
   width: 53px;
+  /*position: absolute*/
 }
 
 .scheduler_td {
@@ -82,6 +83,8 @@
 
 .time {
   border-right: 1px solid lightgray;
+  /*position: absolute;*/
+  /*width: 53px;*/
 }
 
 .visits_container {

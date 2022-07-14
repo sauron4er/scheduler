@@ -1,5 +1,13 @@
-.css_table {
-    table-layout:fixed;
+@media screen and (max-width: 1250px) {
+  .css_table {
+    font-size: 14px;
+  }
+}
+
+.css_table_wrapper {
+  overflow-x: auto;
+  display: block;
+  white-space: nowrap;
 }
 
 .css_table_row_clicked {

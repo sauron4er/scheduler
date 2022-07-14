@@ -62,7 +62,10 @@ function PaginatedTable(props) {
 
   function getWidth(label) {
     for (const column of props.colWidth) {
-      if (column.label === label) return {width: column.width};
+      if (column.label === label && column.width) {
+        const x = window.matchMedia("(min-width: 700px)")
+        if (x.matches) return {width: column.width};
+      }
     }
   }
 
@@ -89,7 +92,7 @@ function PaginatedTable(props) {
   return (
     <>
       <Filter value={state.filter_value} onChange={onFilterChange} />
-      <div className='css_table_wrapper'>
+      <div className='css_table_wrapper' style={{overflowX: 'auto'}}>
         <table className='table table-sm css_table'>
           <thead className='thead-light'>
             <tr>
