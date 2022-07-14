@@ -3,8 +3,8 @@
   left: 15%;
   top: 7%;
 
-  max-height: 93%;
-  max-width: 90%;
+  /*max-height: 93%;*/
+  /*max-width: 90%;*/
   overflow: auto;
 
   z-index: 500;
@@ -33,7 +33,7 @@
 
 @media (min-width: 600px) {
   .css_modal {
-    width: 500px;
+    min-width: 500px;
     left: calc(50% - 250px);
   }
 }

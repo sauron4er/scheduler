@@ -2,10 +2,14 @@
   .scheduler {
     table-layout: fixed;
   }
+
+  .schedule_plus_button {
+    text-align: center;
+  }
 }
 
 .scheduler {
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
   width: 100%;
   box-shadow: 2px 0 5px #afafaf;
 }
@@ -44,9 +48,13 @@
 }
 
 @media screen and (max-width: 1250px) {
-  .scheduler_td, .scheduler_th {
-    min-width: 320px;
-    max-width: 320px;
+  .schedule_wrapper {
+    padding: 0;
+  }
+
+  .scheduler_td, .scheduler_th, .scheduler_holiday {
+    min-width: 250px;
+    max-width: 250px;
   }
 
   .scheduler_td:first-of-type {
@@ -59,6 +67,11 @@
     position: sticky;
     left: 0;
     z-index: 600;
+  }
+
+  .scheduler_overflow_line {
+    margin-bottom: 10px;
+    overflow-x: auto;
   }
 }
 

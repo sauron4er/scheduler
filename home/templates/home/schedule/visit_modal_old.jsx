@@ -10,7 +10,6 @@ import TextInput from 'templates/components/form_modules/text_input';
 import {axiosGetRequest, axiosPostRequest} from 'templates/components/axios_requests';
 import ClientPopup from 'home/templates/home/schedule/popups/client_popup';
 import {notify} from 'templates/components/react_toastify_settings';
-import ClientInfo from 'home/templates/home/schedule/client_info';
 
 function VisitModal(props) {
   const [state, setState] = useSetState({
@@ -129,7 +128,7 @@ function VisitModal(props) {
   function deleteVisit() {
     axiosGetRequest(`del_visit/${state.id}`)
       .then((response) => {
-        props.removeVisit(state.id);
+        props.removeVisit(state.id)
         closeModal();
       })
       .catch((error) => {
@@ -138,41 +137,47 @@ function VisitModal(props) {
   }
 
   return (
-    <Modal open={props.opened} onClose={closeModal} id='visit_modal' few_childs={true}>
-      <>
-        <div className='modal-header'>
-          <h5>{`Прийом: ${schedulerState.clicked_day} на ${schedulerState.clicked_time}`}</h5>
-        </div>
-        <div className='modal-body'>
-          <AsyncSelector
-            className='css_select_in_modal'
-            fieldName='Клієнт'
-            url='get_clients_select'
-            onChange={onClientChange}
-            value={{id: state.client, name: state.client_name_and_phone}}
-          />
-          <hr />
+    <Modal open={props.opened} onClose={closeModal} id='visit_modal'>
 
-          <AsyncSelector
-            className='css_select_in_modal'
-            fieldName='Спеціаліст'
-            url='get_employees_select'
-            onChange={onEmployeeChange}
-            value={{id: state.employee, name: state.employee_name}}
-            color={state.employee_color}
-          />
-          <hr />
-          <TextInput text={state.note} fieldName='Нотатка' onChange={onNoteChange} maxLength={500} />
+        <div className='d-flex'>
+          <div className={schedulerState.clicked_visit?.client ? `col-8` : 'col-12'}></div>
+          <If condition={schedulerState.clicked_visit?.client}>
+            <div className='col-4'></div>
+          </If>
         </div>
-        <div className='modal-footer'>
-          <SubmitButton className='text-dark mr-auto' text='Видалити' onClick={deleteVisit} disabled={!state.id} />
-          <SubmitButton text='Зберегти' onClick={postNewVisit} disabled={!state.client} />
-        </div>
-      </>
 
+
+
+      <div className='modal-header'>
+        <h5>{`Прийом: ${schedulerState.clicked_day} на ${schedulerState.clicked_time}`}</h5>
+      </div>
+      <div className='modal-body'>
+        <AsyncSelector
+          className='css_select_in_modal'
+          fieldName='Клієнт'
+          url='get_clients_select'
+          onChange={onClientChange}
+          value={{id: state.client, name: state.client_name_and_phone}}
+        />
+        <hr />
+
+        <AsyncSelector
+          className='css_select_in_modal'
+          fieldName='Спеціаліст'
+          url='get_employees_select'
+          onChange={onEmployeeChange}
+          value={{id: state.employee, name: state.employee_name}}
+          color={state.employee_color}
+        />
+        <hr />
+        <TextInput text={state.note} fieldName='Нотатка' onChange={onNoteChange} maxLength={500} />
+      </div>
+      <div className='modal-footer'>
+        <SubmitButton className='text-dark mr-auto' text='Видалити' onClick={deleteVisit} disabled={!state.id} />
+        <SubmitButton text='Зберегти' onClick={postNewVisit} disabled={!state.client} />
+      </div>
       <If condition={schedulerState.clicked_visit?.client}>
-        <ClientInfo />
-        {/*  <ClientPopup />*/}
+        <ClientPopup />
       </If>
     </Modal>
   );

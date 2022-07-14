@@ -89,7 +89,7 @@ function PaginatedTable(props) {
   return (
     <>
       <Filter value={state.filter_value} onChange={onFilterChange} />
-      <div className='table-responsive-lg'>
+      <div className='css_table_wrapper'>
         <table className='table table-sm css_table'>
           <thead className='thead-light'>
             <tr>

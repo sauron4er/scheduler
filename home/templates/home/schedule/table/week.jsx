@@ -100,7 +100,7 @@ function Week(props) {
   return (
     <Choose>
       <When condition={!state.loading}>
-        <div className='table-responsive' style={{overflowX: 'auto'}}>
+        <div className='scheduler_overflow_line'>
           <table id={`week_${props.week_number}`} className='table table-sm scheduler'>
             <thead>
               <Header week_number={props.week_number} week_dates={state.week_dates} toggleHoliday={toggleHoliday} />

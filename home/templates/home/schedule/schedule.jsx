@@ -65,8 +65,8 @@ function Schedule() {
     <>
       {getWeeks()}
       <VisitPopup />
-      <div className='text-center'>
-        <button className='btn btn-outline-dark mb-3' onClick={(e) => addWeek()}>
+      <div className='schedule_plus_button'>
+        <button className='btn btn-sm btn-outline-dark mb-3' onClick={(e) => addWeek()}>
           +
         </button>
       </div>

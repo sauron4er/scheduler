@@ -1,5 +1,18 @@
+/*@media screen and (min-width: 1250px) {*/
+/*  .css_table {*/
+/*      table-layout:fixed;*/
+/*  }*/
+/*}*/
+
 .css_table {
-    table-layout:fixed;
+  background: green;
+}
+
+.css_table_wrapper {
+  overflow-x: auto;
+  display: block;
+  white-space: nowrap;
+  background: red;
 }
 
 .css_table_row_clicked {
@@ -7,7 +20,8 @@
 }
 
 .css_th {
-  background: #dceffd !important;
+  background: black !important;
+  /*background: #dceffd !important;*/
 }
 
 .css_tr:hover {

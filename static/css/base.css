@@ -3,13 +3,14 @@ body {
 }
 
 .css_full_width {
-    width: 100%;
+  width: 100%;
 }
 
 .css_base_nav {
-  height: 30px;
+  /*height: 30px;*/
   background: #dceffd;
   box-shadow: 0 6px 6px -2px rgba(0,0,0,.2);
+  margin-bottom: 5px;
 }
 
 .css_nav_text, .dropdown-item {
