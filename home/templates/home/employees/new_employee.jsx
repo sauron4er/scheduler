@@ -87,8 +87,6 @@ function NewEmployee() {
         <hr />
         <TextInput text={state.new_note} fieldName='Нотатка' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />
         <hr />
-        <div>Початок і кінець роботи</div>
-        {/*<TextInput text={state.new_note} fieldName='Колір!!!!!!!!!!!!!!!!!!!' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />*/}
         <SubmitButton text='Зберегти' onClick={postNewEmployee} disabled={!state.new_name} />
       </Modal>
     </div>

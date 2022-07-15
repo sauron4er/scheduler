@@ -19,7 +19,7 @@ function Row(props) {
 
   return (
     <tr>
-      <td className='time'>{props.time}</td>
+      <td className='scheduler_time'>{props.time}</td>
       <Cell week_number={props.week_number} day={props.week[0]} time={props.time} visits={getVisitsByDay(props.week[0].date)} />
       <Cell week_number={props.week_number} day={props.week[1]} time={props.time} visits={getVisitsByDay(props.week[1].date)} />
       <Cell week_number={props.week_number} day={props.week[2]} time={props.time} visits={getVisitsByDay(props.week[2].date)} />

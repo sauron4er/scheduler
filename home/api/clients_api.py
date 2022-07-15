@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 import json
 from scheduler.api.try_except import try_except
 from home.models import Client
@@ -74,8 +75,8 @@ def paginate(clients, page, look_for_name):
 def get_clients_for_select(request):
     clients_list = Client.objects \
                        .filter(is_active=True) \
-                       .filter(name__icontains=request.POST['filter']) \
-                       .order_by('name')[:50]
+                       .filter(Q(name__icontains=request.POST['filter']) | Q(phone__icontains=request.POST['filter'])) \
+                        .order_by('name')[:50]
 
     clients_list = [{
         'id': client.id,

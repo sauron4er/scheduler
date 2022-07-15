@@ -1,17 +1,22 @@
+@media screen and (min-width: 1250px) {
+  .scheduler {
+    table-layout: fixed;
+    box-shadow: 2px 0 5px #afafaf;
+  }
+
+  .schedule_plus_button {
+    text-align: center;
+  }
+}
+
 .scheduler {
-  margin-bottom: 20px;
-  table-layout: fixed;
   width: 100%;
-  background: white;
-  box-shadow: 2px 0 5px #afafaf;
 }
 
-.th_today {
-  background: #dceffd;
-}
-
-.td_today {
-  background: #F1F9FF;
+.scheduler_time {
+  /*border-right: 1px solid lightgray;*/
+  width: 53px;
+  height: 30px;
 }
 
 .scheduler_th {
@@ -23,8 +28,12 @@
   border-right: 1px solid lightgray;
 }
 
-.scheduler_th:first-of-type {
-  width: 53px;
+.th_today {
+  background: #dceffd;
+}
+
+.td_today {
+  background: #F1F9FF;
 }
 
 .scheduler_td {
@@ -37,7 +46,34 @@
 
 .scheduler_td:hover {
   background: #dceffd;
-  /*width: 13.714%*/
+}
+
+@media screen and (max-width: 1250px) {
+  .schedule_wrapper {
+    padding: 0;
+  }
+
+  .scheduler_overflow_line {
+    margin-bottom: 10px;
+    margin-left: 46px;
+    overflow-x: auto;
+  }
+
+  .scheduler_time {
+    position: absolute;
+    z-index: 1;
+    background: white;
+    left: 10px;
+  }
+
+  .scheduler_th, .scheduler_td, .scheduler_time {
+    height: 40px;
+  }
+
+  .scheduler_td, .scheduler_th, .scheduler_holiday {
+    min-width: 250px;
+    max-width: 250px;
+  }
 }
 
 .scheduler_holiday {
@@ -45,47 +81,20 @@
   background: #F5F5F5;
 }
 
-.time {
-  border-right: 1px solid lightgray;
-}
-
-.css_time_table {
-  border-right: 1px solid lightgray;
-  width: 4%;
-  min-width: 60px;
-  float:left;
-}
-
-.css_day_table {
-  width: 13.5%;
-  min-width: 180px;
-  float:left;
-}
-
-.css_week_table {
-  overflow: auto;
-  white-space: nowrap;
-}
+/* --------------------------------*/
 
 .visits_container {
-  width: 93%;
+  max-width: 93%;
   display: flex;
   box-sizing: border-box;
 }
 
 .visit {
   flex: 1;
-
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-
-  /*background: rgb(5,80,252);*/
-  /*background: linear-gradient(90deg, rgba(5,80,252,1) 0%, rgba(255,255,255,0.5634628851540616) 38%, rgba(255,255,255,1) 100%);*/
-
   background: white;
-
-
   border-radius: 5px;
   padding: 2px 5px;
   cursor: default;
@@ -116,8 +125,8 @@
 }
 
 .css_header_date {
-    flex:1;
-   display: flex;
-   justify-content: center;
-   transform: translateX(10px);/*D element Width[if needed]*/
+  flex:1;
+  display: flex;
+  justify-content: center;
+  transform: translateX(10px);
 }

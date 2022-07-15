@@ -17,7 +17,7 @@ function Header(props) {
 
   return (
     <tr>
-      <th scope='col' className='scheduler_time_header'></th>
+      <th scope='col' className='scheduler_time' style={{color: 'white'}}>Time</th>
       <HeaderCell week_number={props.week_number} day={props.week_dates[0]} toggleHoliday={props.toggleHoliday}  />
       <HeaderCell week_number={props.week_number} day={props.week_dates[1]} toggleHoliday={props.toggleHoliday}  />
       <HeaderCell week_number={props.week_number} day={props.week_dates[2]} toggleHoliday={props.toggleHoliday}  />
