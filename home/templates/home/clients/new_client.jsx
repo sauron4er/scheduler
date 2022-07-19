@@ -4,10 +4,11 @@ import useSetState from 'templates/hooks/useSetState';
 import TextInput from 'templates/components/form_modules/text_input';
 import SubmitButton from 'templates/components/form_modules/submit_button';
 import {axiosPostRequest} from 'templates/components/axios_requests';
+import {notify} from "templates/components/react_toastify_settings";
 import Modal from 'templates/components/modal/modal';
 import clientsState from 'home/templates/home/clients/state';
 
-function NewClient() {
+function NewClient(props) {
   const [state, setState] = useSetState({
     new_name: '',
     new_phone: '',
@@ -35,6 +36,13 @@ function NewClient() {
   function postClient(formData) {
     axiosPostRequest('post_client', formData)
       .then((response) => {
+        props.returnNewClient({
+          id: response,
+          name: state.new_name,
+          phone: state.new_phone,
+          address: state.new_address,
+          note: state.new_note
+        })
         clientsState.refresh = true;
         closeModal()
       })
@@ -64,7 +72,7 @@ function NewClient() {
       <Modal open={state.opened} onClose={closeModal}>
         <h5>Новий клієнт</h5>
         <hr />
-        <TextInput text={state.new_name} fieldName='Ім’я' onChange={(e) => onChange(e, 'new_name')} maxLength={100} />
+        <TextInput text={state.new_name} fieldName='Ім’я' onChange={(e) => onChange(e, 'new_name')} maxLength={100} autofocus={true} />
         <hr />
         <TextInput text={state.new_phone} fieldName='Номер телефону' onChange={(e) => onChange(e, 'new_phone')} maxLength={10} />
         <hr />
@@ -75,6 +83,10 @@ function NewClient() {
       </Modal>
     </div>
   );
+}
+
+NewClient.defaultProps = {
+  returnNewClient: () => {}
 }
 
 export default view(NewClient);

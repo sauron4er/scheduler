@@ -25,13 +25,6 @@ function AsyncSelector(props) {
       .catch((error) => notify(error));
   }
 
-  function onChange(e) {
-    setState({
-      selected_id: e.id,
-      selected_name: e.name
-    });
-  }
-
   function getUnderscoreStyle() {
     return {borderBottom: `0.25rem solid ${props.color ? props.color : null}`}
   }
@@ -51,6 +44,7 @@ function AsyncSelector(props) {
         value={props.value}
         getOptionLabel={(option) => option.name}
         getOptionValue={(option) => option.id}
+        autoFocus={props.autofocus}
       />
       <div style={getUnderscoreStyle()}> </div>
     </div>
@@ -68,7 +62,8 @@ AsyncSelector.defaultProps = {
   classes: {},
   value: {id: 0, name: ''},
   selectId: 'select',
-  color: false // При true показує справа від селекта колір обраного об'єкта
+  color: false, // При true показує справа від селекта колір обраного об'єкта
+  autofocus: false
 };
 
 export default AsyncSelector;

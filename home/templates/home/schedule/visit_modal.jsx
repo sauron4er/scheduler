@@ -8,9 +8,9 @@ import AsyncSelector from 'templates/components/form_modules/selectors/async_sel
 import 'static/css/modal.css';
 import TextInput from 'templates/components/form_modules/text_input';
 import {axiosGetRequest, axiosPostRequest} from 'templates/components/axios_requests';
-import ClientPopup from 'home/templates/home/schedule/popups/client_popup';
 import {notify} from 'templates/components/react_toastify_settings';
 import ClientInfo from 'home/templates/home/schedule/client_info';
+import NewClient from '../clients/new_client';
 
 function VisitModal(props) {
   const [state, setState] = useSetState({
@@ -137,6 +137,16 @@ function VisitModal(props) {
       });
   }
 
+  function addNewClient(new_client) {
+    console.log(new_client.id);
+    setState({
+      client: new_client.id,
+      client_name: new_client.name,
+      client_phone: new_client.phone,
+      client_name_and_phone: new_client.phone ? new_client.name + ', ' + new_client.phone : new_client.name
+    });
+  }
+
   return (
     <Modal open={props.opened} onClose={closeModal} id='visit_modal' few_childs={true}>
       <>
@@ -145,12 +155,14 @@ function VisitModal(props) {
         </div>
         <div className='modal-body'>
           <AsyncSelector
-            className='css_select_in_modal'
+            className='css_select_in_modal mb-1'
             fieldName='Клієнт'
             url='get_clients_select'
             onChange={onClientChange}
             value={{id: state.client, name: state.client_name_and_phone}}
+            autofocus={true}
           />
+          <NewClient returnNewClient={addNewClient} />
           <hr />
 
           <AsyncSelector
@@ -172,7 +184,6 @@ function VisitModal(props) {
 
       <If condition={schedulerState.clicked_visit?.client}>
         <ClientInfo />
-        {/*  <ClientPopup />*/}
       </If>
     </Modal>
   );

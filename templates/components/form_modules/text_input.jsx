@@ -17,6 +17,7 @@ function TextInput(props) {
             onChange={props.onChange}
             maxLength={props.maxLength}
             disabled={props.disabled}
+            autoFocus={props.autofocus}
           />
         </label>
       </When>
@@ -32,6 +33,7 @@ function TextInput(props) {
             onChange={props.onChange}
             maxLength={props.maxLength}
             disabled={props.disabled}
+            autoFocus={props.autofocus}
           />
         </label>
       </Otherwise>
@@ -46,7 +48,8 @@ TextInput.defaultProps = {
   maxLength: 5000,
   type: 'default',
   disabled: false,
-  className: {}
+  className: {},
+  autofocus: false
 };
 
 export default TextInput;
