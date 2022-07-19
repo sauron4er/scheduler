@@ -1,5 +1,6 @@
 body {
   font-family: 'Nunito', sans-serif;
+  background: #fff1ab;
 }
 
 .css_full_width {
@@ -8,7 +9,8 @@ body {
 
 .css_base_nav {
   /*height: 30px;*/
-  background: #dceffd;
+  /*background: #dceffd;*/
+  background: #130e11;
   box-shadow: 0 6px 6px -2px rgba(0,0,0,.2);
   margin-bottom: 5px;
 }
@@ -19,7 +21,8 @@ body {
 }
 
 .css_nav_text.active, .nav_text_css:active {
-  color: #263062;
+  /*color: #263062;*/
+  color: #d5ddfd;
 }
 
 /*.css_nav_link:focus {*/

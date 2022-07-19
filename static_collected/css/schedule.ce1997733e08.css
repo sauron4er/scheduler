@@ -11,6 +11,7 @@
 
 .scheduler {
   width: 100%;
+  background: lightyellow;
 }
 
 .scheduler_time {
@@ -25,15 +26,17 @@
 }
 
 .scheduler_th:not(:last-of-type) {
-  border-right: 1px solid lightgray;
+  /*border-right: 1px solid lightgray;*/
 }
 
 .th_today {
-  background: #dceffd;
+  /*background: #dceffd;*/
+  background: #fafa88;
 }
 
 .td_today {
-  background: #F1F9FF;
+  /*background: #F1F9FF;*/
+  background: #ffffb9;
 }
 
 .scheduler_td {
@@ -41,7 +44,7 @@
 }
 
 .scheduler_td:not(:last-of-type) {
-  border-right: 1px solid lightgray;
+  /*border-right: 1px solid lightgray;*/
 }
 
 .scheduler_td:hover {
