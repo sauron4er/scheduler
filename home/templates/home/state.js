@@ -7,7 +7,12 @@ const schedulerState = store({
   clicked_week: null,
   clicked_day: null,
   clicked_time: null,
-  clicked_client: null,
+  selected_client: 0,
+  selected_client_name: '',
+  selected_client_phone: '',
+  selected_employee: 0,
+  selected_employee_name: '',
+  selected_employee_color: '',
   clicked_visit: {
     id: 0,
     client: 0,

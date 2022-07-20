@@ -15,55 +15,34 @@ import NewClient from '../clients/new_client';
 function VisitModal(props) {
   const [state, setState] = useSetState({
     id: 0,
-    client: 0,
-    client_name: '',
-    client_phone: '',
-    client_name_phone: '',
-    employee: 0,
-    employee_name: '',
-    employee_color: '',
     note: ''
   });
-
-  function mergeClientNameAndPhone() {
-    if (schedulerState.clicked_visit.client_phone) {
-      return schedulerState.clicked_visit.client_name + ', ' + schedulerState.clicked_visit.client_phone;
-    } else {
-      return schedulerState.clicked_visit.client_name;
-    }
-  }
 
   useEffect(() => {
     if (props.opened && schedulerState.clicked_visit?.id) {
       setState({
         id: schedulerState.clicked_visit.id,
-        client: schedulerState.clicked_visit.client,
-        client_name: schedulerState.clicked_visit.client_name,
-        client_phone: schedulerState.clicked_visit.client_phone,
-        client_name_and_phone: mergeClientNameAndPhone(),
-        employee: schedulerState.clicked_visit.employee,
-        employee_name: schedulerState.clicked_visit.employee_name,
-        employee_color: schedulerState.clicked_visit.employee_color,
         note: schedulerState.clicked_visit.note
       });
+      schedulerState.selected_client = schedulerState.clicked_visit.client;
+      schedulerState.selected_client_name = schedulerState.clicked_visit.client_name;
+      schedulerState.selected_client_phone = schedulerState.clicked_visit.client_phone;
+      schedulerState.employee = schedulerState.clicked_visit.employee;
+      schedulerState.employee_name = schedulerState.clicked_visit.employee_name;
+      schedulerState.employee_color = schedulerState.clicked_visit.employee_color;
     }
   }, [props.opened]);
 
   function onClientChange(e) {
-    setState({
-      client: e.id,
-      client_name: e.only_name,
-      client_phone: e.phone,
-      client_name_and_phone: e.name
-    });
+    schedulerState.selected_client = e.id;
+    schedulerState.selected_client_name = e.only_name;
+    schedulerState.selected_client_phone = e.phone;
   }
 
   function onEmployeeChange(e) {
-    setState({
-      employee: e.id,
-      employee_name: e.name,
-      employee_color: e.color
-    });
+    schedulerState.selected_employee = e.id;
+    schedulerState.selected_employee_name = e.name;
+    schedulerState.selected_employee_color = e.color;
   }
 
   function onNoteChange(e) {
@@ -79,23 +58,16 @@ function VisitModal(props) {
     };
     setState({
       id: 0,
-      client: 0,
-      client_name: '',
-      client_phone: '',
-      client_name_and_phone: '',
-      employee: 0,
-      employee_name: '',
-      employee_color: '',
       note: ''
     });
   }
 
   function postNewVisit() {
-    const {id, client, employee, note} = state;
+    const {id, note} = state;
     let formData = new FormData();
     formData.append('id', id);
-    formData.append('client', client);
-    formData.append('employee', employee);
+    formData.append('client', schedulerState.selected_client);
+    formData.append('employee', schedulerState.selected_employee);
     formData.append('note', note);
     formData.append('start', `${schedulerState.clicked_day}, ${schedulerState.clicked_time}`);
 
@@ -105,18 +77,20 @@ function VisitModal(props) {
   function postVisit(formData) {
     axiosPostRequest('post_visit', formData)
       .then((response) => {
-        const {client, client_name, client_phone, employee, employee_name, employee_color, note} = state;
+        const {note} = state;
+        const {selected_client, selected_client_name, selected_client_phone,
+          selected_employee, selected_employee_name, selected_employee_color} = schedulerState;
         const visit = {
           id: response,
           week: schedulerState.clicked_week,
           date: schedulerState.clicked_day,
           start: schedulerState.clicked_time,
-          client: client,
-          client_name,
-          client_phone,
-          employee,
-          employee_name,
-          employee_color,
+          client: selected_client,
+          client_name: selected_client_name,
+          client_phone: selected_client_phone,
+          employee: selected_employee,
+          employee_name: selected_employee_name,
+          employee_color: selected_employee_color,
           note
         };
 
@@ -138,13 +112,17 @@ function VisitModal(props) {
   }
 
   function addNewClient(new_client) {
-    console.log(new_client.id);
-    setState({
-      client: new_client.id,
-      client_name: new_client.name,
-      client_phone: new_client.phone,
-      client_name_and_phone: new_client.phone ? new_client.name + ', ' + new_client.phone : new_client.name
-    });
+    schedulerState.selected_client = new_client.id;
+    schedulerState.selected_client_name = new_client.name;
+    schedulerState.selected_client_phone = new_client.phone;
+  }
+
+  function mergeClientNameAndPhone() {
+    if (schedulerState.selected_client_phone) {
+      return schedulerState.selected_client_name + ', ' + schedulerState.selected_client_phone;
+    } else {
+      return schedulerState.selected_client_name;
+    }
   }
 
   return (
@@ -159,7 +137,7 @@ function VisitModal(props) {
             fieldName='Клієнт'
             url='get_clients_select'
             onChange={onClientChange}
-            value={{id: state.client, name: state.client_name_and_phone}}
+            value={{id: schedulerState.selected_client, name: mergeClientNameAndPhone()}}
             autofocus={true}
           />
           <NewClient returnNewClient={addNewClient} />
@@ -170,15 +148,15 @@ function VisitModal(props) {
             fieldName='Спеціаліст'
             url='get_employees_select'
             onChange={onEmployeeChange}
-            value={{id: state.employee, name: state.employee_name}}
-            color={state.employee_color}
+            value={{id: schedulerState.selected_employee, name: schedulerState.selected_employee_name}}
+            color={schedulerState.selected_employee_color}
           />
           <hr />
           <TextInput text={state.note} fieldName='Нотатка' onChange={onNoteChange} maxLength={500} />
         </div>
         <div className='modal-footer'>
           <SubmitButton className='text-dark mr-auto' text='Видалити' onClick={deleteVisit} disabled={!state.id} />
-          <SubmitButton text='Зберегти' onClick={postNewVisit} disabled={!state.client} />
+          <SubmitButton text='Зберегти' onClick={postNewVisit} disabled={!schedulerState.selected_client} />
         </div>
       </>
 
