@@ -5,11 +5,6 @@
       "name": "home.js",
       "path": "C:\\Users\\Stas\\Documents\\Code\\scheduler\\static\\bundles\\home.js",
       "publicPath": "/static/home.js"
-    },
-    "home.js.LICENSE.txt": {
-      "name": "home.js.LICENSE.txt",
-      "path": "C:\\Users\\Stas\\Documents\\Code\\scheduler\\static\\bundles\\home.js.LICENSE.txt",
-      "publicPath": "/static/home.js.LICENSE.txt"
     }
   },
   "chunks": {

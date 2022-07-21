@@ -93,7 +93,7 @@ function PaginatedTable(props) {
     <>
       <Filter value={state.filter_value} onChange={onFilterChange} />
       <div className='css_table_wrapper' style={{overflowX: 'auto'}}>
-        <table className='table table-sm css_table'>
+        <table className='table table-sm css_table bg-white'>
           <thead className='thead-light'>
             <tr>
               <For each='column' of={state.columns} index='idx'>
