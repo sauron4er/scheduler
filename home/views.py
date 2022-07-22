@@ -8,7 +8,7 @@ from django.utils import timezone
 import json
 from home.models import Holiday
 from home.api.clients_api import get_clients_page, get_clients_for_select, add_client, get_client_info
-from home.api.employees_api import get_employees_page, get_employees_for_select, add_employee
+from home.api.employees_api import get_employees_page, get_employees_for_select, post_employee_api
 from home.api.visits_api import add_visit, change_visit, get_visits_list, get_client_visits, deactivate_visit
 from scheduler.api.try_except import try_except
 
@@ -89,8 +89,8 @@ def get_employees_select(request):
 @try_except
 @login_required(login_url='login')
 def post_employee(request):
-    employee = add_employee(request)
-    return HttpResponse(employee.pk)
+    employee_id = post_employee_api(request)
+    return HttpResponse(employee_id)
 
 
 @try_except

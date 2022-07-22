@@ -1,7 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.db.models import Q
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 import json
 from scheduler.api.try_except import try_except
 from home.models import Client, Employee
@@ -62,7 +61,8 @@ def paginate(employees, page, look_for_name):
         'phone': employee.phone or '',
         'address': employee.address or '',
         'note': employee.note or '',
-        'color': employee.color or ''
+        'color': employee.color or '',
+        'login': employee.user.username
     } for employee in employees_page.object_list]
 
     looked_index = -1
@@ -91,20 +91,51 @@ def get_employees_for_select(request):
 
 
 @try_except
-def add_employee(request):
+def post_employee_api(request):
     try:
-        employee = Employee.objects.get(pk=request.POST['id'])
+        emp = Employee.objects.get(pk=request.POST['id'])
+        employee_id = change_employee(emp, request.POST)
     except Employee.DoesNotExist:
-        employee = Employee()
+        employee_id = add_employee(request.POST)
+    return employee_id
 
-    employee.name = request.POST['name']
-    employee.phone = request.POST['phone'] if request.POST['phone'] != '' else None
-    employee.address = request.POST['address'] if request.POST['address'] != '' else None
-    employee.note = request.POST['note'] if request.POST['note'] != '' else None
-    employee.color = request.POST['color'] if request.POST['color'] != '' else None
 
-    if 'deactivate' in request.POST:
+@try_except
+def add_employee(fields):
+    user = User()
+    employee = Employee()
+
+    user.username = fields['login']
+    user.set_password(fields['password'])
+    user.save()
+
+    employee.user_id = user.pk
+    employee.name = fields['name']
+    employee.phone = fields['phone'] if fields['phone'] != '' else None
+    employee.address = fields['address'] if fields['address'] != '' else None
+    employee.note = fields['note'] if fields['note'] != '' else None
+    employee.color = fields['color'] if fields['color'] != '' else None
+    employee.save()
+
+    return employee.id
+
+
+@try_except
+def change_employee(employee, fields):
+    employee.name = fields['name']
+    employee.phone = fields['phone'] if fields['phone'] != '' else None
+    employee.address = fields['address'] if fields['address'] != '' else None
+    employee.note = fields['note'] if fields['note'] != '' else None
+    employee.color = fields['color'] if fields['color'] != '' else None
+
+    if 'deactivate' in fields:
         employee.is_active = False
     employee.save()
 
-    return employee
+    user = get_object_or_404(User, id=employee.user_id)
+    user.username = fields['login']
+    if fields['password']:
+        user.set_password(fields['password'])
+    user.save()
+
+    return employee.id

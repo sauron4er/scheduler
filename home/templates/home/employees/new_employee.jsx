@@ -6,7 +6,8 @@ import SubmitButton from 'templates/components/form_modules/submit_button';
 import {axiosPostRequest} from 'templates/components/axios_requests';
 import Modal from 'templates/components/modal/modal';
 import employeesState from 'home/templates/home/employees/state';
-import ColorPicker from '../../../../templates/components/form_modules/color_picker';
+import ColorPicker from 'templates/components/form_modules/color_picker';
+import Password from "templates/components/form_modules/password";
 
 function NewEmployee() {
   const [state, setState] = useSetState({
@@ -25,7 +26,7 @@ function NewEmployee() {
   }
 
   function postNewEmployee() {
-    const {new_name, new_phone, new_address, new_note, new_color} = state;
+    const {new_name, new_phone, new_address, new_note, new_color, new_login, new_password} = state;
     let formData = new FormData();
     formData.append('id', '0');
     formData.append('name', new_name);
@@ -33,6 +34,8 @@ function NewEmployee() {
     formData.append('address', new_address);
     formData.append('note', new_note);
     formData.append('color', new_color);
+    formData.append('login', new_login);
+    formData.append('password', new_password);
     employeesState.new_employee_name = new_name;
     postEmployee(formData);
   }
@@ -59,7 +62,17 @@ function NewEmployee() {
       new_address: '',
       new_note: '',
       new_color: '#ffffff',
+      new_login: '',
+      new_password: '',
+      is_password_valid: false
     });
+  }
+
+  function onPasswordChange(password, is_password_valid) {
+    setState({
+      new_password: password,
+      is_password_valid
+    })
   }
 
   return (
@@ -89,11 +102,12 @@ function NewEmployee() {
         <hr />
         <TextInput text={state.new_note} fieldName='Нотатка' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />
         <hr />
-        <TextInput text={state.new_login} fieldName='Логін' onChange={(e) => onChange(e, 'new_login')} maxLength={150} />
+        <TextInput text={state.new_login} fieldName='Логін' onChange={(e) => onChange(e, 'new_login')} maxLength={110} />
+        <small>Лише латинські букви, цифри та символи @, ., +, - або _</small>
         <hr />
-        <div>Пароль</div>
+        <Password password={state.new_password} onChange={onPasswordChange} required />
         <hr />
-        <SubmitButton text='Зберегти' onClick={postNewEmployee} disabled={!state.new_name} />
+        <SubmitButton text='Зберегти' onClick={postNewEmployee} disabled={!state.new_name || !state.new_login || !state.is_password_valid} />
       </Modal>
     </div>
   );

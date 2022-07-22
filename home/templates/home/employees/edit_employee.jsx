@@ -7,6 +7,7 @@ import {axiosPostRequest} from 'templates/components/axios_requests';
 import Modal from 'templates/components/modal/modal';
 import employeesState from 'home/templates/home/employees/state';
 import ColorPicker from '../../../../templates/components/form_modules/color_picker';
+import Password from "../../../../templates/components/form_modules/password";
 
 function EditEmployee(props) {
   const [state, setState] = useSetState({
@@ -17,7 +18,8 @@ function EditEmployee(props) {
     note: '',
     color: '',
     login: '',
-    password: ''
+    password: '',
+    is_password_valid: true
   });
 
   useEffect(() => {
@@ -31,7 +33,7 @@ function EditEmployee(props) {
   }
 
   function changeEmployee() {
-    const {id, name, phone, address, note, color} = state;
+    const {id, name, phone, address, note, color, login, password} = state;
     let formData = new FormData();
     formData.append('id', id);
     formData.append('name', name);
@@ -39,11 +41,13 @@ function EditEmployee(props) {
     formData.append('address', address);
     formData.append('note', note);
     formData.append('color', color);
+    formData.append('login', login);
+    formData.append('password', password);
     postEmployee(formData);
   }
 
   function deactivateEmployee() {
-    const {id, name, phone, address, note, color} = state;
+    const {id, name, phone, address, note, color, login, password} = state;
     let formData = new FormData();
     formData.append('id', id);
     formData.append('name', name);
@@ -51,6 +55,8 @@ function EditEmployee(props) {
     formData.append('address', address);
     formData.append('note', note);
     formData.append('color', color);
+    formData.append('login', login);
+    formData.append('password', password);
     formData.append('deactivate', '');
     postEmployee(formData);
   }
@@ -62,6 +68,13 @@ function EditEmployee(props) {
         closeModal();
       })
       .catch((error) => notify(error));
+  }
+
+  function onPasswordChange(password, is_password_valid) {
+    setState({
+      password: password,
+      is_password_valid
+    })
   }
 
   function closeModal() {
@@ -91,14 +104,13 @@ function EditEmployee(props) {
       <hr />
       <TextInput text={state.note} fieldName='Нотатка' onChange={(e) => onChange(e, 'note')} maxLength={1000} />
       <hr />
-      <TextInput text={state.login} fieldName='Логін' onChange={(e) => onChange(e, 'login')} maxLength={150} />
+      <TextInput text={state.login} fieldName='Логін' onChange={(e) => onChange(e, 'login')} maxLength={110} />
+      <small>Лише латинські букви, цифри та символи @, ., +, - або _</small>
       <hr />
-      <div>Пароль</div>
-      <hr />
-      <div>Тема</div>
+      <Password password={state.password} onChange={onPasswordChange} />
       <hr />
       <div className='d-flex justify-content-between'>
-        <SubmitButton name='change' text='Зберегти' onClick={changeEmployee} disabled={!state.name} />
+        <SubmitButton name='change' text='Зберегти' onClick={changeEmployee} disabled={!state.name || !state.login || !state.is_password_valid} />
         <SubmitButton name='deactivate' className='css_button_red' text='Видалити' onClick={deactivateEmployee} disabled={!state.name} />
       </div>
     </Modal>

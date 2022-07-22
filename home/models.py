@@ -23,7 +23,6 @@ class Employee(models.Model):
     date_in = models.DateField(auto_now_add=True)
     date_out = models.DateField(null=True)
     color = models.CharField(max_length=7)
-    theme = models.CharField(max_length=1, default=1)  # 1 - white, 2 - yellow
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

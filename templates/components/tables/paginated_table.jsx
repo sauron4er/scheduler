@@ -39,7 +39,6 @@ function PaginatedTable(props) {
   }
 
   function onPageClick(page) {
-    console.log(page.selected);
     setState({
       page: page.selected
     });
