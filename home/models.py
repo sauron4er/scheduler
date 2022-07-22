@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Client(models.Model):
@@ -14,6 +15,7 @@ class Client(models.Model):
 
 
 class Employee(models.Model):
+    user = models.OneToOneField(User, on_delete=models.RESTRICT)
     name = models.CharField(max_length=100)
     note = models.CharField(max_length=1000, null=True)
     phone = models.CharField(max_length=10, null=True)
@@ -21,6 +23,7 @@ class Employee(models.Model):
     date_in = models.DateField(auto_now_add=True)
     date_out = models.DateField(null=True)
     color = models.CharField(max_length=7)
+    theme = models.CharField(max_length=1, default=1)  # 1 - white, 2 - yellow
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

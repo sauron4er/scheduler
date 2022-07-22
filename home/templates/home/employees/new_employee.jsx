@@ -15,6 +15,8 @@ function NewEmployee() {
     new_address: '',
     new_note: '',
     new_color: '#ffffff',
+    new_login: '',
+    new_password: '',
     opened: false
   });
 
@@ -86,6 +88,10 @@ function NewEmployee() {
         <TextInput text={state.new_address} fieldName='Адреса' onChange={(e) => onChange(e, 'new_address')} maxLength={100} />
         <hr />
         <TextInput text={state.new_note} fieldName='Нотатка' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />
+        <hr />
+        <TextInput text={state.new_login} fieldName='Логін' onChange={(e) => onChange(e, 'new_login')} maxLength={150} />
+        <hr />
+        <div>Пароль</div>
         <hr />
         <SubmitButton text='Зберегти' onClick={postNewEmployee} disabled={!state.new_name} />
       </Modal>

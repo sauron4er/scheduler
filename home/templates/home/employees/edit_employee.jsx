@@ -15,7 +15,9 @@ function EditEmployee(props) {
     phone: '',
     address: '',
     note: '',
-    color: ''
+    color: '',
+    login: '',
+    password: ''
   });
 
   useEffect(() => {
@@ -88,6 +90,12 @@ function EditEmployee(props) {
       <TextInput text={state.address} fieldName='Адреса' onChange={(e) => onChange(e, 'address')} maxLength={100} />
       <hr />
       <TextInput text={state.note} fieldName='Нотатка' onChange={(e) => onChange(e, 'note')} maxLength={1000} />
+      <hr />
+      <TextInput text={state.login} fieldName='Логін' onChange={(e) => onChange(e, 'login')} maxLength={150} />
+      <hr />
+      <div>Пароль</div>
+      <hr />
+      <div>Тема</div>
       <hr />
       <div className='d-flex justify-content-between'>
         <SubmitButton name='change' text='Зберегти' onClick={changeEmployee} disabled={!state.name} />
