@@ -21,6 +21,8 @@ function Cell(props) {
     schedulerState.clicked_day = props.day.date;
     schedulerState.clicked_time = props.time;
     schedulerState.clicked_visit = visit;
+    schedulerState.selected_employee = visit.employee;
+    schedulerState.selected_employee_name = visit.employee_name;
   }
 
   function onVisitHover(e) {
@@ -65,9 +67,7 @@ function Cell(props) {
               onClick={(e) => onVisitClick(e, visit)}
               onMouseOver={onVisitHover}
               onMouseOut={onVisitHoverOut}
-              // style={visit.employee_color ? {border: `2px solid ${visit.employee_color}`}: null}
               style={visit.employee_color ? {boxShadow: `${visit.employee_color} 1px 1.5px 2.6px`} : {border: `1px solid lightgrey`}}
-              // style={visit.employee_color ? {backgroundImage: `linear-gradient(to right, ${visit.employee_color}, white)`}: null}
             >
               {visit.client_name}
             </small>
