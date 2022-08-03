@@ -20,9 +20,4 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True)),
             ],
         ),
-        migrations.AddField(
-            model_name='employee',
-            name='theme',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.RESTRICT, related_name='employees', to='home.theme'),
-        ),
     ]
