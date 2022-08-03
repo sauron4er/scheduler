@@ -17,7 +17,7 @@ class Employee(models.Model):
     date_in = models.DateField(auto_now_add=True)
     date_out = models.DateField(null=True)
     color = models.CharField(max_length=7)
-    theme = models.ForeignKey(Theme, related_name='employees', on_delete=models.RESTRICT, null=True)
+    theme = models.ForeignKey(Theme, related_name='employees', on_delete=models.RESTRICT)
     is_in_employee_list = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
 
