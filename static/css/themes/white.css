@@ -13,9 +13,9 @@
   --scheduler_holiday: #F5F5F5;
   --scheduler_visit: white;
   --scheduler_visit_popup: #dceffd;
-  --scheduler_plus_week_button_background: #4589b6;
-  --scheduler_plus_week_button_border: blue;
-  --scheduler_plus_week_button_text: white;
+  --scheduler_plus_week_button_background: white;
+  --scheduler_plus_week_button_border: #4589b6;
+  --scheduler_plus_week_button_text: black;
 
   --table_header_color: #dceffd;
   --table_header_text_color: black;
@@ -25,12 +25,14 @@
   --table_cell_border_color: #dceffd;
   --table_shadow: #afafaf;
 
+
   --input_valid: #004980;
   --input_invalid: red;
   --input_label: black;
   --input_background: white;
   --textarea_text: black;
   --select_option_text_color: black;
+
 
   --button_background: #FCFCFD;
   --red_button_background: #B64545;
@@ -55,6 +57,7 @@
   --slider_background: #ccc;
   --slider_before_background: #fff;
   --slider_checked_background: #BBDEFA;
+
 
   --profile_background: #dceffd;
 }

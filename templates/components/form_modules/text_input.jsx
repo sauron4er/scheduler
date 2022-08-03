@@ -1,5 +1,6 @@
 'use strict';
 import * as React from 'react';
+import 'css/inputs.css'
 
 function TextInput(props) {
   const rows = props.text ? Math.round(props.text.length / 41) : 0;
@@ -10,7 +11,8 @@ function TextInput(props) {
         <label className={props.className + ' css_full_width'} htmlFor={props.fieldName}>
           <If condition={props.fieldName !== '-'}>{props.fieldName}:</If>
           <input
-            className='form-control css_full_width'
+            className='css_full_width'
+            type='text'
             name={props.fieldName}
             id={props.fieldName}
             value={props.text ? props.text : ''}
@@ -25,7 +27,7 @@ function TextInput(props) {
         <label className={props.className + ' css_full_width'} htmlFor={props.fieldName}>
           <If condition={props.fieldName !== '-'}>{props.fieldName}:</If>
           <textarea
-            className='autoExpand form-control css_full_width'
+            className='autoExpand css_full_width'
             name={props.fieldName}
             id={props.fieldName}
             value={props.text ? props.text : ''}

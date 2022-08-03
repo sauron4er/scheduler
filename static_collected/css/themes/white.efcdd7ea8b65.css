@@ -1,29 +1,28 @@
 :root {
-  --background: #fff1ab;
-  --nav: #130e11;
-  --nav_text: #E7E7E7;
-  --dropdown_menu_background: black;
+  --background: white;
+  --nav: #dceffd;
+  --nav_text: #4589b6;
+  --dropdown_menu_background: white;
 
-  --scheduler_background: lightyellow;
+  --scheduler_background: white;
   --scheduler_shadow: #afafaf;
-  --scheduler_today_background: #ffffb9;
-  --scheduler_today_header_background: #fafa88;
+  --scheduler_today_background: #F1F9FF;
+  --scheduler_today_header_background: #dceffd;
   --scheduler_header_and_time_text_color: black;
   --scheduler_cell_hover: #dceffd;
-  --scheduler_holiday: #FFFCED;
+  --scheduler_holiday: #F5F5F5;
   --scheduler_visit: white;
   --scheduler_visit_popup: #dceffd;
   --scheduler_plus_week_button_background: white;
-  --scheduler_plus_week_button_border: yellow;
+  --scheduler_plus_week_button_border: #4589b6;
   --scheduler_plus_week_button_text: black;
 
-
-  --table_header_color: #D0D0D0;
+  --table_header_color: #dceffd;
   --table_header_text_color: black;
-  --table_row_color: lightyellow;
-  --table_row_hover: #FCFCFC;
-  --table_row_clicked: #F6F6F6;
-  --table_cell_border_color: #E3E3E3;
+  --table_row_color: white;
+  --table_row_hover: #dceffd40;
+  --table_row_clicked: #EBF7FD;
+  --table_cell_border_color: #dceffd;
   --table_shadow: #afafaf;
 
 
@@ -34,15 +33,16 @@
   --textarea_text: black;
   --select_option_text_color: black;
 
+
   --button_background: #FCFCFD;
   --red_button_background: #B64545;
   --disabled_button_background: gray;
   --button_text_color: #4589b6;
 
   --loader_color_0: #4E4E4E;
-  --loader_color_100: #DECB8F;
+  --loader_color_100: #ebe6ff;
 
-  --modal_background: lightyellow;
+  --modal_background: white;
   --modal_client_text_color: black;
   --modal_client_tab_background: white;
   --modal_client_table_text: black;
@@ -59,5 +59,5 @@
   --slider_checked_background: #BBDEFA;
 
 
-  --profile_background: lightyellow;
+  --profile_background: #dceffd;
 }

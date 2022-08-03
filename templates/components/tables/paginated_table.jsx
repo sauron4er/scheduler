@@ -83,9 +83,8 @@ function PaginatedTable(props) {
     return () => clearTimeout(delayFilter);
   }, [state.filter_value]);
 
-  function getTrClass(row_index) {
-    const class_var = row_index === state.clicked_row ? 'css_table_row_clicked' : ''
-    return 'css_tr ' + class_var
+  function isClicked(row_index) {
+    return row_index === state.clicked_row ? ' css_table_row_clicked' : null
   }
 
   return (
@@ -93,7 +92,7 @@ function PaginatedTable(props) {
       <Filter value={state.filter_value} onChange={onFilterChange} />
       <div className='css_table_wrapper' style={{overflowX: 'auto'}}>
         <table className='table table-sm css_table bg-white'>
-          <thead className='thead-light'>
+          <thead className=''>
             <tr>
               <For each='column' of={state.columns} index='idx'>
                 <th key={idx} scope='col' className='css_th' style={getWidth(column.label)}>
@@ -103,11 +102,11 @@ function PaginatedTable(props) {
             </tr>
           </thead>
           <tbody>
-            <For each='row' of={state.rows} index='row_index'>
+            <For each='row' of={state.rows} index='row_idx'>
               <tr
-                className={getTrClass(row_index)}
-                onClick={(e) => onRowClick(row_index)}
-                key={row_index}
+                className={`css_tr ${isClicked(row_idx)}`}
+                onClick={(e) => onRowClick(row_idx)}
+                key={row_idx}
               >
                 <For each='column' of={state.columns} index='col_index'>
                   {getCell(column, row, col_index)}

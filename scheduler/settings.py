@@ -15,7 +15,7 @@ SECRET_KEY = secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*'] if DEBUG else ['mdent.pp.ua', 'localhost']
 
 ADMINS = [('Stas', 'sauron4er@gmail.com')]
 
@@ -144,9 +144,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'files', 'media')
 
 MEDIA_URL = '/media/'
 
-LOGOUT_REDIRECT_URL = '/home/'
+LOGOUT_REDIRECT_URL = '/schedule'
 
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/schedule'
 
 SESSION_COOKIE_SAMESITE = 'lax'
 SESSION_COOKIE_SAMESITE_FORCE_ALL = True

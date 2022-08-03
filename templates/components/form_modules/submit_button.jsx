@@ -15,9 +15,14 @@ function SubmitButton(props) {
   }
 
   return (
-    <button className={`css_button my-2 ${props.className}`} onClick={onClick} disabled={clicked || props.disabled}>
-      {props.text}
-    </button>
+    <div className='d-flex align-content-center'>
+      <button className={`css_button my-2 ${props.className}`} onClick={onClick} disabled={clicked || props.disabled}>
+        {props.text}
+      </button>
+      <If condition={props.done}>
+        <div className='text-success ml-2'>{props.done_text}</div>
+      </If>
+    </div>
   );
 }
 
@@ -26,7 +31,9 @@ SubmitButton.defaultProps = {
   text: '???',
   onClick: () => {},
   disabled: false,
-  timer: true
+  timer: true,
+  done: false,
+  done_text: ''
 };
 
 export default SubmitButton;

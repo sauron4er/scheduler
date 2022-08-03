@@ -3,6 +3,7 @@ import AsyncSelect from 'react-select/async';
 import useSetState from 'templates/hooks/useSetState';
 import {axiosPostRequest} from 'templates/components/axios_requests';
 import {notify} from 'templates/components/react_toastify_settings';
+import 'css/inputs.css'
 
 function AsyncSelector(props) {
   const [state, setState] = useSetState({
@@ -45,6 +46,8 @@ function AsyncSelector(props) {
         getOptionLabel={(option) => option.name}
         getOptionValue={(option) => option.id}
         autoFocus={props.autofocus}
+        className="react-select-container"
+        classNamePrefix="react-select"
       />
       <div style={getUnderscoreStyle()}> </div>
     </div>

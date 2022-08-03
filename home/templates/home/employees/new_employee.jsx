@@ -8,7 +8,6 @@ import Modal from 'templates/components/modal/modal';
 import employeesState from 'home/templates/home/employees/state';
 import ColorPicker from 'templates/components/form_modules/color_picker';
 import Password from "templates/components/form_modules/password";
-import AsyncSelector from "../../../../templates/components/form_modules/selectors/async_selector";
 
 function NewEmployee() {
   const [state, setState] = useSetState({
@@ -19,8 +18,6 @@ function NewEmployee() {
     new_color: '#ffffff',
     new_login: '',
     new_password: '',
-    new_theme: 1,
-    new_theme_name: 'white',
     opened: false
   });
 
@@ -29,7 +26,7 @@ function NewEmployee() {
   }
 
   function postNewEmployee() {
-    const {new_name, new_phone, new_address, new_note, new_color, new_login, new_theme, new_password} = state;
+    const {new_name, new_phone, new_address, new_note, new_color, new_login, new_password} = state;
     let formData = new FormData();
     formData.append('id', '0');
     formData.append('name', new_name);
@@ -37,7 +34,6 @@ function NewEmployee() {
     formData.append('address', new_address);
     formData.append('note', new_note);
     formData.append('color', new_color);
-    formData.append('theme', new_theme);
     formData.append('login', new_login);
     formData.append('password', new_password);
     employeesState.new_employee_name = new_name;
@@ -66,8 +62,6 @@ function NewEmployee() {
       new_address: '',
       new_note: '',
       new_color: '#ffffff',
-      new_theme: 1,
-      new_theme_name: 'white',
       new_login: '',
       new_password: '',
       is_password_valid: false
@@ -79,13 +73,6 @@ function NewEmployee() {
       new_password: password,
       is_password_valid
     })
-  }
-
-  function onThemeChange(e) {
-    setState({
-      new_theme: e.id,
-      new_theme_name: e.name
-    });
   }
 
   return (
@@ -114,14 +101,6 @@ function NewEmployee() {
         <TextInput text={state.new_address} fieldName='Адреса' onChange={(e) => onChange(e, 'new_address')} maxLength={100} />
         <hr />
         <TextInput text={state.new_note} fieldName='Нотатка' onChange={(e) => onChange(e, 'new_note')} maxLength={1000} />
-        <hr />
-        <AsyncSelector
-          className='css_select_in_modal'
-          fieldName='Тема'
-          url='get_themes'
-          onChange={onThemeChange}
-          value={{id: state.new_theme, name: state.new_theme_name}}
-        />
         <hr />
         <TextInput text={state.new_login} fieldName='Логін' onChange={(e) => onChange(e, 'new_login')} maxLength={110} />
         <small>Лише латинські букви, цифри та символи @, ., +, - або _</small>

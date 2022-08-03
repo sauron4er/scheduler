@@ -21,7 +21,7 @@
 }
 
 .scheduler_time_header {
-  color: var(--background);
+  color: var(--scheduler_background);
 }
 
 .scheduler_th {
@@ -130,7 +130,7 @@
 
 .css_plus_week_button {
   background: var(--scheduler_plus_week_button_background);
-  border: 10px var(--scheduler_plus_week_button_border);
+  border: 1px solid var(--scheduler_plus_week_button_border);
   color: var(--scheduler_plus_week_button_text);
   margin-bottom: 10px;
 }
