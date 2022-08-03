@@ -28,10 +28,10 @@ function HeaderCell(props) {
     <th scope='col' className={`${props.day.is_today ? 'th_today' : ''} scheduler_th`}>
       <div className='css_header_cell'>
         <div className='css_header_date'>{props.day.day_name}, {props.day.date}</div>
-        <label className='css_switch' htmlFor={`chkbx_${props.day.date}`}>
-          <input type='checkbox' id={`chkbx_${props.day.date}`} checked={!state.is_holiday} onChange={toggleHoliday} />
-          <div className='css_slider css_round' />
-        </label>
+        <If condition={window.is_staff}><label className="css_switch" htmlFor={`chkbx_${props.day.date}`}>
+          <input type="checkbox" id={`chkbx_${props.day.date}`} checked={!state.is_holiday} onChange={toggleHoliday} />
+          <div className="css_slider css_round" />
+        </label></If>
       </div>
     </th>
   );

@@ -17,8 +17,7 @@
 .css_modal_child {
   box-sizing: border-box;
   padding: 16px;
-  background-color: white;
-  border: 1px solid #ccc;
+  background-color: var(--modal_background);
   box-shadow: 1px 1px 1px black;
   margin-bottom: 5px;
 }
@@ -53,4 +52,17 @@
   width: 350px;
   position: fixed;
   overflow-y: scroll;
+}
+
+.css_modal_header {
+  color: var(--header_text)
+}
+
+.css_modal_client_name {
+  font-weight: bold;
+  color: var(--modal_client_text_color)
+}
+
+.css_modal_client_info {
+  color: var(--modal_client_text_color)
 }

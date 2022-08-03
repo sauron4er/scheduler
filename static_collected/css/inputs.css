@@ -5,3 +5,33 @@
 .css_input_invalid {
   box-shadow: 2px 1px 1px red;
 }
+
+input[type="text"], input[type="password"], textarea {
+  border-radius: 5px;
+  border: lightgray solid 1px;
+  padding: 5px;
+  background-color: var(--input_background);
+  color: var(--textarea_text);
+}
+
+label {
+  color: var(--input_label)
+}
+
+h5 {
+  color: var(--header_text)
+}
+
+.react-select__control, .react-select__menu {
+  background: var(--input_background) !important;
+}
+
+.react-select__option, .react-select__single-value {
+  color: var(--select_option_text_color) !important;
+}
+
+/*.react-select-container, .react-select__control, .react-select__value-container, .react-select__indicators,*/
+/*.react-select__menu, .react-select__menu-list, .react-select__option {*/
+/*  color: var(--input_background) !important;*/
+/*  background: var(--select_option_text_color) !important;*/
+/*}*/

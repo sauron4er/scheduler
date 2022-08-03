@@ -1,3 +1,4 @@
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from datetime import datetime, date, timedelta
@@ -8,7 +9,7 @@ from django.utils import timezone
 import json
 from home.models import Holiday
 from home.api.clients_api import get_clients_page, get_clients_for_select, add_client, get_client_info
-from home.api.employees_api import get_employees_page, get_employees_for_select, post_employee_api
+from home.api.employees_api import get_employees_page, get_employees_for_select, post_employee_api, get_employee_info, get_themes_for_select
 from home.api.visits_api import add_visit, change_visit, get_visits_list, get_client_visits, deactivate_visit
 from scheduler.api.try_except import try_except
 
@@ -68,6 +69,7 @@ def get_client_for_scheduler(request, pk):
 
 
 @login_required(login_url='login')
+@staff_member_required
 def employees(request):
     if request.method == 'GET':
         return render(request, 'home/employees/index.html')
@@ -88,9 +90,22 @@ def get_employees_select(request):
 
 @try_except
 @login_required(login_url='login')
+def get_themes(request):
+    themes_list = get_themes_for_select(request)
+    return HttpResponse(json.dumps(themes_list))
+
+
+@try_except
+@login_required(login_url='login')
 def post_employee(request):
     employee_id = post_employee_api(request)
     return HttpResponse(employee_id)
+
+
+@try_except
+@login_required(login_url='login')
+def get_employee(request, pk):
+    return HttpResponse(json.dumps(get_employee_info(pk)))
 
 
 @try_except
@@ -114,7 +129,7 @@ def del_visit(request, pk):
 def get_week(request):
     day_one = make_aware(datetime.strptime(request.POST['first_day'], "%d.%m.%y"))
     week_dates = get_week_dates(day_one)
-    visits = get_visits_list(day_one)
+    visits = get_visits_list(day_one, request.user)
     return HttpResponse(json.dumps({'visits': visits, 'week_dates': week_dates}))
 
 
@@ -182,3 +197,9 @@ def toggle_holiday(request):
         holiday.is_active = False
         holiday.save()
     return HttpResponse('ok')
+
+
+@try_except
+@login_required(login_url='login')
+def profile(request):
+    return render(request, 'home/employees/profile/index.html')

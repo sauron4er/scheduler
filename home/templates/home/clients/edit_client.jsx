@@ -60,7 +60,7 @@ function EditClient(props) {
       .then((response) => {
         // location.reload();
         clientsState.refresh = true;
-        closeModal()
+        closeModal();
       })
       .catch((error) => notify(error));
   }
@@ -82,7 +82,9 @@ function EditClient(props) {
       <TextInput text={state.note} fieldName='Нотатка' onChange={(e) => onChange(e, 'note')} maxLength={1000} />
       <div className='d-flex justify-content-between'>
         <SubmitButton name='change' text='Зберегти' onClick={changeClient} disabled={!state.name} />
-        <SubmitButton name='deactivate' className='css_button_red' text='Видалити' onClick={deactivateClient} disabled={!state.name} />
+        <If condition={window.is_staff}>
+          <SubmitButton name='deactivate' className='css_button_red' text='Видалити' onClick={deactivateClient} disabled={!state.name} />
+        </If>
       </div>
     </Modal>
   );

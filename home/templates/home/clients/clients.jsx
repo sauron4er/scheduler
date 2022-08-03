@@ -12,9 +12,11 @@ function Clients() {
   });
 
   function onRowClick(client) {
-    clientsState.editing_opened = true;
-    clientsState.refresh = false;
-    setState({client});
+    if (window.is_staff || window.user_id === client.added_by_user_id) {
+      clientsState.editing_opened = true;
+      clientsState.refresh = false;
+      setState({client});
+    }
   }
 
   return (

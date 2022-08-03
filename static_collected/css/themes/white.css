@@ -1,0 +1,60 @@
+:root {
+  --background: white;
+  --nav: #dceffd;
+  --nav_text: #4589b6;
+  --dropdown_menu_background: white;
+
+  --scheduler_background: white;
+  --scheduler_shadow: #afafaf;
+  --scheduler_today_background: #F1F9FF;
+  --scheduler_today_header_background: #dceffd;
+  --scheduler_header_and_time_text_color: black;
+  --scheduler_cell_hover: #dceffd;
+  --scheduler_holiday: #F5F5F5;
+  --scheduler_visit: white;
+  --scheduler_visit_popup: #dceffd;
+  --scheduler_plus_week_button_background: #4589b6;
+  --scheduler_plus_week_button_border: blue;
+  --scheduler_plus_week_button_text: white;
+
+  --table_header_color: #dceffd;
+  --table_header_text_color: black;
+  --table_row_color: white;
+  --table_row_hover: #dceffd40;
+  --table_row_clicked: #EBF7FD;
+  --table_cell_border_color: #dceffd;
+  --table_shadow: #afafaf;
+
+  --input_valid: #004980;
+  --input_invalid: red;
+  --input_label: black;
+  --input_background: white;
+  --textarea_text: black;
+  --select_option_text_color: black;
+
+  --button_background: #FCFCFD;
+  --red_button_background: #B64545;
+  --disabled_button_background: gray;
+  --button_text_color: #4589b6;
+
+  --loader_color_0: #4E4E4E;
+  --loader_color_100: #ebe6ff;
+
+  --modal_background: white;
+  --modal_client_text_color: black;
+  --modal_client_tab_background: white;
+  --modal_client_table_text: black;
+
+  --header_text: black;
+
+  --pagination_text_color: black;
+  --pagination_active_background_color: #a5a5a5;
+  --pagination_active_text_color: white;
+  --pagination_hover_color: #ddd;
+
+  --slider_background: #ccc;
+  --slider_before_background: #fff;
+  --slider_checked_background: #BBDEFA;
+
+  --profile_background: #dceffd;
+}

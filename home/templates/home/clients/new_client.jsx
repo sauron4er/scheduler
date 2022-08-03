@@ -41,7 +41,8 @@ function NewClient(props) {
           name: state.new_name,
           phone: state.new_phone,
           address: state.new_address,
-          note: state.new_note
+          note: state.new_note,
+          added_by_user_id: window.user_id
         })
         clientsState.refresh = true;
         closeModal()

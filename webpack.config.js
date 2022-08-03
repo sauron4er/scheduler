@@ -8,8 +8,9 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 module.exports = {
   context: __dirname,
   entry: {
-    home: './static/webpack_index/home.js',
-    // stats: './static/webpack_index/stats.js'
+    schedule: './static/webpack_index/schedule.js',
+    clients: './static/webpack_index/clients.js',
+    employees: './static/webpack_index/employees.js'
   },
   output: {
     path: path.resolve(__dirname, './static/bundles'), // Should be in STATICFILES_DIRS

@@ -47,19 +47,19 @@ function ClientInfo(props) {
           <Loader />
         </When>
         <Otherwise>
-          <div className='font-weight-bold'>{state.name}</div>
+          <div className='css_modal_client_name'>{state.name}</div>
           <If condition={state.phone}>
-            <div className='mb-1'>{state.phone}</div>
+            <div className='mb-1 css_modal_client_info'>{state.phone}</div>
           </If>
           <If condition={state.address}>
-            <div className='border-top border-bottom mb-1'>
+            <div className='border-top border-bottom mb-1 css_modal_client_info'>
               Адреса:
               <span className='font-italic'>{` ${state.address}`}</span>
             </div>
           </If>
           <If condition={state.note}>
-            <div>Нотатка:</div>
-            <div className='border rounded p-1 font-italic mb-1'>{state.note}</div>
+            <div className='css_modal_client_info'>Нотатка:</div>
+            <div className='border rounded p-1 font-italic mb-1 css_modal_client_info'>{state.note}</div>
           </If>
 
           <ClientVisits future={state.future} past={state.past} />

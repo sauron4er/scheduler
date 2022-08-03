@@ -3,12 +3,15 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 import json
 from scheduler.api.try_except import try_except
-from home.models import Client, Employee
+from home.models import Client, Employee, Theme
 
 
 @try_except
 def get_employees_page(request, page):
-    employees = Employee.objects.filter(is_active=True).order_by('name')
+    employees = Employee.objects\
+        .filter(is_active=True)\
+        .filter(is_in_employee_list=True)\
+        .order_by('name')
 
     employees = filter_employees_page(employees, json.loads(request.POST['filter']))
     # employees = sort_query_set(employees, request.POST['sort_name'], request.POST['sort_direction'])
@@ -62,6 +65,8 @@ def paginate(employees, page, look_for_name):
         'address': employee.address or '',
         'note': employee.note or '',
         'color': employee.color or '',
+        'theme': employee.theme.id,
+        'theme_name': employee.theme.name,
         'login': employee.user.username
     } for employee in employees_page.object_list]
 
@@ -79,6 +84,7 @@ def get_employees_for_select(request):
     employees_list = Employee.objects \
                        .filter(is_active=True) \
                        .filter(name__icontains=request.POST['filter']) \
+                       .filter(is_in_employee_list=True) \
                        .order_by('name')[:50]
 
     employees_list = [{
@@ -91,6 +97,20 @@ def get_employees_for_select(request):
 
 
 @try_except
+def get_themes_for_select(request):
+    themes_list = Theme.objects\
+        .filter(is_active=True)\
+        .order_by('name')
+
+    themes_list = [{
+        'id': theme.id,
+        'name': theme.name
+    } for theme in themes_list]
+
+    return themes_list
+
+
+@try_except
 def post_employee_api(request):
     try:
         emp = Employee.objects.get(pk=request.POST['id'])
@@ -98,6 +118,23 @@ def post_employee_api(request):
     except Employee.DoesNotExist:
         employee_id = add_employee(request.POST)
     return employee_id
+
+
+@try_except
+def get_employee_info(pk):
+    employee_instance = get_object_or_404(Employee, user_id=pk)
+    employee = {
+        'id': employee_instance.id,
+        'name': employee_instance.name,
+        'phone': employee_instance.phone or '',
+        'address': employee_instance.address or '',
+        'note': employee_instance.note or '',
+        'color': employee_instance.color or '',
+        'theme': employee_instance.theme.id,
+        'theme_name': employee_instance.theme.name,
+        'login': employee_instance.user.username
+    }
+    return employee
 
 
 @try_except
@@ -115,6 +152,7 @@ def add_employee(fields):
     employee.address = fields['address'] if fields['address'] != '' else None
     employee.note = fields['note'] if fields['note'] != '' else None
     employee.color = fields['color'] if fields['color'] != '' else None
+    employee.theme_id = fields['theme'] if fields['theme'] != '' else 1
     employee.save()
 
     return employee.id
@@ -127,6 +165,7 @@ def change_employee(employee, fields):
     employee.address = fields['address'] if fields['address'] != '' else None
     employee.note = fields['note'] if fields['note'] != '' else None
     employee.color = fields['color'] if fields['color'] != '' else None
+    employee.theme_id = fields['theme']
 
     if 'deactivate' in fields:
         employee.is_active = False

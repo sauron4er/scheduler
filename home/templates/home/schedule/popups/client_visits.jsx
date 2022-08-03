@@ -1,7 +1,5 @@
 import React, {useEffect} from 'react';
 import 'static/css/schedule.css';
-import {Loader} from 'templates/components/form_modules/loaders';
-import {axiosPostRequest} from 'templates/components/axios_requests';
 import useSetState from 'templates/hooks/useSetState';
 
 function ClientVisits(props) {

@@ -1,69 +1,40 @@
 body {
   font-family: 'Nunito', sans-serif;
-  background: #fff1ab;
+  background: var(--background);
 }
 
 .css_full_width {
   width: 100%;
 }
 
+.navbar-toggler-icon {
+  color: green !important;
+}
+
 .css_base_nav {
-  /*height: 30px;*/
-  /*background: #dceffd;*/
-  background: #130e11;
+  background: var(--nav);
   box-shadow: 0 6px 6px -2px rgba(0,0,0,.2);
   margin-bottom: 5px;
 }
 
 .css_nav_text, .dropdown-item {
-  color: #4589b6;
-  font-family: 'Nunito', sans-serif;
+  color: var(--nav_text);
 }
 
 .css_nav_text.active, .nav_text_css:active {
-  /*color: #263062;*/
-  color: #d5ddfd;
-}
-
-/*.css_nav_link:focus {*/
-/*  outline: thin dotted;*/
-/*}*/
-
-
-.popup {
-  position: relative;
-  display: inline-block;
-  /*border-bottom: 1px dotted black;*/
-}
-
-.popup .popuptext {
-  visibility: hidden;
-  width: 300px;
-  background-color: #e9e8e8;
-  /*color: #fff;*/
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-}
-
-.popup:hover .popuptext {
-  visibility: visible;
+  font-weight: bold;
 }
 
 .css_input_valid {
-  box-shadow: 2px 1px 1px #004980;
+  box-shadow: 2px 1px 1px var(--input_valid);
 }
 
 .css_input_invalid {
-  box-shadow: 2px 1px 1px red;
+  box-shadow: 2px 1px 1px var(--input_invalid);
 }
 
 th, td {
-    border: 1px solid #dceffd !important;
+    border: 1px solid var(--table_cell_border_color) !important;
 }
 
 th:last-of-type, td:last-of-type {
@@ -72,4 +43,8 @@ th:last-of-type, td:last-of-type {
 
 th:first-of-type, td:first-of-type {
   border-left: 0 !important;
+}
+
+.dropdown-menu {
+  background: var(--dropdown_menu_background);
 }

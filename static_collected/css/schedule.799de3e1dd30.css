@@ -1,7 +1,7 @@
 @media screen and (min-width: 1250px) {
   .scheduler {
     table-layout: fixed;
-    box-shadow: 2px 0 5px #afafaf;
+    box-shadow: 2px 0 5px var(--scheduler_shadow);
   }
 
   .schedule_plus_button {
@@ -11,32 +11,31 @@
 
 .scheduler {
   width: 100%;
-  background: lightyellow;
+  background: var(--scheduler_background);
 }
 
 .scheduler_time {
-  /*border-right: 1px solid lightgray;*/
   width: 53px;
   height: 30px;
+  color: var(--scheduler_header_and_time_text_color);
+}
+
+.scheduler_time_header {
+  color: var(--background);
 }
 
 .scheduler_th {
   text-align: center;
   height: 30px;
-}
-
-.scheduler_th:not(:last-of-type) {
-  /*border-right: 1px solid lightgray;*/
+  color: var(--scheduler_header_and_time_text_color);
 }
 
 .th_today {
-  /*background: #dceffd;*/
-  background: #fafa88;
+  background: var(--scheduler_today_header_background);
 }
 
 .td_today {
-  /*background: #F1F9FF;*/
-  background: #ffffb9;
+  background: var(--scheduler_today_background);
 }
 
 .scheduler_td {
@@ -48,7 +47,7 @@
 }
 
 .scheduler_td:hover {
-  background: #dceffd;
+  background: var(--scheduler_cell_hover);
 }
 
 @media screen and (max-width: 1250px) {
@@ -65,7 +64,6 @@
   .scheduler_time {
     position: absolute;
     z-index: 1;
-    background: white;
     left: 10px;
   }
 
@@ -81,7 +79,7 @@
 
 .scheduler_holiday {
   height: 30px;
-  background: #F5F5F5;
+  background: var(--scheduler_holiday);
 }
 
 /* --------------------------------*/
@@ -97,7 +95,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  background: white;
+  background: var(--scheduler_visit);
   border-radius: 5px;
   padding: 2px 5px;
   cursor: default;
@@ -105,7 +103,7 @@
 
 .visit:hover {
   /*background: #89cafc;*/
-  background: white;
+  background: var(--scheduler_visit);
 }
 
 .visit:not(:first-of-type) {
@@ -113,13 +111,9 @@
 }
 
 .css_visit_popup {
-  background: #dceffd;
+  background: var(--scheduler_visit_popup);
   border-radius: 5px;
   padding: 2px 5px;
-}
-
-.css_tab {
-  cursor: pointer;
 }
 
 .css_header_cell {
@@ -132,4 +126,20 @@
   display: flex;
   justify-content: center;
   transform: translateX(10px);
+}
+
+.css_plus_week_button {
+  background: var(--scheduler_plus_week_button_background);
+  border: 10px var(--scheduler_plus_week_button_border);
+  color: var(--scheduler_plus_week_button_text);
+  margin-bottom: 10px;
+}
+
+.css_tab {
+  cursor: pointer;
+  background-color: var(--modal_client_tab_background);
+}
+
+.css_td {
+  color: var(--modal_client_table_text)
 }

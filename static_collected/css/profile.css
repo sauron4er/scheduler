@@ -1,0 +1,6 @@
+.css_profile_wrap {
+  background: var(--profile_background);
+  border: 1px solid lightgray;
+  padding: 20px;
+  box-shadow: 2px 0 5px #afafaf;
+}

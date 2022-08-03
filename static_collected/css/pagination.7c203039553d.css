@@ -1,6 +1,6 @@
 .css_page_active {
-  background-color: #a5a5a5;
-  color: white;
+  background-color: var(--pagination_active_background_color);
+  color: var(--pagination_active_text_color);
 }
 
 .css_page a:focus {
@@ -8,7 +8,7 @@
 }
 
 .css_page:hover:not(.active) {
-  background-color: #ddd;
+  background-color: var(--pagination_hover_color);
 }
 
 .css_page {
@@ -18,7 +18,7 @@
 
 .css_page a {
   display: block;
-  color: black;
+  color: var(--pagination_text_color);
   text-decoration: none;
   padding: 5px;
 }
@@ -28,5 +28,5 @@
 }
 
 .break-me a {
-  color: black !important;
+  color: var(--pagination_text_color) !important;
 }

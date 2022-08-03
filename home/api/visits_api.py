@@ -40,8 +40,17 @@ def change_visit(request):
 
 
 @try_except
-def get_visits_list(first_day):
+def get_visits_list(first_day, user):
     seventh_day = first_day + timedelta(days=7)
+
+    visits = Visit.objects \
+        .filter(start__range=(first_day, seventh_day)) \
+        .filter(client__is_active=True) \
+        .filter(is_active=True)
+
+    if not user.is_staff:
+        visits = visits.filter(employee_id=user.employee.id)
+
     visits = [{
         'id': visit.id,
         'client': visit.client.id,
@@ -56,10 +65,8 @@ def get_visits_list(first_day):
         # 'start': convert_to_localtime(visit.start, '%d.%m.%y %H:%M'),
         # 'finish': convert_to_localtime(visit.finish, '%d.%m.%y %H:%M'),
         'note': visit.note
-    } for visit in Visit.objects \
-        .filter(start__range=(first_day, seventh_day)) \
-        .filter(client__is_active=True) \
-        .filter(is_active=True)]
+    } for visit in visits]
+
     return visits
 
 

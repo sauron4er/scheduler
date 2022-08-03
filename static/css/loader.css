@@ -10,8 +10,8 @@
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #4E4E4E;
-  color: #4E4E4E;
+  background-color: var(--loader_color_0);
+  color: var(--loader_color_0);
   animation: dotFlashing 1s infinite linear alternate;
   animation-delay: .5s;
 }
@@ -28,8 +28,8 @@
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #4E4E4E;
-  color: #4E4E4E;
+  background-color: var(--loader_color_0);
+  color: var(--loader_color_0);
   animation: dotFlashing 1s infinite alternate;
   animation-delay: 0s;
 }
@@ -39,18 +39,18 @@
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #4E4E4E;
-  color: #4E4E4E;
+  background-color: var(--loader_color_0);
+  color: var(--loader_color_0);
   animation: dotFlashing 1s infinite alternate;
   animation-delay: 1s;
 }
 
 @keyframes dotFlashing {
   0% {
-    background-color: #4E4E4E;
+    background-color: var(--loader_color_0);
   }
   50%,
   100% {
-    background-color: #ebe6ff;
+    background-color: var(--loader_color_100);
   }
 }

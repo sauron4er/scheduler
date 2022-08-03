@@ -59,7 +59,8 @@ def paginate(clients, page, look_for_name):
         'name': client.name,
         'phone': client.phone or '',
         'address': client.address or '',
-        'note': client.note or ''
+        'note': client.note or '',
+        'added_by_user_id': client.added_by_id
     } for client in clients_page.object_list]
 
     looked_index = -1
@@ -100,6 +101,7 @@ def add_client(request):
     client.phone = request.POST['phone'] if request.POST['phone'] != '' else None
     client.address = request.POST['address'] if request.POST['address'] != '' else None
     client.note = request.POST['note'] if request.POST['note'] != '' else None
+    client.added_by_id = request.user.id
 
     if 'deactivate' in request.POST:
         client.is_active = False

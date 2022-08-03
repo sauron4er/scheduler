@@ -4,20 +4,37 @@
   }
 }
 
+.css_table {
+  box-shadow: 2px 0 5px var(--table_shadow);
+  border: var(--table_border);
+}
+
+.css_filter {
+  margin-right: 5px;
+}
+
 .css_table_wrapper {
   overflow-x: auto;
   display: block;
   white-space: nowrap;
-}
-
-.css_table_row_clicked {
-    background-color: #dceffd80;
+  padding-left: 1px;
+  padding-top: 3px;
+  padding-right: 6px;
 }
 
 .css_th {
-  background: #dceffd !important;
+  background: var(--table_header_color);
+  color: var(--table_header_text_color);
+}
+
+.css_tr {
+  background: var(--table_row_color);
+}
+
+.css_table_row_clicked {
+  background-color: var(--table_row_clicked);
 }
 
 .css_tr:hover {
-  background: #dceffd40;
+  background: var(--table_row_hover);
 }

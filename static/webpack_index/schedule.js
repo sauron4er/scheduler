@@ -1,0 +1,1 @@
+import 'home/templates/home/schedule/index'

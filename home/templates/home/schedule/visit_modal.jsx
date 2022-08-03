@@ -19,17 +19,25 @@ function VisitModal(props) {
   });
 
   useEffect(() => {
-    if (props.opened && schedulerState.clicked_visit?.id) {
-      setState({
-        id: schedulerState.clicked_visit.id,
-        note: schedulerState.clicked_visit.note
-      });
-      schedulerState.selected_client = schedulerState.clicked_visit.client;
-      schedulerState.selected_client_name = schedulerState.clicked_visit.client_name;
-      schedulerState.selected_client_phone = schedulerState.clicked_visit.client_phone;
-      schedulerState.employee = schedulerState.clicked_visit.employee;
-      schedulerState.employee_name = schedulerState.clicked_visit.employee_name;
-      schedulerState.employee_color = schedulerState.clicked_visit.employee_color;
+    if (props.opened) {
+      if (schedulerState.clicked_visit?.id) {
+        setState({
+          id: schedulerState.clicked_visit.id,
+          note: schedulerState.clicked_visit.note
+        });
+        schedulerState.selected_client = schedulerState.clicked_visit.client;
+        schedulerState.selected_client_name = schedulerState.clicked_visit.client_name;
+        schedulerState.selected_client_phone = schedulerState.clicked_visit.client_phone;
+        schedulerState.selected_employee = schedulerState.clicked_visit.employee;
+        schedulerState.selected_employee_name = schedulerState.clicked_visit.employee_name;
+        schedulerState.selected_employee_color = schedulerState.clicked_visit.employee_color;
+      } else {
+        if (window.is_in_employee_list) {
+          schedulerState.selected_employee = window.employee_id;
+          schedulerState.selected_employee_name = window.employee_name;
+          schedulerState.selected_employee_color = window.employee_color;
+        }
+      }
     }
   }, [props.opened]);
 
@@ -126,10 +134,10 @@ function VisitModal(props) {
   }
 
   return (
-    <Modal open={props.opened} onClose={closeModal} id='visit_modal' few_childs={true}>
+    <Modal open={props.opened} onClose={closeModal} id='visit_modal' few_childs>
       <>
         <div className='modal-header'>
-          <h5>{`Прийом: ${schedulerState.clicked_day} на ${schedulerState.clicked_time}`}</h5>
+          <h5 className='css_modal_header'>{`Прийом: ${schedulerState.clicked_day} на ${schedulerState.clicked_time}`}</h5>
         </div>
         <div className='modal-body'>
           <AsyncSelector
@@ -142,7 +150,6 @@ function VisitModal(props) {
           />
           <NewClient returnNewClient={addNewClient} />
           <hr />
-
           <AsyncSelector
             className='css_select_in_modal'
             fieldName='Спеціаліст'
@@ -150,6 +157,7 @@ function VisitModal(props) {
             onChange={onEmployeeChange}
             value={{id: schedulerState.selected_employee, name: schedulerState.selected_employee_name}}
             color={schedulerState.selected_employee_color}
+            disabled={!window.is_staff}
           />
           <hr />
           <TextInput text={state.note} fieldName='Нотатка' onChange={onNoteChange} maxLength={500} />

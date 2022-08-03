@@ -1,15 +1,19 @@
 from django.urls import path, re_path
 from .views import home, schedule, \
     clients, get_clients, get_clients_select, post_client, get_client, get_client_for_scheduler, \
-    employees, get_employees, get_employees_select, post_employee, \
-    post_visit, get_week, del_visit, toggle_holiday
+    employees, get_employees, get_employees_select, post_employee, get_employee, get_themes, \
+    post_visit, get_week, del_visit, toggle_holiday, profile
 
 app_name = 'home'
 
 urlpatterns = [
-    path('', home, name='home'),
     path('schedule', schedule, name='schedule'),
     re_path(r'get_client_for_scheduler/(?P<pk>\d+)/', get_client_for_scheduler, name='get_client_for_scheduler'),
+    path('get_week', get_week, name='get_week'),
+    path('post_visit', post_visit, name='post_visit'),
+    re_path(r'del_visit/(?P<pk>\d+)', del_visit, name='del_visit'),
+    path('toggle_holiday', toggle_holiday, name='toggle_holiday'),
+
 
     path('clients', clients, name='clients'),
     path('get_clients_select', get_clients_select, name='get_clients_select'),
@@ -17,13 +21,17 @@ urlpatterns = [
     path('post_client', post_client, name='post_client'),
     re_path(r'get_client/(?P<pk>\d+)/', get_client, name='get_client'),
 
+
     path('employees', employees, name='employees'),
     path('get_employees_select', get_employees_select, name='get_employees_select'),
     re_path(r'get_employees/(?P<page>\d+)/', get_employees, name='get_employees'),
     path('post_employee', post_employee, name='post_employee'),
+    re_path(r'get_employee/(?P<pk>\d+)/', get_employee, name='get_employee'),
 
-    path('get_week', get_week, name='get_week'),
-    path('post_visit', post_visit, name='post_visit'),
-    re_path(r'del_visit/(?P<pk>\d+)', del_visit, name='del_visit'),
-    path('toggle_holiday', toggle_holiday, name='toggle_holiday'),
+
+    path('profile', profile, name='profile'),
+    path('get_themes', get_themes, name='get_themes'),
+
+
+    path('', schedule, name='schedule'),
 ]

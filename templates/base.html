@@ -13,16 +13,35 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap" rel="stylesheet">
 
+  {% if user.employee.theme.name == 'white' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/themes/white.css' %}">
+  {% elif user.employee.theme.name == 'yellow' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/themes/yellow.css' %}">
+  {% elif user.employee.theme.name == 'black' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/themes/black.css' %}">
+  {% endif %}
+
   <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/button.css' %}">
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'MediDentIcon.ico' %}">
   {% block stylesheet %}{% endblock %}
+
+  <script>
+    window.user_id = {{ user.id|safe }};
+    window.is_staff = {{ user.is_staff|yesno:"true,false" }}
+  </script>
 </head>
 
 <body>
-{% block body %}
+  {% block body %}
     {% block nav_panel %}
-      <nav class="navbar navbar-expand-lg navbar-light css_base_nav sticky">
+      <nav class="navbar navbar-expand-lg css_base_nav sticky
+                  {% if user.employee.theme.is_navbar_dark %}
+                    navbar-dark
+                  {% else %}
+                    navbar-light
+                  {% endif %}
+      ">
         <div class="d-flex mr-3">
           <img src="{% static 'MediDentIcon.ico' %}" alt="MediDent logo" height="40">
         </div>
@@ -41,10 +60,12 @@
               <span
                 class="css_nav_text {% if request.path == '/clients' or request.path == '/home/clients' %}active{% endif %}">Клієнти</span>
             </a></li>
-            <li><a class="nav-link css_nav_link" href="{% url 'home:employees' %}">
-              <span
-                class="css_nav_text {% if request.path == '/employees' or request.path == '/home/employees' %}active{% endif %}">Спеціалісти</span>
-            </a></li>
+            {% if user.is_staff %}
+              <li><a class="nav-link css_nav_link" href="{% url 'home:employees' %}">
+                <span
+                  class="css_nav_text {% if request.path == '/employees' or request.path == '/home/employees' %}active css_nav_active{% endif %}">Спеціалісти</span>
+              </a></li>
+            {% endif %}
           </ul>
           {% if user.is_authenticated %}
               <ul class="navbar-nav ml-auto">
@@ -57,6 +78,8 @@
                     <a class="dropdown-item" href="{% url 'admin:index' %}"> Адмінка</a>
                     <div class="dropdown-divider"></div>
                   {% endif %}
+                  <a class="dropdown-item" href="{% url 'home:profile' %}"> Профіль</a>
+                  <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{% url 'logout' %}">Вихід</a>
                   </div>
                 </li>

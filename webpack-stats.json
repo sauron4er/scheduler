@@ -1,20 +1,46 @@
 {
   "status": "done",
   "assets": {
-    "home.js": {
-      "name": "home.js",
-      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\home.js",
-      "publicPath": "/static/home.js"
+    "schedule.js": {
+      "name": "schedule.js",
+      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\schedule.js",
+      "publicPath": "/static/schedule.js"
     },
-    "home.js.LICENSE.txt": {
-      "name": "home.js.LICENSE.txt",
-      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\home.js.LICENSE.txt",
-      "publicPath": "/static/home.js.LICENSE.txt"
+    "clients.js": {
+      "name": "clients.js",
+      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\clients.js",
+      "publicPath": "/static/clients.js"
+    },
+    "employees.js": {
+      "name": "employees.js",
+      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\employees.js",
+      "publicPath": "/static/employees.js"
+    },
+    "clients.js.LICENSE.txt": {
+      "name": "clients.js.LICENSE.txt",
+      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\clients.js.LICENSE.txt",
+      "publicPath": "/static/clients.js.LICENSE.txt"
+    },
+    "employees.js.LICENSE.txt": {
+      "name": "employees.js.LICENSE.txt",
+      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\employees.js.LICENSE.txt",
+      "publicPath": "/static/employees.js.LICENSE.txt"
+    },
+    "schedule.js.LICENSE.txt": {
+      "name": "schedule.js.LICENSE.txt",
+      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\schedule.js.LICENSE.txt",
+      "publicPath": "/static/schedule.js.LICENSE.txt"
     }
   },
   "chunks": {
-    "home": [
-      "home.js"
+    "schedule": [
+      "schedule.js"
+    ],
+    "clients": [
+      "clients.js"
+    ],
+    "employees": [
+      "employees.js"
     ]
   },
   "publicPath": "/static/"
