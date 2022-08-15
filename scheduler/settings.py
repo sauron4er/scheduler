@@ -15,7 +15,7 @@ SECRET_KEY = secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*'] if DEBUG else ['mdent.pp.ua', 'localhost']
+ALLOWED_HOSTS = ['*'] if DEBUG else ['www.mdent.pp.ua', 'mdent.pp.ua', 'localhost']
 
 ADMINS = [('Stas', 'sauron4er@gmail.com')]
 
