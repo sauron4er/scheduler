@@ -32,9 +32,11 @@ function VisitModal(props) {
         schedulerState.selected_employee_name = schedulerState.clicked_visit.employee_name;
         schedulerState.selected_employee_color = schedulerState.clicked_visit.employee_color;
       } else {
-        schedulerState.selected_employee = window.employee_id;
-        schedulerState.selected_employee_name = window.employee_name;
-        schedulerState.selected_employee_color = window.employee_color;
+        if (window.is_in_employee_list) {
+          schedulerState.selected_employee = window.employee_id;
+          schedulerState.selected_employee_name = window.employee_name;
+          schedulerState.selected_employee_color = window.employee_color;
+        }
       }
     }
   }, [props.opened]);
