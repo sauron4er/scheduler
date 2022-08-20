@@ -48,3 +48,10 @@ th:first-of-type, td:first-of-type {
 .dropdown-menu {
   background: var(--dropdown_menu_background);
 }
+
+#offline {
+  color: red;
+  display: none;
+  margin-right: 50px;
+
+}

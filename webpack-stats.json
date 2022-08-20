@@ -3,32 +3,32 @@
   "assets": {
     "schedule.js": {
       "name": "schedule.js",
-      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\schedule.js",
+      "path": "E:\\Code\\scheduler\\static\\bundles\\schedule.js",
       "publicPath": "/static/schedule.js"
     },
     "clients.js": {
       "name": "clients.js",
-      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\clients.js",
+      "path": "E:\\Code\\scheduler\\static\\bundles\\clients.js",
       "publicPath": "/static/clients.js"
     },
     "employees.js": {
       "name": "employees.js",
-      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\employees.js",
+      "path": "E:\\Code\\scheduler\\static\\bundles\\employees.js",
       "publicPath": "/static/employees.js"
     },
     "clients.js.LICENSE.txt": {
       "name": "clients.js.LICENSE.txt",
-      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\clients.js.LICENSE.txt",
+      "path": "E:\\Code\\scheduler\\static\\bundles\\clients.js.LICENSE.txt",
       "publicPath": "/static/clients.js.LICENSE.txt"
     },
     "employees.js.LICENSE.txt": {
       "name": "employees.js.LICENSE.txt",
-      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\employees.js.LICENSE.txt",
+      "path": "E:\\Code\\scheduler\\static\\bundles\\employees.js.LICENSE.txt",
       "publicPath": "/static/employees.js.LICENSE.txt"
     },
     "schedule.js.LICENSE.txt": {
       "name": "schedule.js.LICENSE.txt",
-      "path": "D:\\Робота\\Code\\scheduler\\scheduler_django\\scheduler\\static\\bundles\\schedule.js.LICENSE.txt",
+      "path": "E:\\Code\\scheduler\\static\\bundles\\schedule.js.LICENSE.txt",
       "publicPath": "/static/schedule.js.LICENSE.txt"
     }
   },
