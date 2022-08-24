@@ -2,25 +2,16 @@ from pathlib import Path
 import os
 from my_config import db_name, db_user, db_pass, secret_key
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = secret_key
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*'] if DEBUG else ['www.mdent.pp.ua', 'mdent.pp.ua', 'localhost']
+ALLOWED_HOSTS = ['*'] if DEBUG else ['www.mdent.pp.ua', 'mdent.pp.ua', 'localhost', '127.0.0.1']
 
 ADMINS = [('Stas', 'sauron4er@gmail.com')]
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -66,8 +57,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'scheduler.wsgi.application'
 
-
-# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -79,9 +68,6 @@ DATABASES = {
         'ATOMIC_REQUESTS': True
     }
 }
-
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -98,10 +84,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Kiev'
@@ -112,24 +94,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'static', 'bundles'),
 ]
-
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

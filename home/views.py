@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from datetime import datetime, date, timedelta
 from django.utils.timezone import make_aware
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.utils import timezone
 import json
@@ -105,7 +105,10 @@ def post_employee(request):
 @try_except
 @login_required(login_url='login')
 def get_employee(request, pk):
-    return HttpResponse(json.dumps(get_employee_info(pk)))
+    if request.user.employee.id == pk:
+        return HttpResponse(json.dumps(get_employee_info(pk)))
+    else:
+        return Http404
 
 
 @try_except

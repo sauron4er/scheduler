@@ -77,14 +77,14 @@ def get_clients_for_select(request):
     clients_list = Client.objects \
                        .filter(is_active=True) \
                        .filter(Q(name__icontains=request.POST['filter']) | Q(phone__icontains=request.POST['filter'])) \
-                        .order_by('name')[:50]
+                       .order_by('name')[:50]
 
     clients_list = [{
         'id': client.id,
         'only_name': client.name,
-        'phone': client.phone,
+        'phone': client.phone or '',
         'name': (client.name + ', ' + client.phone) if client.phone else client.name,
-        'note': client.note,
+        'note': client.note or '',
     } for client in clients_list]
 
     return clients_list

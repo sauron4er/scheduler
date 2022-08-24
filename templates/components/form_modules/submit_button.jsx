@@ -8,7 +8,7 @@ function SubmitButton(props) {
     setClicked(true);
     props.onClick();
     if (props.timer) {
-      setTimeout(() => setClicked(false), 10000);
+      setTimeout(() => setClicked(false), props.timeout);
     } else {
       setClicked(false);
     }
@@ -16,7 +16,7 @@ function SubmitButton(props) {
 
   return (
     <div className='d-flex align-content-center'>
-      <button className={`css_button my-2 ${props.className}`} onClick={onClick} disabled={clicked || props.disabled}>
+      <button className={`css_button mb-2 ${props.className}`} onClick={onClick} disabled={clicked || props.disabled}>
         {props.text}
       </button>
       <If condition={props.done}>
@@ -32,6 +32,7 @@ SubmitButton.defaultProps = {
   onClick: () => {},
   disabled: false,
   timer: true,
+  timeout: 10000,
   done: false,
   done_text: ''
 };

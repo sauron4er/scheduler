@@ -6,6 +6,9 @@ import useSetState from 'templates/hooks/useSetState';
 import {Loader} from 'templates/components/form_modules/loaders';
 import {axiosGetRequest, axiosPostRequest} from 'templates/components/axios_requests';
 import ClientVisits from 'home/templates/home/schedule/popups/client_visits';
+import TextInput from 'templates/components/form_modules/text_input';
+import SubmitButton from 'templates/components/form_modules/submit_button';
+import { notify } from "templates/components/react_toastify_settings";
 
 function ClientInfo(props) {
   const [state, setState] = useSetState({
@@ -15,6 +18,7 @@ function ClientInfo(props) {
     note: '',
     future: [],
     past: [],
+    button_text: 'Зберегти зміни',
     loading: true
   });
 
@@ -40,6 +44,35 @@ function ClientInfo(props) {
       .catch((error) => notify(error));
   }
 
+  function onChange(e, type) {
+    setState({[type]: e.target.value});
+  }
+
+  function editClient() {
+    let formData = new FormData();
+    formData.append('id', schedulerState.clicked_visit.client);
+    formData.append('name', state.name);
+    formData.append('phone', state.phone);
+    formData.append('address', state.address);
+    formData.append('note', state.note);
+
+    axiosPostRequest('post_client', formData)
+      .then((response) => {
+        if (response === schedulerState.clicked_visit.client) setState({button_text: 'Збережено'})
+        else notify('Помилка!')
+      })
+      .catch((error) => notify(error));
+  }
+  
+  useEffect(() => {
+    if (state.button_text === 'Збережено') {
+      const timer = setTimeout(() => {
+        setState({button_text: 'Зберегти зміни'})
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [state.button_text])
+
   return (
     <>
       <Choose>
@@ -48,20 +81,17 @@ function ClientInfo(props) {
         </When>
         <Otherwise>
           <div className='css_modal_client_name'>{state.name}</div>
-          <If condition={state.phone}>
-            <div className='mb-1 css_modal_client_info'>{state.phone}</div>
-          </If>
-          <If condition={state.address}>
-            <div className='border-top border-bottom mb-1 css_modal_client_info'>
-              Адреса:
-              <span className='font-italic'>{` ${state.address}`}</span>
+          <div className='d-flex'>
+            <div className='col-6 pl-0'>
+              <TextInput text={state.phone} fieldName='Номер телефону' onChange={(e) => onChange(e, 'phone')} maxLength={10} />
             </div>
-          </If>
-          <If condition={state.note}>
-            <div className='css_modal_client_info'>Нотатка:</div>
-            <div className='border rounded p-1 font-italic mb-1 css_modal_client_info'>{state.note}</div>
-          </If>
-
+            <div className='col-6 pr-0'>
+              <TextInput text={state.address} fieldName='Адреса' onChange={(e) => onChange(e, 'address')} maxLength={100} />
+            </div>
+          </div>
+          <TextInput text={state.note} fieldName='Нотатка' onChange={(e) => onChange(e, 'note')} maxLength={1000} />
+          <SubmitButton text={state.button_text} onClick={editClient} timeout={3000} />
+          <hr/>
           <ClientVisits future={state.future} past={state.past} />
         </Otherwise>
       </Choose>
