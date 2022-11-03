@@ -122,9 +122,10 @@ def post_employee_api(request):
 
 @try_except
 def get_employee_info(pk):
-    employee_instance = get_object_or_404(Employee, user_id=pk)
+    employee_instance = Employee.objects.get(pk=pk)
+    # employee_instance = get_object_or_404(Employee, user_id=pk)
     employee = {
-        'id': employee_instance.id,
+        'id': employee_instance.pk,
         'name': employee_instance.name,
         'phone': employee_instance.phone or '',
         'address': employee_instance.address or '',

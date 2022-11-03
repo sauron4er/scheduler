@@ -13,7 +13,7 @@ function Profile() {
   });
 
   useEffect(() => {
-    axiosGetRequest(`get_employee/${window.user_id}/`)
+    axiosGetRequest(`get_profile`)
       .then((response) => {
         setState({
           employee: response,
@@ -21,7 +21,7 @@ function Profile() {
         });
       })
       .catch((error) => notify(error));
-  }, [window.user_id]);
+  }, []);
 
   function reload() {
     window.location.reload();

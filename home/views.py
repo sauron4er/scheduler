@@ -104,11 +104,8 @@ def post_employee(request):
 
 @try_except
 @login_required(login_url='login')
-def get_employee(request, pk):
-    if request.user.employee.id == pk:
-        return HttpResponse(json.dumps(get_employee_info(pk)))
-    else:
-        return Http404
+def get_profile(request):
+    return HttpResponse(json.dumps(get_employee_info(request.user.employee.pk)))
 
 
 @try_except
