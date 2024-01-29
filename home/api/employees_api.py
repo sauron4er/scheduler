@@ -153,7 +153,8 @@ def add_employee(fields):
     employee.address = fields['address'] if fields['address'] != '' else None
     employee.note = fields['note'] if fields['note'] != '' else None
     employee.color = fields['color'] if fields['color'] != '' else None
-    employee.theme_id = fields['theme'] if fields['theme'] != '' else 1
+    if 'theme' in fields:
+        employee.theme_id = fields['theme'] if fields['theme'] != '' else 1
     employee.save()
 
     return employee.id
