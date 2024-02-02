@@ -21,7 +21,10 @@ module.exports = {
 
   plugins: [
     new CleanWebpackPlugin({cleanAfterEveryBuildPatterns: pathsToClean}),
-    new BundleTracker({filename: './webpack-stats.json'}),
+    new BundleTracker({
+      path: path.join(__dirname),
+      filename: 'webpack-stats.json'
+    }),
     // new BundleAnalyzerPlugin()
   ],
 
