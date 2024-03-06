@@ -155,6 +155,8 @@ def add_employee(fields):
     employee.color = fields['color'] if fields['color'] != '' else None
     if 'theme' in fields:
         employee.theme_id = fields['theme'] if fields['theme'] != '' else 1
+    if 'second_clinic_theme' in fields:
+        employee.second_clinic_theme_id = fields['second_clinic_theme'] if fields['second_clinic_theme'] != '' else 3
     employee.save()
 
     return employee.id

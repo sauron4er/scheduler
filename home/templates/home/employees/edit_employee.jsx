@@ -23,6 +23,8 @@ function EditEmployee(props) {
     is_password_valid: true,
     theme: 0,
     theme_name: '',
+    second_clinic_theme: 0,
+    second_clinic_theme_name: '',
     theme_changed: false, // if true - page "profile" reloads after saving
     done: false
   });
@@ -45,8 +47,15 @@ function EditEmployee(props) {
     });
   }
 
+  function onSecondClinicThemeChange(e) {
+    setState({
+      second_clinic_theme: e.id,
+      second_clinic_theme_name: e.name,
+    });
+  }
+
   function changeEmployee() {
-    const {id, name, phone, address, note, color, login, password, theme} = state;
+    const {id, name, phone, address, note, color, login, password, theme, second_clinic_theme} = state;
     let formData = new FormData();
     formData.append('id', id);
     formData.append('name', name);
@@ -57,11 +66,12 @@ function EditEmployee(props) {
     formData.append('login', login);
     formData.append('password', state.password_area_show ? password : '');
     formData.append('theme', theme);
+    formData.append('second_clinic_theme', second_clinic_theme);
     postEmployee(formData);
   }
 
   function deactivateEmployee() {
-    const {id, name, phone, address, note, color, login, password, theme} = state;
+    const {id, name, phone, address, note, color, login, password, theme, second_clinic_theme} = state;
     let formData = new FormData();
     formData.append('id', id);
     formData.append('name', name);
@@ -72,6 +82,7 @@ function EditEmployee(props) {
     formData.append('login', login);
     formData.append('password', state.password_area_show ? password : '');
     formData.append('theme', theme);
+    formData.append('second_clinic_theme', second_clinic_theme);
     formData.append('deactivate', '');
     postEmployee(formData);
   }
@@ -107,7 +118,8 @@ function EditEmployee(props) {
       <TextInput text={state.name} fieldName='Ім’я' onChange={(e) => onChange(e, 'name')} maxLength={100} />
       <hr />
       <div className='d-flex'>
-        <TextInput className='mr-3' text={state.phone} fieldName='Номер телефону' onChange={(e) => onChange(e, 'phone')} maxLength={10} />
+        <TextInput className='mr-3' text={state.phone} fieldName='Номер телефону' onChange={(e) => onChange(e, 'phone')}
+                   maxLength={10} />
         <div className='ml-auto'>
           <ColorPicker color={state.color} fieldName='Колір' onChange={(e) => onChange(e, 'color')} />
         </div>
@@ -125,11 +137,20 @@ function EditEmployee(props) {
         value={{id: state.theme, name: state.theme_name}}
       />
       <hr />
+      <AsyncSelector
+        className='css_select_in_modal'
+        fieldName='Тема для Т.Ремети'
+        url='get_themes'
+        onChange={onSecondClinicThemeChange}
+        value={{id: state.second_clinic_theme, name: state.second_clinic_theme_name}}
+      />
+      <hr />
       <TextInput text={state.login} fieldName='Логін' onChange={(e) => onChange(e, 'login')} maxLength={110} />
       <small>Лише латинські букви, цифри та символи @, ., +, - або _</small>
       <hr />
-      <button className={`btn btn-sm css_button ${state.password_area_show ? 'mb-2' : null}`} onClick={togglePasswordArea}>
-        {state.password_area_show ? 'Не змінювати пароль' : 'Змінити пароль' }
+      <button className={`btn btn-sm css_button ${state.password_area_show ? 'mb-2' : null}`}
+              onClick={togglePasswordArea}>
+        {state.password_area_show ? 'Не змінювати пароль' : 'Змінити пароль'}
       </button>
       <If condition={state.password_area_show}>
         <Password password={state.password} onChange={onPasswordChange} />
@@ -140,7 +161,7 @@ function EditEmployee(props) {
           name='change'
           text='Зберегти'
           onClick={changeEmployee}
-          disabled={!state.name || !state.login || ( state.password_area_show && !state.is_password_valid)}
+          disabled={!state.name || !state.login || (state.password_area_show && !state.is_password_valid)}
           done={state.done}
           done_text='Збережено!'
         />
@@ -162,8 +183,10 @@ function EditEmployee(props) {
 EditEmployee.defaultProps = {
   employee: {},
   is_staff: false,
-  closeModal: () => {},
-  reload: () => {}
+  closeModal: () => {
+  },
+  reload: () => {
+  }
 };
 
 export default view(EditEmployee);
