@@ -15,15 +15,9 @@ from scheduler.api.try_except import try_except
 
 
 @login_required(login_url='login')
-def home(request):
+def schedule(request, clinic):
     if request.method == 'GET':
-        return render(request, 'home/schedule/index.html')
-
-
-@login_required(login_url='login')
-def schedule(request):
-    if request.method == 'GET':
-        return render(request, 'home/schedule/index.html')
+        return render(request, 'home/schedule/index.html', {'clinic': clinic})
 
 
 @login_required(login_url='login')

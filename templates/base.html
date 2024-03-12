@@ -52,10 +52,17 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li><a class="nav-link css_nav_link" href="{% url 'home:schedule' %}">
-              <span
-                class="css_nav_text {% if request.path == '/' or request.path == '/schedule' or request.path == '/home/schedule' %}active{% endif %}">Календар</span>
-            </a></li>
+            {% if clinic %}
+              <li><a class="nav-link css_nav_link" href="{% url 'home:schedule' clinic=clinic %}">
+                <span
+                  class="css_nav_text {% if request.path == '/' or request.path == '/schedule' or request.path == '/home/schedule' %}active{% endif %}">Календар</span>
+              </a></li>
+            {% else %}
+              <li><a class="nav-link css_nav_link" href="{% url 'home:schedule' clinic='1' %}">
+                <span
+                  class="css_nav_text {% if request.path == '/' or request.path == '/schedule' or request.path == '/home/schedule' %}active{% endif %}">Календар</span>
+              </a></li>
+            {% endif %}
             <li><a class="nav-link css_nav_link" href="{% url 'home:clients' %}">
               <span
                 class="css_nav_text {% if request.path == '/clients' or request.path == '/home/clients' %}active{% endif %}">Клієнти</span>
@@ -67,9 +74,31 @@
               </a></li>
             {% endif %}
           </ul>
+
+          {% if clinic %}
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link css_nav_link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {% if clinic == '1' %}
+                    <span class="css_nav_text">Перечин</span>
+                  {% elif clinic == '2' %}
+                    <span class="css_nav_text">Т.Ремета</span>
+                  {% endif %}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+                  {% if clinic == '1' %}
+                    <a class="dropdown-item" href="{% url 'home:schedule' clinic='2' %}">Т.Ремета</a>
+                  {% else %}
+                    <a class="dropdown-item" href="{% url 'home:schedule' clinic='1' %}">Перечин</a>
+                  {% endif %}
+                </div>
+              </li>
+            </ul>
+          {% endif %}
+
           <ul class="navbar-nav ml-auto">
             <div id='offline' class='btn'>
-              <div>Сайт не підключено до інтернету!</div>
+              <div>Відсутній інтернет!</div>
             </div>
             <li class="nav-item dropdown">
               <a class="nav-link css_nav_link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -88,48 +117,6 @@
           </ul>
         </div>
       </nav>
-
-
-{#      <nav class="navbar sticky-top navbar-expand-sm navbar-light css_base_nav mb-2">#}
-{#        <div class="d-flex mr-3">#}
-{#          <img src="{% static 'MediDentIcon.ico' %}" alt="MediDent logo" height="20">#}
-{#        </div>#}
-{##}
-{#        <div class="collapse navbar-collapse" id="mainMenu">#}
-{#            <ul class="navbar-nav">#}
-{#                <a class="nav-link css_nav_link" href="{% url 'home:schedule' %}">#}
-{#                    <span class="css_nav_text {% if request.path == '/' or request.path == '/schedule' or request.path == '/home/schedule' %}active{% endif %}">Календар</span>#}
-{#                </a>#}
-{#                <a class="nav-link css_nav_link" href="{% url 'home:clients' %}">#}
-{#                    <span class="css_nav_text {% if request.path == '/clients' or request.path == '/home/clients' %}active{% endif %}">Клієнти</span>#}
-{#                </a>#}
-{#                <a class="nav-link css_nav_link" href="{% url 'home:employees' %}">#}
-{#                    <span class="css_nav_text {% if request.path == '/employees' or request.path == '/home/employees' %}active{% endif %}">Спеціалісти</span>#}
-{#                </a>#}
-{#            </ul>#}
-{#          {% if user.is_authenticated %}#}
-{#              <ul class="navbar-nav ml-auto">#}
-{#                <li class="nav-item dropdown">#}
-{#                  <a class="nav-link css_nav_link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-{#                      <span class="css_nav_text">{{ user.username }}</span>#}
-{#                  </a>#}
-{#                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">#}
-{#                  {% if user.is_superuser  %}#}
-{#                    <a class="dropdown-item" href="{% url 'admin:index' %}"> Адмінка</a>#}
-{#                    <div class="dropdown-divider"></div>#}
-{#                  {% endif %}#}
-{#                <a class="dropdown-item" href="{% url 'logout' %}">Вихід</a>#}
-{#                  </div>#}
-{#                </li>#}
-{#              </ul>#}
-{#          {% else %}#}
-{#              <form class="form-inline ml-auto">#}
-{#                <a href="{% url 'login' %}" class="btn btn-outline-dark">Вхід</a>#}
-{#               <a href="{% url 'signup' %}" class="btn btn-primary ml-2">Реєстрація</a>#}
-{#              </form>#}
-{#          {% endif %}#}
-{#        </div>#}
-{#      </nav>#}
    {% endblock %}
 
   {% block content_fluid %}
@@ -159,6 +146,8 @@
     offline_div.style.display = 'flex';
   })
 </script>
+
+
 
 {% block script %}  {% endblock %}
 

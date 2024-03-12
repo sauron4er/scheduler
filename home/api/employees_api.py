@@ -133,6 +133,8 @@ def get_employee_info(pk):
         'color': employee_instance.color or '',
         'theme': employee_instance.theme.id,
         'theme_name': employee_instance.theme.name,
+        'second_clinic_theme': employee_instance.second_clinic_theme.id,
+        'second_clinic_theme_name': employee_instance.second_clinic_theme.name,
         'login': employee_instance.user.username
     }
     return employee
@@ -170,6 +172,7 @@ def change_employee(employee, fields):
     employee.note = fields['note'] if fields['note'] != '' else None
     employee.color = fields['color'] if fields['color'] != '' else None
     employee.theme_id = fields['theme']
+    employee.second_clinic_theme_id = fields['second_clinic_theme']
 
     if 'deactivate' in fields:
         employee.is_active = False

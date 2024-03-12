@@ -35,6 +35,7 @@ function EditEmployee(props) {
     }
   }, [props]);
 
+
   function onChange(e, type) {
     setState({[type]: e.target.value});
   }
@@ -88,6 +89,7 @@ function EditEmployee(props) {
   }
 
   function postEmployee(formData) {
+
     axiosPostRequest('post_employee', formData)
       .then((response) => {
         employeesState.refresh = true;
