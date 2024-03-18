@@ -13,12 +13,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap" rel="stylesheet">
 
-  {% if user.employee.theme.name == 'white' %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/themes/white.css' %}">
-  {% elif user.employee.theme.name == 'yellow' %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/themes/yellow.css' %}">
-  {% elif user.employee.theme.name == 'black' %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/themes/black.css' %}">
+  {% if clinic == '1' %}
+    {% if user.employee.theme.name == 'white' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/themes/white.css' %}">
+    {% elif user.employee.theme.name == 'yellow' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/themes/yellow.css' %}">
+    {% elif user.employee.theme.name == 'black' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/themes/black.css' %}">
+    {% endif %}
+  {% else %}
+    {% if user.employee.second_clinic_theme.name == 'white' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/themes/white.css' %}">
+    {% elif user.employee.second_clinic_theme.name == 'yellow' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/themes/yellow.css' %}">
+    {% elif user.employee.second_clinic_theme.name == 'black' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/themes/black.css' %}">
+    {% endif %}
   {% endif %}
 
   <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
@@ -52,17 +62,10 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            {% if clinic %}
-              <li><a class="nav-link css_nav_link" href="{% url 'home:schedule' clinic=clinic %}">
-                <span
-                  class="css_nav_text {% if request.path == '/' or request.path == '/schedule' or request.path == '/home/schedule' %}active{% endif %}">Календар</span>
-              </a></li>
-            {% else %}
-              <li><a class="nav-link css_nav_link" href="{% url 'home:schedule' clinic='1' %}">
-                <span
-                  class="css_nav_text {% if request.path == '/' or request.path == '/schedule' or request.path == '/home/schedule' %}active{% endif %}">Календар</span>
-              </a></li>
-            {% endif %}
+            <li><a class="nav-link css_nav_link" href="{% url 'home:schedule' %}">
+              <span
+                class="css_nav_text {% if request.path == '/' or request.path == '/schedule' or request.path == '/home/schedule' %}active{% endif %}">Календар</span>
+            </a></li>
             <li><a class="nav-link css_nav_link" href="{% url 'home:clients' %}">
               <span
                 class="css_nav_text {% if request.path == '/clients' or request.path == '/home/clients' %}active{% endif %}">Клієнти</span>
@@ -87,9 +90,9 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
                   {% if clinic == '1' %}
-                    <a class="dropdown-item" href="{% url 'home:schedule' clinic='2' %}">Т.Ремета</a>
+                    <a class="dropdown-item" href="{% url 'home:change_clinic' clinic='2' %}">Т.Ремета</a>
                   {% else %}
-                    <a class="dropdown-item" href="{% url 'home:schedule' clinic='1' %}">Перечин</a>
+                    <a class="dropdown-item" href="{% url 'home:change_clinic' clinic='1' %}">Перечин</a>
                   {% endif %}
                 </div>
               </li>
@@ -146,8 +149,6 @@
     offline_div.style.display = 'flex';
   })
 </script>
-
-
 
 {% block script %}  {% endblock %}
 

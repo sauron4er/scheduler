@@ -46,7 +46,7 @@ class Visit(models.Model):
     finish = models.DateTimeField()
     price = models.CharField(max_length=10, null=True)
     note = models.CharField(max_length=500, null=True)
-    clinic_number = models.CharField(max_length=1, default='1')  # 1 - Perechyn, 2 - T.Remeta
+    clinic = models.CharField(max_length=1, default='1')  # 1 - Perechyn, 2 - T.Remeta
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

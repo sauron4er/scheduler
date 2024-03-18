@@ -15,7 +15,8 @@ def add_visit(request):
     new_visit = Visit(client_id=request.POST['client'],
                       note=request.POST['note'],
                       start=start,
-                      finish=finish)
+                      finish=finish,
+                      clinic=request.session['clinic'])
     if request.POST['employee'] != '0':
         new_visit.employee_id = request.POST['employee']
     new_visit.save()
@@ -40,12 +41,13 @@ def change_visit(request):
 
 
 @try_except
-def get_visits_list(first_day, user):
+def get_visits_list(first_day, user, clinic):
     seventh_day = first_day + timedelta(days=7)
 
     visits = Visit.objects \
         .filter(start__range=(first_day, seventh_day)) \
         .filter(client__is_active=True) \
+        .filter(clinic=clinic) \
         .filter(is_active=True)
 
     if not user.is_staff:

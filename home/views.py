@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from datetime import datetime, date, timedelta
 from django.utils.timezone import make_aware
-from django.http import HttpResponse, Http404
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
 import json
@@ -15,9 +16,18 @@ from scheduler.api.try_except import try_except
 
 
 @login_required(login_url='login')
-def schedule(request, clinic):
+def change_clinic(request, clinic):
     if request.method == 'GET':
-        return render(request, 'home/schedule/index.html', {'clinic': clinic})
+        request.session['clinic'] = clinic
+        return HttpResponseRedirect(reverse('home:schedule'))
+
+
+@login_required(login_url='login')
+def schedule(request):
+    if request.method == 'GET':
+        if not request.session.get('clinic'):
+            request.session['clinic'] = '1'
+        return render(request, 'home/schedule/index.html', {'clinic': request.session.get('clinic')})
 
 
 @login_required(login_url='login')
@@ -123,7 +133,7 @@ def del_visit(request, pk):
 def get_week(request):
     day_one = make_aware(datetime.strptime(request.POST['first_day'], "%d.%m.%y"))
     week_dates = get_week_dates(day_one)
-    visits = get_visits_list(day_one, request.user)
+    visits = get_visits_list(day_one, request.user, request.session.get('clinic'))
     return HttpResponse(json.dumps({'visits': visits, 'week_dates': week_dates}))
 
 

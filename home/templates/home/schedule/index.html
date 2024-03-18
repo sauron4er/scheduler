@@ -10,7 +10,6 @@
     window.employee_id = {{ request.user.employee.id|safe }};
     window.employee_name = '{{ request.user.employee.name|safe }}';
     window.employee_color = '{{ request.user.employee.color|safe }}';
-    window.clinic = {{ clinic|safe }};
   </script>
 
   <div class="container-fluid px-3 schedule_wrapper" id="bundle">

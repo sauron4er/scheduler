@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='visit',
-            name='clinic_number',
+            name='clinic',
             field=models.CharField(default='1', max_length=1),
         ),
         migrations.AlterField(
