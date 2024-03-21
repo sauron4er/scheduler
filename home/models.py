@@ -18,7 +18,6 @@ class Employee(models.Model):
     date_out = models.DateField(null=True)
     color = models.CharField(max_length=7)
     theme = models.ForeignKey(Theme, related_name='employees_first_clinic', on_delete=models.RESTRICT, default=1)
-    second_clinic_theme = models.ForeignKey(Theme, related_name='employees_second_clinic', on_delete=models.RESTRICT, default=3)
     is_in_employee_list = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
 
@@ -46,7 +45,6 @@ class Visit(models.Model):
     finish = models.DateTimeField()
     price = models.CharField(max_length=10, null=True)
     note = models.CharField(max_length=500, null=True)
-    clinic = models.CharField(max_length=1, default='1')  # 1 - Perechyn, 2 - T.Remeta
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
