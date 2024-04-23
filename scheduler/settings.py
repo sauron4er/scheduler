@@ -9,7 +9,7 @@ SECRET_KEY = secret_key
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*'] if DEBUG else ['www.mdent.pp.ua', 'mdent.pp.ua', 'localhost', '127.0.0.1', 'mdent.woodcertification.com.ua']
+ALLOWED_HOSTS = ['*'] if DEBUG else ['www.mdent.pp.ua', 'mdent.pp.ua', 'mail.mdent.pp.ua', 'localhost', '127.0.0.1', 'mdent.woodcertification.com.ua']
 
 ADMINS = [('Stas', 'sauron4er@gmail.com')]
 
