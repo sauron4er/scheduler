@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from scheduler.api.convert_to_local_time import convert_to_localtime
 from scheduler.api.try_except import try_except
 from home.models import Visit
+from home.api.audit_utils import get_client_ip, get_device_info
 
 
 @try_except
@@ -16,7 +17,10 @@ def add_visit(request):
                       note=request.POST['note'],
                       start=start,
                       finish=finish,
-                      clinic=request.session['clinic'])
+                      clinic=request.session['clinic'],
+                      created_by=request.user,
+                      created_ip=get_client_ip(request),
+                      created_device=get_device_info(request))
     if request.POST['employee'] != '0':
         new_visit.employee_id = request.POST['employee']
     new_visit.save()
@@ -36,6 +40,9 @@ def change_visit(request):
     visit.note = request.POST['note']
     visit.start = start
     visit.finish = finish
+    visit.updated_by = request.user
+    visit.updated_ip = get_client_ip(request)
+    visit.updated_device = get_device_info(request)
     visit.save()
     return visit.pk
 
@@ -99,8 +106,14 @@ def get_client_visits(client_id, now, direction=''):
 
 
 @try_except
-def deactivate_visit(pk):
+def deactivate_visit(pk, user=None, ip=None, device=None):
     visit = get_object_or_404(Visit, pk=pk)
     visit.is_active = False
+    if user:
+        visit.updated_by = user
+    if ip:
+        visit.updated_ip = ip
+    if device:
+        visit.updated_device = device
     visit.save()
     return 'ok'

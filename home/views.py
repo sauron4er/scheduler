@@ -12,6 +12,7 @@ from home.models import Holiday
 from home.api.clients_api import get_clients_page, get_clients_for_select, add_client, get_client_info
 from home.api.employees_api import get_employees_page, get_employees_for_select, post_employee_api, get_employee_info, get_themes_for_select
 from home.api.visits_api import add_visit, change_visit, get_visits_list, get_client_visits, deactivate_visit
+from home.api.audit_utils import get_client_ip, get_device_info
 from scheduler.api.try_except import try_except
 
 
@@ -125,7 +126,7 @@ def post_visit(request):
 @try_except
 @login_required(login_url='login')
 def del_visit(request, pk):
-    return HttpResponse(deactivate_visit(pk))
+    return HttpResponse(deactivate_visit(pk, request.user, get_client_ip(request), get_device_info(request)))
 
 
 @try_except
@@ -186,19 +187,34 @@ def get_day_name(date):
 @try_except
 @login_required(login_url='login')
 def toggle_holiday(request):
+    
     is_holiday = request.POST['is_holiday'] == 'true'
     day = datetime.strptime(request.POST['date'], '%d.%m.%y').strftime('%Y-%m-%d')
+    client_ip = get_client_ip(request)
+    device_info = get_device_info(request)
+    
     if is_holiday:
         holiday = Holiday.objects.filter(date=day)
         if holiday:
             holiday[0].is_active = True
+            holiday[0].updated_by = request.user
+            holiday[0].updated_ip = client_ip
+            holiday[0].updated_device = device_info
             holiday[0].save()
         else:
-            new_holiday = Holiday(date=day)
+            new_holiday = Holiday(
+                date=day, 
+                created_by=request.user,
+                created_ip=client_ip,
+                created_device=device_info
+            )
             new_holiday.save()
     else:
         holiday = get_object_or_404(Holiday, date=day)
         holiday.is_active = False
+        holiday.updated_by = request.user
+        holiday.updated_ip = client_ip
+        holiday.updated_device = device_info
         holiday.save()
     return HttpResponse('ok')
 

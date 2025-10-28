@@ -4,6 +4,7 @@ from django.db.models import Q
 import json
 from scheduler.api.try_except import try_except
 from home.models import Client
+from home.api.audit_utils import get_client_ip, get_device_info
 
 
 @try_except
@@ -94,8 +95,14 @@ def get_clients_for_select(request):
 def add_client(request):
     try:
         client = Client.objects.get(pk=request.POST['id'])
+        client.updated_by = request.user
+        client.updated_ip = get_client_ip(request)
+        client.updated_device = get_device_info(request)
     except Client.DoesNotExist:
         client = Client()
+        client.created_by = request.user
+        client.created_ip = get_client_ip(request)
+        client.created_device = get_device_info(request)
 
     client.name = request.POST['name']
     client.phone = request.POST['phone'] if request.POST['phone'] != '' else None

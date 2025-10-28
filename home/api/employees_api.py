@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import json
 from scheduler.api.try_except import try_except
 from home.models import Client, Employee, Theme
+from home.api.audit_utils import get_client_ip, get_device_info
 
 
 @try_except
@@ -114,9 +115,9 @@ def get_themes_for_select(request):
 def post_employee_api(request):
     try:
         emp = Employee.objects.get(pk=request.POST['id'])
-        employee_id = change_employee(emp, request.POST)
+        employee_id = change_employee(emp, request.POST, request.user, get_client_ip(request), get_device_info(request))
     except Employee.DoesNotExist:
-        employee_id = add_employee(request.POST)
+        employee_id = add_employee(request.POST, request.user, get_client_ip(request), get_device_info(request))
     return employee_id
 
 
@@ -141,7 +142,7 @@ def get_employee_info(pk):
 
 
 @try_except
-def add_employee(fields):
+def add_employee(fields, current_user, client_ip, device_info):
     user = User()
     employee = Employee()
 
@@ -159,13 +160,16 @@ def add_employee(fields):
         employee.theme_id = fields['theme'] if fields['theme'] != '' else 1
     if 'second_clinic_theme' in fields:
         employee.second_clinic_theme_id = fields['second_clinic_theme'] if fields['second_clinic_theme'] != '' else 3
+    employee.created_by = current_user
+    employee.created_ip = client_ip
+    employee.created_device = device_info
     employee.save()
 
     return employee.id
 
 
 @try_except
-def change_employee(employee, fields):
+def change_employee(employee, fields, current_user, client_ip, device_info):
     employee.name = fields['name']
     employee.phone = fields['phone'] if fields['phone'] != '' else None
     employee.address = fields['address'] if fields['address'] != '' else None
@@ -173,6 +177,9 @@ def change_employee(employee, fields):
     employee.color = fields['color'] if fields['color'] != '' else None
     employee.theme_id = fields['theme']
     employee.second_clinic_theme_id = fields['second_clinic_theme']
+    employee.updated_by = current_user
+    employee.updated_ip = client_ip
+    employee.updated_device = device_info
 
     if 'deactivate' in fields:
         employee.is_active = False
