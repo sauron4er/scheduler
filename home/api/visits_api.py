@@ -52,7 +52,6 @@ def get_visits_list(first_day, user, clinic):
     seventh_day = first_day + timedelta(days=7)
 
     visits = Visit.objects \
-        .select_related('client', 'employee') \
         .filter(start__range=(first_day, seventh_day)) \
         .filter(client__is_active=True) \
         .filter(clinic=clinic) \
@@ -83,7 +82,6 @@ def get_visits_list(first_day, user, clinic):
 @try_except
 def get_client_visits(client_id, now, direction=''):
     visits = Visit.objects \
-        .select_related('employee') \
         .filter(client_id=client_id) \
         .filter(is_active=True)
 

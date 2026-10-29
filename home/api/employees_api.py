@@ -68,8 +68,6 @@ def paginate(employees, page, look_for_name):
         'color': employee.color or '',
         'theme': employee.theme.id,
         'theme_name': employee.theme.name,
-        'second_clinic_theme': employee.second_clinic_theme.id,
-        'second_clinic_theme_name': employee.second_clinic_theme.name,
         'login': employee.user.username
     } for employee in employees_page.object_list]
 
@@ -177,8 +175,8 @@ def change_employee(employee, fields, current_user, client_ip, device_info):
     employee.address = fields['address'] if fields['address'] != '' else None
     employee.note = fields['note'] if fields['note'] != '' else None
     employee.color = fields['color'] if fields['color'] != '' else None
-    employee.theme_id = fields.get('theme') or employee.theme_id
-    employee.second_clinic_theme_id = fields.get('second_clinic_theme') or employee.second_clinic_theme_id
+    employee.theme_id = fields['theme']
+    employee.second_clinic_theme_id = fields['second_clinic_theme']
     employee.updated_by = current_user
     employee.updated_ip = client_ip
     employee.updated_device = device_info
