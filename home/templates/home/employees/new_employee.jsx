@@ -4,6 +4,7 @@ import useSetState from 'templates/hooks/useSetState';
 import TextInput from 'templates/components/form_modules/text_input';
 import SubmitButton from 'templates/components/form_modules/submit_button';
 import {axiosPostRequest} from 'templates/components/axios_requests';
+import {notify} from 'templates/components/react_toastify_settings';
 import Modal from 'templates/components/modal/modal';
 import employeesState from 'home/templates/home/employees/state';
 import ColorPicker from 'templates/components/form_modules/color_picker';

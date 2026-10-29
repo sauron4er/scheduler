@@ -177,8 +177,10 @@ def change_employee(employee, fields, current_user, client_ip, device_info):
     employee.address = fields['address'] if fields['address'] != '' else None
     employee.note = fields['note'] if fields['note'] != '' else None
     employee.color = fields['color'] if fields['color'] != '' else None
-    employee.theme_id = fields.get('theme') or employee.theme_id
-    employee.second_clinic_theme_id = fields.get('second_clinic_theme') or employee.second_clinic_theme_id
+    if fields.get('theme') not in (None, '', '0'):
+        employee.theme_id = fields['theme']
+    if fields.get('second_clinic_theme') not in (None, '', '0'):
+        employee.second_clinic_theme_id = fields['second_clinic_theme']
     employee.updated_by = current_user
     employee.updated_ip = client_ip
     employee.updated_device = device_info
